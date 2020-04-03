@@ -1,0 +1,15 @@
+{
+	"manager": "npm",
+	"package": "package.json",
+	"ignoreArray":
+	[
+	 	"dependencies",
+		"devDependencies"
+	],
+	"targetArray":
+	[
+		"optionalDependencies"
+	],
+	"prefix": "__",
+	"indent": 4
+}

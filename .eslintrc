@@ -1,0 +1,17 @@
+{
+	"env":
+	{
+		"browser": true,
+		"es6": true,
+		"mocha": true,
+		"node": true
+	},
+	"extends":
+	[
+		"eslint-config-redaxmedia"
+	],
+	"parserOptions":
+	{
+		"ecmaVersion": 2018
+	}
+}

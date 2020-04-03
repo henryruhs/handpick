@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+const program = require('commander');
+const handpick = require('../');
+const core = handpick.core;
+const option = handpick.option;
+const packageArray = require('../package.json');
+
+let CORE;
+
+program
+	.version(packageArray.name + ' ' + packageArray.version)
+	.option('-M, --manager <manager>')
+	.option('-P, --package <package>')
+	.requiredOption('-T, --target <target>')
+	.parse(process.argv);
+
+option.init(
+{
+	manager: program.manager,
+	package: program.package,
+	targetArray: program.target.split(' ')
+});
+CORE = new core(
+{
+	option
+});
+CORE.init();

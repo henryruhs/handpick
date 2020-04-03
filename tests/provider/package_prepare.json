@@ -1,0 +1,25 @@
+{
+	"name": "test-project",
+	"version": "1.0.0",
+	"__dependencies":
+	{
+		"test-prod": "1.0.0"
+	},
+	"__devDependencies":
+	{
+		"test-dev": "1.0.0"
+	},
+	"lintDependencies":
+	{
+		"test-lint": "1.0.0"
+	},
+	"buildDependencies":
+	{
+		"test-build": "1.0.0"
+	},
+	"dependencies":
+	{
+		"test-lint": "1.0.0",
+		"test-build": "1.0.0"
+	}
+}
