@@ -1,5 +1,3 @@
-const extend = require('extend');
-
 let optionArray = require('../option.json');
 
 /**
@@ -41,7 +39,11 @@ function set(name, value)
 
 function init(initArray)
 {
-	optionArray = extend(optionArray, initArray);
+	optionArray =
+	{
+		...optionArray,
+		...initArray
+	};
 }
 
 module.exports =

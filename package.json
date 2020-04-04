@@ -26,8 +26,7 @@
 	"dependencies":
 	{
 		"cross-spawn-promise": "0.10.2",
-		"commander": "5.0.0",
-		"extend": "3.0.2"
+		"commander": "5.0.0"
 	},
 	"devDependencies":
 	{
@@ -38,8 +37,8 @@
 	},
 	"scripts":
 	{
-		"lint": "eslint src tests",
-		"fix": "eslint src tests --fix",
+		"lint": "eslint bin/handpick src tests",
+		"fix": "eslint bin/handpick src tests --fix",
 		"test": "mocha tests/*Test.js"
 	},
 	"bin":
