@@ -15,12 +15,12 @@ program
 	.requiredOption('-T, --target <target>')
 	.parse(process.argv);
 
-option.init(
+option.init(JSON.parse(JSON.stringify(
 {
 	manager: program.manager,
 	package: program.package,
 	targetArray: program.target.split(' ')
-});
+})));
 CORE = new core(
 {
 	option
