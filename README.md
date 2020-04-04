@@ -11,10 +11,10 @@ Handpick
 Installation
 ------------
 
-Install the dependencies:
+Install on your system:
 
 ```
-npm install handpick
+npm install handpick --global
 ```
 
 
@@ -24,7 +24,7 @@ Usage
 Run the command:
 
 ```
-bin/handpick [options]
+handpick [options]
 
 -V, --version
 -M, --manager
@@ -32,6 +32,7 @@ bin/handpick [options]
 -T, --target
 -h, --help
 ```
+
 
 Options
 -------
@@ -61,11 +62,11 @@ Define lint dependencies inside `package.json` file:
 Install the lint dependencies:
 
 ```
-bin/handpick --target=lintDependencies
+handpick --target=lintDependencies
 ```
 
 Install the dev and lint dependencies with YARN:
 
 ```
-bin/handpick --manager=yarn --target=devDependencies --target=lintDependencies
+handpick --manager=yarn --target=devDependencies --target=lintDependencies
 ```
