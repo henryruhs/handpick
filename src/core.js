@@ -5,7 +5,7 @@ const path = require('path');
 let option;
 
 /**
- * read
+ * read file
  *
  * @since 1.0.0
  *
@@ -20,7 +20,7 @@ async function readFile()
 }
 
 /**
- * write
+ * write file
  *
  * @since 1.0.0
  *

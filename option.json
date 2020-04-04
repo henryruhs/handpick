@@ -6,10 +6,7 @@
 	 	"dependencies",
 		"devDependencies"
 	],
-	"targetArray":
-	[
-		"optionalDependencies"
-	],
+	"targetArray": [],
 	"prefix": "__",
 	"indent": 4
 }
