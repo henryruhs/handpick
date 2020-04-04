@@ -1,5 +1,17 @@
 {
 	"manager": "npm",
+	"managerArray":
+	{
+		"npm":
+		[
+			"install",
+			"--no-package-lock"
+		],
+		"yarn":
+		[
+			 "--no-lockfile"
+		]
+	},
 	"package": "package.json",
 	"ignoreArray":
 	[

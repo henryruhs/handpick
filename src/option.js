@@ -18,6 +18,20 @@ function get(name)
 }
 
 /**
+ * set
+ *
+ * @since 1.0.0
+ *
+ * @param name string
+ * @param name string
+ */
+
+function set(name, value)
+{
+	optionArray[name] = value;
+}
+
+/**
  * init
  *
  * @since 1.0.0
@@ -33,5 +47,6 @@ function init(initArray)
 module.exports =
 {
 	get,
+	set,
 	init
 };

@@ -113,33 +113,24 @@ function restore(packageArray)
 function init()
 {
 	const manager = option.get('manager');
+	const managerArray = option.get('managerArray');
 
 	readFile()
 		.then(packageArray =>
 		{
-			writeFile(prepare(packageArray)).then(() =>
-			{
-				if (manager === 'npm')
+			writeFile(prepare(packageArray))
+				.then(() =>
 				{
-					spawn('npm',
-					[
-						'install',
-						'--no-package-lock'
-					])
-					.then(() => readFile().then(packageArray => writeFile(restore(packageArray))))
-					.catch(error => new Error(error));
-				}
-				if (manager === 'yarn')
-				{
-					spawn('yarn',
-					[
-						'--no-lockfile'
-					])
-					.then(() => readFile().then(packageArray => writeFile(restore(packageArray))))
-					.catch(error => new Error(error));
-				}
-			});
-		});
+					if (manager in managerArray)
+					{
+						spawn(manager, managerArray[manager])
+							.then(() => readFile().then(packageArray => writeFile(restore(packageArray))))
+							.catch(() => readFile().then(packageArray => writeFile(restore(packageArray))));
+					}
+				})
+				.catch(() => process.exit());
+		})
+		.catch(() => process.exit());
 }
 
 /**

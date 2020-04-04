@@ -18,27 +18,12 @@ describe('core', () =>
 		CORE.readFile()
 			.then(packageArray =>
 			{
-				expect(packageArray).to.deep.equal(
-				{
-					name: 'test-project',
-					version: '1.0.0',
-					dependencies:
-					{
-						'test-prod': '1.0.0'
-					},
-					devDependencies:
-					{
-						'test-dev': '1.0.0'
-					},
-					lintDependencies:
-					{
-						'test-lint': '1.0.0'
-					},
-					buildDependencies:
-					{
-						'test-build': '1.0.0'
-					}
-				});
+				expect(packageArray).to.have.property('name');
+				expect(packageArray).to.have.property('version');
+				expect(packageArray).to.have.property('dependencies');
+				expect(packageArray).to.have.property('devDependencies');
+				expect(packageArray).to.have.property('lintDependencies');
+				expect(packageArray).to.have.property('buildDependencies');
 				done();
 			})
 			.catch(() => done('error'));
@@ -54,11 +39,20 @@ describe('core', () =>
 			{
 				name: 'test-write'
 			})
-			.then(() => done())
+			.then(() =>
+			{
+				CORE.readFile()
+					.then(packageArray =>
+					{
+						expect(packageArray).to.have.property('name');
+						done();
+					})
+					.catch(() => done('error'));
+			})
 			.catch(() => done('error'));
 	});
 
-	it('prepare', done =>
+	it('prepare lint and build', done =>
 	{
 		option.init(
 		{
@@ -72,42 +66,23 @@ describe('core', () =>
 		CORE.readFile()
 			.then(packageArray =>
 			{
-				expect(CORE.prepare(packageArray)).to.deep.equal(
-				{
-					name: 'test-project',
-					version: '1.0.0',
-					__dependencies:
+				option.set('package', 'tests/provider/package_prepare_lint_build.json');
+				CORE.readFile()
+					.then(equalArray =>
 					{
-						'test-prod': '1.0.0'
-					},
-					__devDependencies:
-					{
-						'test-dev': '1.0.0'
-					},
-					lintDependencies:
-					{
-						'test-lint': '1.0.0'
-					},
-					buildDependencies:
-					{
-						'test-build': '1.0.0'
-					},
-					dependencies:
-					{
-						'test-lint': '1.0.0',
-						'test-build': '1.0.0'
-					}
-				});
-				done();
+						expect(CORE.prepare(packageArray)).to.deep.equal(equalArray);
+						done();
+					})
+					.catch(() => done('error'));
 			})
 			.catch(() => done('error'));
 	});
 
-	it('restore', done =>
+	it('restore lint and build', done =>
 	{
 		option.init(
 		{
-			package: 'tests/provider/package_prepare.json',
+			package: 'tests/provider/package_prepare_lint_build.json',
 			targetArray:
 			[
 				'lintDependencies',
@@ -117,28 +92,14 @@ describe('core', () =>
 		CORE.readFile()
 			.then(packageArray =>
 			{
-				expect(CORE.restore(packageArray)).to.deep.equal(
-				{
-					name: 'test-project',
-					version: '1.0.0',
-					dependencies:
+				option.set('package', 'tests/provider/package.json');
+				CORE.readFile()
+					.then(equalArray =>
 					{
-						'test-prod': '1.0.0'
-					},
-					devDependencies:
-					{
-						'test-dev': '1.0.0'
-					},
-					lintDependencies:
-					{
-						'test-lint': '1.0.0'
-					},
-					buildDependencies:
-					{
-						'test-build': '1.0.0'
-					}
-				});
-				done();
+						expect(CORE.restore(packageArray)).to.deep.equal(equalArray);
+						done();
+					})
+					.catch(() => done('error'));
 			})
 			.catch(() => done('error'));
 	});
