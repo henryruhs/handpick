@@ -28,7 +28,7 @@ handpick [options]
 
 -V, --version
 -M, --manager
--P, --package
+-P, --path
 -T, --target
 -h, --help
 ```
@@ -40,7 +40,7 @@ Options
 | Name    | Type   | Default      | Mandatory |
 |---------|--------|--------------|-----------|
 | manager | string | npm          | optional  |
-| package | string | package.json | optional  |
+| path    | string | package.json | optional  |
 | target  | string | []           | required  |
 
 

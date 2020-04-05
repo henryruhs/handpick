@@ -1,5 +1,4 @@
 module.exports =
 {
-	core: require('./src/core'),
-	option: require('./src/option')
+	core: require('./src/core')
 };

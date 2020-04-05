@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 const program = require('commander');
+const option = require('utility-redaxmedia').option('option.json');
 const handpick = require('../');
 const core = handpick.core;
-const option = handpick.option;
 const packageArray = require('../package.json');
 
 let CORE;
@@ -11,16 +11,16 @@ let CORE;
 program
 	.version(packageArray.name + ' ' + packageArray.version)
 	.option('-M, --manager <manager>')
-	.option('-P, --package <package>')
+	.option('-P, --path <path>')
 	.requiredOption('-T, --target <target>')
 	.parse(process.argv);
 
-option.init(JSON.parse(JSON.stringify(
+option.init(
 {
 	manager: program.manager,
-	package: program.package,
+	path: program.path,
 	targetArray: program.target.split(' ')
-})));
+});
 CORE = new core(
 {
 	option

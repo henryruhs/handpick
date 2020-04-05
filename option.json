@@ -12,7 +12,7 @@
 			 "--no-lockfile"
 		]
 	},
-	"package": "package.json",
+	"path": "package.json",
 	"ignoreArray":
 	[
 	 	"dependencies",

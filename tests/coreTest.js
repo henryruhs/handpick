@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
+const option = require('utility-redaxmedia').option('option.json');
 const handpick = require('../');
 const core = handpick.core;
-const option = handpick.option;
 const CORE = new core(
 {
 	option
@@ -13,7 +13,7 @@ describe('core', () =>
 	{
 		option.init(
 		{
-			package: 'tests/provider/package.json'
+			path: 'tests/provider/package.json'
 		});
 		CORE.readFile()
 			.then(packageArray =>
@@ -33,7 +33,7 @@ describe('core', () =>
 	{
 		option.init(
 		{
-			package: 'tests/provider/package_write.json'
+			path: 'tests/provider/package_write.json'
 		});
 		CORE.writeFile(
 			{
@@ -56,7 +56,7 @@ describe('core', () =>
 	{
 		option.init(
 		{
-			package: 'tests/provider/package.json',
+			path: 'tests/provider/package.json',
 			targetArray:
 			[
 				'lintDependencies',
@@ -66,7 +66,7 @@ describe('core', () =>
 		CORE.readFile()
 			.then(packageArray =>
 			{
-				option.set('package', 'tests/provider/package_prepare_lint_build.json');
+				option.set('path', 'tests/provider/package_prepare_lint_build.json');
 				CORE.readFile()
 					.then(equalArray =>
 					{
@@ -82,7 +82,7 @@ describe('core', () =>
 	{
 		option.init(
 		{
-			package: 'tests/provider/package_prepare_lint_build.json',
+			path: 'tests/provider/package_prepare_lint_build.json',
 			targetArray:
 			[
 				'lintDependencies',
@@ -92,7 +92,7 @@ describe('core', () =>
 		CORE.readFile()
 			.then(packageArray =>
 			{
-				option.set('package', 'tests/provider/package.json');
+				option.set('path', 'tests/provider/package.json');
 				CORE.readFile()
 					.then(equalArray =>
 					{

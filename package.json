@@ -1,7 +1,7 @@
 {
 	"name": "handpick",
 	"description": "Handpick your node dependencies like a boss",
-	"version": "1.0.0-beta.3",
+	"version": "1.0.0-beta.4",
 	"license": "MIT",
 	"keywords":
 	[
@@ -26,7 +26,8 @@
 	"dependencies":
 	{
 		"cross-spawn-promise": "0.10.2",
-		"commander": "5.0.0"
+		"commander": "5.0.0",
+		"utility-redaxmedia": "1.0.0-beta.1"
 	},
 	"devDependencies":
 	{

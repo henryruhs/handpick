@@ -14,9 +14,9 @@ let option;
 
 async function readFile()
 {
-	const resolvePackage = path.resolve(option.get('package'));
+	const absolutePath = path.resolve(option.get('path'));
 
-	return await fs.promises.readFile(resolvePackage).then(content => JSON.parse(content));
+	return await fs.promises.readFile(absolutePath).then(content => JSON.parse(content));
 }
 
 /**
@@ -31,10 +31,10 @@ async function readFile()
 
 async function writeFile(packageArray)
 {
-	const resolvePackage = path.resolve(option.get('package'));
+	const absolutePath = path.resolve(option.get('path'));
 	const content = JSON.stringify(packageArray, null, option.get('indent'));
 
-	return await fs.promises.writeFile(resolvePackage, content);
+	return await fs.promises.writeFile(absolutePath, content);
 }
 
 /**
