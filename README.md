@@ -37,11 +37,12 @@ handpick [options]
 Options
 -------
 
-| Name    | Type   | Default                       | Mandatory |
-|---------|--------|-------------------------------|-----------|
-| manager | string | npm                           | optional  |
-| path    | string | package.json                  | optional  |
-| target  | string | dependencies, devDependencies | optional  |
+| Name    | Type    | Default       | Mandatory |
+|---------|---------|---------------|-----------|
+| manager | string  | npm           | optional  |
+| path    | string  | package.json  | optional  |
+| target  | string  | *dependencies | optional  |
+| verbose | boolean | false         | optional  |
 
 
 Examples
@@ -59,14 +60,20 @@ Define lint dependencies inside `package.json` file:
 }
 ```
 
-Install the lint dependencies:
+Install the `lintDependencies` via NPM:
 
 ```
 handpick --target=lintDependencies
 ```
 
-Install the dev and lint dependencies with YARN:
+Install the `devDependencies` and `lintDependencies` via YARN:
 
 ```
 handpick --manager=yarn --target=devDependencies --target=lintDependencies
+```
+
+Install the `dependencies` and `devDependencies` and `peerDependencies` within path:
+
+```
+handpick --path=../package.json
 ```

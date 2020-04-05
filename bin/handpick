@@ -6,6 +6,7 @@ const option = require('utility-redaxmedia').option(__dirname + '/../option.json
 const handpick = require('../');
 const core = handpick.core;
 const packageArray = require('../package.json');
+const targetArray = [];
 
 let CORE;
 
@@ -13,14 +14,14 @@ program
 	.version(packageArray.name + ' ' + packageArray.version)
 	.option('-M, --manager <manager>')
 	.option('-P, --path <path>')
-	.option('-T, --target <target>')
+	.option('-T, --target <target>', null, target => targetArray.push(target))
 	.parse(process.argv);
 
 option.init(
 {
 	manager: program.manager,
 	path: program.path,
-	targetArray: program.target ? program.target.split(' ') : option.get('targetArray')
+	targetArray: targetArray.length > 0 ? targetArray : option.get('targetArray')
 });
 CORE = new core(
 {

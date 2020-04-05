@@ -21,7 +21,8 @@
 	"targetArray":
 	[
 		"dependencies",
-		"devDependencies"
+		"devDependencies",
+		"peerDependencies"
 	],
 	"prefix": "__",
 	"indent": 4

@@ -116,10 +116,11 @@ function init()
 {
 	const manager = option.get('manager');
 	const managerArray = option.get('managerArray');
+	const targetArray = option.get('targetArray');
 
 	let managerProcess = null;
 
-	spinner.start(wordingArray.fetch_dependency + ' ' + manager.toUpperCase());
+	spinner.start(wordingArray.handpick + ' ' + targetArray.join(', ') + ' ' + wordingArray.via + ' ' + manager.toUpperCase());
 	readFile()
 		.then(packageArray =>
 		{
@@ -128,8 +129,10 @@ function init()
 				{
 					if (manager in managerArray)
 					{
-						managerProcess = spawn(manager, managerArray[manager]);
-						managerProcess.stdout.on('data', data => spinner.info(manager.toUpperCase() + wordingArray.colon + ' ' + data.toString().trim()));
+						managerProcess = spawn(manager, managerArray[manager],
+						{
+							cwd: path.dirname(option.get('path'))
+						});
 						managerProcess.on('exit', code =>
 						{
 							readFile().then(packageArray => writeFile(restore(packageArray)));

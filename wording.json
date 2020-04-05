@@ -1,5 +1,6 @@
 {
-	"fetch_dependency": "Fetching dependencies via",
+	"handpick": "Hand picking",
+	"via": "via",
 	"point": ".",
 	"comma": ",",
 	"colon": ":",
