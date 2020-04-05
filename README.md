@@ -37,11 +37,11 @@ handpick [options]
 Options
 -------
 
-| Name    | Type   | Default      | Mandatory |
-|---------|--------|--------------|-----------|
-| manager | string | npm          | optional  |
-| path    | string | package.json | optional  |
-| target  | string | []           | optional  |
+| Name    | Type   | Default                       | Mandatory |
+|---------|--------|-------------------------------|-----------|
+| manager | string | npm                           | optional  |
+| path    | string | package.json                  | optional  |
+| target  | string | dependencies, devDependencies | optional  |
 
 
 Examples

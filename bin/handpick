@@ -20,7 +20,7 @@ option.init(
 {
 	manager: program.manager,
 	path: program.path,
-	targetArray: program.target ? program.target.split(' ') : []
+	targetArray: program.target ? program.target.split(' ') : option.get('targetArray')
 });
 CORE = new core(
 {

@@ -18,7 +18,11 @@
 		"dependencies",
 		"devDependencies"
 	],
-	"targetArray": [],
+	"targetArray":
+	[
+		"dependencies",
+		"devDependencies"
+	],
 	"prefix": "__",
 	"indent": 4
 }

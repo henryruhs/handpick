@@ -130,7 +130,7 @@ function init()
 					{
 						managerProcess = spawn(manager, managerArray[manager]);
 						managerProcess.stdout.on('data', data => spinner.info(manager.toUpperCase() + wordingArray.colon + ' ' + data.toString().trim()));
-						managerProcess.on('close', code =>
+						managerProcess.on('exit', code =>
 						{
 							readFile().then(packageArray => writeFile(restore(packageArray)));
 							code === 0 ? spinner.succeed() : spinner.fail();
