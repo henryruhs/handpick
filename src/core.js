@@ -1,7 +1,9 @@
 const fs = require('fs');
-const spawn = require('cross-spawn-promise');
+const spawn = require('child_process').spawn;
 const path = require('path');
+const wordingArray = require('../wording');
 
+let spinner;
 let option;
 
 /**
@@ -115,6 +117,9 @@ function init()
 	const manager = option.get('manager');
 	const managerArray = option.get('managerArray');
 
+	let managerProcess = null;
+
+	spinner.start(wordingArray.fetch_dependency + ' ' + manager.toUpperCase());
 	readFile()
 		.then(packageArray =>
 		{
@@ -123,14 +128,18 @@ function init()
 				{
 					if (manager in managerArray)
 					{
-						spawn(manager, managerArray[manager])
-							.then(() => readFile().then(packageArray => writeFile(restore(packageArray))))
-							.catch(() => readFile().then(packageArray => writeFile(restore(packageArray))));
+						managerProcess = spawn(manager, managerArray[manager]);
+						managerProcess.stdout.on('data', data => spinner.info(manager.toUpperCase() + wordingArray.colon + ' ' + data.toString().trim()));
+						managerProcess.on('close', code =>
+						{
+							readFile().then(packageArray => writeFile(restore(packageArray)));
+							code === 0 ? spinner.succeed() : spinner.fail();
+						});
 					}
 				})
-				.catch(() => process.exit());
+				.catch(error => spinner.fail(error.toString()));
 		})
-		.catch(() => process.exit());
+		.catch(error => spinner.fail(error.toString()));
 }
 
 /**
@@ -156,8 +165,9 @@ function construct(injector)
 
 	/* handle injector */
 
-	if (injector.option)
+	if (injector.option && injector.option)
 	{
+		spinner = injector.spinner;
 		option = injector.option;
 	}
 	return exports;

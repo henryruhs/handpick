@@ -15,7 +15,7 @@
 	"path": "package.json",
 	"ignoreArray":
 	[
-	 	"dependencies",
+		"dependencies",
 		"devDependencies"
 	],
 	"targetArray": [],

@@ -1,7 +1,7 @@
 {
 	"name": "handpick",
 	"description": "Handpick your dependencies like a boss",
-	"version": "1.0.0-beta.5",
+	"version": "1.0.0-beta.6",
 	"license": "MIT",
 	"keywords":
 	[
@@ -25,8 +25,8 @@
 	},
 	"dependencies":
 	{
-		"cross-spawn-promise": "0.10.2",
 		"commander": "5.0.0",
+		"ora": "4.0.3",
 		"utility-redaxmedia": "1.0.0-beta.1"
 	},
 	"devDependencies":

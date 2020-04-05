@@ -41,7 +41,7 @@ Options
 |---------|--------|--------------|-----------|
 | manager | string | npm          | optional  |
 | path    | string | package.json | optional  |
-| target  | string | []           | required  |
+| target  | string | []           | optional  |
 
 
 Examples
