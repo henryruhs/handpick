@@ -9,7 +9,7 @@
 		],
 		"yarn":
 		[
-			 "--no-lockfile"
+			"--no-lockfile"
 		]
 	},
 	"path": "package.json",
@@ -21,8 +21,7 @@
 	"targetArray":
 	[
 		"dependencies",
-		"devDependencies",
-		"peerDependencies"
+		"devDependencies"
 	],
 	"prefix": "__",
 	"indent": 4
