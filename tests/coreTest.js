@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const option = require('utility-redaxmedia').option('option.json');
+const option = require('utility-redaxmedia').option(__dirname + '/../option.json');
 const handpick = require('../');
 const core = handpick.core;
 const CORE = new core(
