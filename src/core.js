@@ -139,7 +139,8 @@ function init()
 								nullStream,
 								nullStream,
 								nullStream
-							]
+							],
+							shell: true
 						});
 						managerProcess.on('close', code =>
 						{
