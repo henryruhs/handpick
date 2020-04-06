@@ -147,6 +147,7 @@ function init()
 							readFile().then(packageArray => writeFile(restore(packageArray)));
 							code === 0 ? spinner.succeed() : spinner.fail();
 						});
+						managerProcess.on('error', () => null);
 					}
 				})
 				.catch(error => spinner.fail(error.toString()));
