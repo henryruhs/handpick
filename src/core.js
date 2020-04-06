@@ -1,6 +1,7 @@
 const fs = require('fs');
 const spawn = require('child_process').spawn;
 const path = require('path');
+const helper = require('utility-redaxmedia').helper;
 const wordingArray = require('../wording');
 
 let spinner;
@@ -18,7 +19,7 @@ async function readFile()
 {
 	const absolutePath = path.resolve(option.get('path'));
 
-	return await fs.promises.readFile(absolutePath).then(content => JSON.parse(content));
+	return await fs.promises.readFile(absolutePath).then(content => helper.json.parse(content));
 }
 
 /**
@@ -34,7 +35,7 @@ async function readFile()
 async function writeFile(packageArray)
 {
 	const absolutePath = path.resolve(option.get('path'));
-	const content = JSON.stringify(packageArray, null, option.get('indent'));
+	const content = helper.json.stringify(packageArray);
 
 	return await fs.promises.writeFile(absolutePath, content);
 }

@@ -52,6 +52,27 @@ describe('core', () =>
 			.catch(() => done('error'));
 	});
 
+	it('prepare prod and dev', done =>
+	{
+		option.init(
+		{
+			path: 'tests/provider/package.json'
+		});
+		CORE.readFile()
+			.then(packageArray =>
+			{
+				option.set('path', 'tests/provider/package_prepare_prod_dev.json');
+				CORE.readFile()
+					.then(equalArray =>
+					{
+						expect(CORE.prepare(packageArray)).to.deep.equal(equalArray);
+						done();
+					})
+					.catch(() => done('error'));
+			})
+			.catch(() => done('error'));
+	});
+
 	it('prepare lint and build', done =>
 	{
 		option.init(
@@ -71,6 +92,27 @@ describe('core', () =>
 					.then(equalArray =>
 					{
 						expect(CORE.prepare(packageArray)).to.deep.equal(equalArray);
+						done();
+					})
+					.catch(() => done('error'));
+			})
+			.catch(() => done('error'));
+	});
+
+	it('restore prod and dev', done =>
+	{
+		option.init(
+		{
+			path: 'tests/provider/package_prepare_prod_dev.json'
+		});
+		CORE.readFile()
+			.then(packageArray =>
+			{
+				option.set('path', 'tests/provider/package.json');
+				CORE.readFile()
+					.then(equalArray =>
+					{
+						expect(CORE.restore(packageArray)).to.deep.equal(equalArray);
 						done();
 					})
 					.catch(() => done('error'));

@@ -23,6 +23,5 @@
 		"dependencies",
 		"devDependencies"
 	],
-	"prefix": "__",
-	"indent": 4
+	"prefix": "__"
 }
