@@ -118,7 +118,7 @@ function init()
 	const manager = option.get('manager');
 	const managerArray = option.get('managerArray');
 	const targetArray = option.get('targetArray');
-	const nullStream = fs.createWriteStream(process.platform === 'win32' ? 'nul' : '/dev/null');
+	const nullStream = fs.createWriteStream(process.platform === 'win32' ? '\\\\.\\NUL' : '/dev/null');
 
 	let managerProcess = null;
 
