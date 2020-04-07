@@ -118,7 +118,6 @@ function init()
 	const manager = option.get('manager');
 	const managerArray = option.get('managerArray');
 	const targetArray = option.get('targetArray');
-	const nullStream = fs.createWriteStream(process.platform === 'win32' ? '\\\\.\\NUL' : '/dev/null');
 
 	let managerProcess = null;
 
@@ -134,19 +133,11 @@ function init()
 						managerProcess = spawn(manager, managerArray[manager],
 						{
 							cwd: path.dirname(option.get('path')),
-							stdio:
-							[
-								nullStream,
-								nullStream,
-								nullStream
-							],
+							stdio: 'ignore',
 							shell: true
 						});
-						managerProcess.on('close', code =>
-						{
-							readFile().then(packageArray => writeFile(restore(packageArray)));
-							code === 0 ? spinner.succeed() : spinner.fail();
-						});
+						readFile().then(packageArray => writeFile(restore(packageArray)));
+						managerProcess.on('close', code => code === 0 ? spinner.succeed() : spinner.fail());
 						managerProcess.on('error', () => null);
 					}
 				})
