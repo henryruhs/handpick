@@ -19,11 +19,41 @@ async function readFile()
 {
 	const absolutePath = path.resolve(option.get('path'));
 
-	return await fs.promises.readFile(absolutePath).then(content => helper.json.parse(content));
+	return await fs.promises.readFile(absolutePath);
+}
+
+/**
+ * read object from file
+ *
+ * @since 1.0.0
+ *
+ * @return {Promise}
+ */
+
+async function readObjectFromFile()
+{
+	return await readFile().then(content => helper.json.parse(content));
 }
 
 /**
  * write file
+ *
+ * @since 1.0.0
+ *
+ * @param {string} content
+ *
+ * @return {Promise}
+ */
+
+async function writeFile(content)
+{
+	const absolutePath = path.resolve(option.get('path'));
+
+	return await fs.promises.writeFile(absolutePath, content);
+}
+
+/**
+ * write object to file
  *
  * @since 1.0.0
  *
@@ -32,12 +62,9 @@ async function readFile()
  * @return {Promise}
  */
 
-async function writeFile(packageObject)
+async function writeObjectToFile(packageObject)
 {
-	const absolutePath = path.resolve(option.get('path'));
-	const content = helper.json.stringify(packageObject);
-
-	return await fs.promises.writeFile(absolutePath, content);
+	return await writeFile(helper.json.stringify(packageObject));
 }
 
 /**
@@ -81,37 +108,6 @@ function prepare(packageObject)
 }
 
 /**
- * restore
- *
- * @since 1.0.0
- *
- * @param {object} packageObject
- *
- * @return {object}
- */
-
-function restore(packageObject)
-{
-	const ignoreArray = option.get('ignoreArray');
-	const resultObject = {};
-
-	Object.keys(packageObject).map(packageValue =>
-	{
-		const originalValue = packageValue.substr(2);
-
-		if (ignoreArray.includes(originalValue))
-		{
-			resultObject[originalValue] = packageObject[packageValue];
-		}
-		else if (!ignoreArray.includes(packageValue))
-		{
-			resultObject[packageValue] = packageObject[packageValue];
-		}
-	});
-	return resultObject;
-}
-
-/**
  * init
  *
  * @since 1.0.0
@@ -125,13 +121,19 @@ function init()
 	const managerObject = option.get('managerObject');
 	const targetArray = option.get('targetArray');
 
+	let originalContent = null;
 	let managerProcess = null;
 
 	spinner.start(wordingObject.handpick + ' ' + targetArray.join(' / ') + ' ' + wordingObject.via + ' ' + manager.toUpperCase());
 	readFile()
+		.then(content =>
+		{
+			originalContent = content;
+			return helper.json.parse(content);
+		})
 		.then(packageObject =>
 		{
-			writeFile(prepare(packageObject))
+			writeObjectToFile(prepare(packageObject))
 				.then(() =>
 				{
 					if (manager in managerObject)
@@ -142,7 +144,7 @@ function init()
 							stdio: 'ignore',
 							shell: true
 						});
-						readFile().then(packageObject => writeFile(restore(packageObject)));
+						writeFile(originalContent);
 						managerProcess.on('close', code => code === 0 ? spinner.succeed() : spinner.fail());
 						managerProcess.on('error', () => null);
 					}
@@ -168,9 +170,10 @@ function construct(injectorObject)
 	{
 		init,
 		readFile,
+		readObjectFromFile,
 		writeFile,
-		prepare,
-		restore
+		writeObjectToFile,
+		prepare
 	};
 
 	/* handle injector */

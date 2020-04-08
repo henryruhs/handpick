@@ -9,13 +9,13 @@ const CORE = new core(
 
 describe('core', () =>
 {
-	it('read file', done =>
+	it('read object from file', done =>
 	{
 		option.init(
 		{
 			path: 'tests/provider/package.json'
 		});
-		CORE.readFile()
+		CORE.readObjectFromFile()
 			.then(packageArray =>
 			{
 				expect(packageArray).to.have.property('name');
@@ -29,19 +29,19 @@ describe('core', () =>
 			.catch(() => done('error'));
 	});
 
-	it('write file', done =>
+	it('write object to file', done =>
 	{
 		option.init(
 		{
 			path: 'tests/provider/package_write.json'
 		});
-		CORE.writeFile(
+		CORE.writeObjectToFile(
 			{
 				name: 'test-write'
 			})
 			.then(() =>
 			{
-				CORE.readFile()
+				CORE.readObjectFromFile()
 					.then(packageArray =>
 					{
 						expect(packageArray).to.have.property('name');
@@ -58,11 +58,11 @@ describe('core', () =>
 		{
 			path: 'tests/provider/package.json'
 		});
-		CORE.readFile()
+		CORE.readObjectFromFile()
 			.then(packageArray =>
 			{
 				option.set('path', 'tests/provider/package_prepare_prod_dev.json');
-				CORE.readFile()
+				CORE.readObjectFromFile()
 					.then(equalArray =>
 					{
 						expect(CORE.prepare(packageArray)).to.deep.equal(equalArray);
@@ -84,61 +84,14 @@ describe('core', () =>
 				'buildDependencies'
 			]
 		});
-		CORE.readFile()
+		CORE.readObjectFromFile()
 			.then(packageArray =>
 			{
 				option.set('path', 'tests/provider/package_prepare_lint_build.json');
-				CORE.readFile()
+				CORE.readObjectFromFile()
 					.then(equalArray =>
 					{
 						expect(CORE.prepare(packageArray)).to.deep.equal(equalArray);
-						done();
-					})
-					.catch(() => done('error'));
-			})
-			.catch(() => done('error'));
-	});
-
-	it('restore prod and dev', done =>
-	{
-		option.init(
-		{
-			path: 'tests/provider/package_prepare_prod_dev.json'
-		});
-		CORE.readFile()
-			.then(packageArray =>
-			{
-				option.set('path', 'tests/provider/package.json');
-				CORE.readFile()
-					.then(equalArray =>
-					{
-						expect(CORE.restore(packageArray)).to.deep.equal(equalArray);
-						done();
-					})
-					.catch(() => done('error'));
-			})
-			.catch(() => done('error'));
-	});
-
-	it('restore lint and build', done =>
-	{
-		option.init(
-		{
-			path: 'tests/provider/package_prepare_lint_build.json',
-			targetArray:
-			[
-				'lintDependencies',
-				'buildDependencies'
-			]
-		});
-		CORE.readFile()
-			.then(packageArray =>
-			{
-				option.set('path', 'tests/provider/package.json');
-				CORE.readFile()
-					.then(equalArray =>
-					{
-						expect(CORE.restore(packageArray)).to.deep.equal(equalArray);
 						done();
 					})
 					.catch(() => done('error'));
