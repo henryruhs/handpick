@@ -12,7 +12,7 @@ let option;
  *
  * @since 1.0.0
  *
- * @return Promise
+ * @return {Promise}
  */
 
 async function readFile()
@@ -27,9 +27,9 @@ async function readFile()
  *
  * @since 1.0.0
  *
- * @param packageArray
+ * @param {object} packageArray
  *
- * @return Promise
+ * @return {Promise}
  */
 
 async function writeFile(packageArray)
@@ -45,9 +45,9 @@ async function writeFile(packageArray)
  *
  * @since 1.0.0
  *
- * @param packageArray
+ * @param {object} packageArray
  *
- * @return object
+ * @return {object}
  */
 
 function prepare(packageArray)
@@ -84,6 +84,10 @@ function prepare(packageArray)
  * restore
  *
  * @since 1.0.0
+ *
+ * @param {object} packageArray
+ *
+ * @return {void}
  */
 
 function restore(packageArray)
@@ -111,6 +115,8 @@ function restore(packageArray)
  * init
  *
  * @since 1.0.0
+ *
+ * @return {void}
  */
 
 function init()
@@ -151,9 +157,9 @@ function init()
  *
  * @since 1.0.0
  *
- * @param injector object
+ * @param {object} injector
  *
- * @return object
+ * @return {object}
  */
 
 function construct(injector)

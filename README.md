@@ -42,7 +42,6 @@ Options
 | manager | string  | npm                            | optional  |
 | path    | string  | package.json                   | optional  |
 | target  | string  | dependencies / devDependencies | optional  |
-| verbose | boolean | false                          | optional  |
 
 
 Examples
