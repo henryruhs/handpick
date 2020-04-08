@@ -53,8 +53,8 @@ Define lint dependencies inside `package.json` file:
 {
 	"lintDependencies":
 	{
-		"eslint": "1.0.0",
-		"eslint-config-redaxmedia": "1.3.0"
+		"eslint": "6.0.0",
+		"eslint-config-redaxmedia": "2.0.0"
 	}
 }
 ```

@@ -144,8 +144,12 @@ function init()
 							stdio: 'ignore',
 							shell: true
 						});
-						writeFile(originalContent);
-						managerProcess.on('close', code => code === 0 ? spinner.succeed() : spinner.fail());
+						managerProcess.on('close', code =>
+						{
+							writeFile(originalContent)
+								.then(code === 0 ? spinner.succeed() : spinner.fail())
+								.catch(error => spinner.fail(error.toString()));
+						});
 						managerProcess.on('error', () => null);
 					}
 				})
