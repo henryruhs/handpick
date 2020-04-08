@@ -5,13 +5,13 @@ const ora = require('ora');
 const option = require('utility-redaxmedia').option(__dirname + '/../option.json');
 const handpick = require('../');
 const core = handpick.core;
-const packageArray = require('../package.json');
+const packageObject = require('../package.json');
 const targetArray = [];
 
 let CORE;
 
 program
-	.version(packageArray.name + ' ' + packageArray.version)
+	.version(packageObject.name + ' ' + packageObject.version)
 	.option('-M, --manager <manager>')
 	.option('-P, --path <path>')
 	.option('-T, --target <target>', null, target => targetArray.push(target))

@@ -1,6 +1,6 @@
 {
 	"manager": "npm",
-	"managerArray":
+	"managerObject":
 	{
 		"npm":
 		[

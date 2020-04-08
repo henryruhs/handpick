@@ -2,7 +2,7 @@ const fs = require('fs');
 const spawn = require('child_process').spawn;
 const path = require('path');
 const helper = require('utility-redaxmedia').helper;
-const wordingArray = require('../wording');
+const wordingObject = require('../wording');
 
 let spinner;
 let option;
@@ -27,15 +27,15 @@ async function readFile()
  *
  * @since 1.0.0
  *
- * @param {object} packageArray
+ * @param {object} packageObject
  *
  * @return {Promise}
  */
 
-async function writeFile(packageArray)
+async function writeFile(packageObject)
 {
 	const absolutePath = path.resolve(option.get('path'));
-	const content = helper.json.stringify(packageArray);
+	const content = helper.json.stringify(packageObject);
 
 	return await fs.promises.writeFile(absolutePath, content);
 }
@@ -45,39 +45,39 @@ async function writeFile(packageArray)
  *
  * @since 1.0.0
  *
- * @param {object} packageArray
+ * @param {object} packageObject
  *
  * @return {object}
  */
 
-function prepare(packageArray)
+function prepare(packageObject)
 {
 	const ignoreArray = option.get('ignoreArray');
 	const targetArray = option.get('targetArray');
-	const resultArray = {};
+	const resultObject = {};
 
-	Object.keys(packageArray).map(packageValue =>
+	Object.keys(packageObject).map(packageValue =>
 	{
 		const prefixValue = option.get('prefix') + packageValue;
 
 		if (ignoreArray.includes(packageValue))
 		{
-			resultArray[prefixValue] = packageArray[packageValue];
+			resultObject[prefixValue] = packageObject[packageValue];
 		}
 		else
 		{
-			resultArray[packageValue] = packageArray[packageValue];
+			resultObject[packageValue] = packageObject[packageValue];
 		}
 		if (targetArray.includes(packageValue))
 		{
-			resultArray['dependencies'] =
+			resultObject['dependencies'] =
 			{
-				...resultArray['dependencies'],
-				...packageArray[packageValue]
+				...resultObject['dependencies'],
+				...packageObject[packageValue]
 			};
 		}
 	});
-	return resultArray;
+	return resultObject;
 }
 
 /**
@@ -85,30 +85,30 @@ function prepare(packageArray)
  *
  * @since 1.0.0
  *
- * @param {object} packageArray
+ * @param {object} packageObject
  *
- * @return {void}
+ * @return {object}
  */
 
-function restore(packageArray)
+function restore(packageObject)
 {
 	const ignoreArray = option.get('ignoreArray');
-	const resultArray = {};
+	const resultObject = {};
 
-	Object.keys(packageArray).map(packageValue =>
+	Object.keys(packageObject).map(packageValue =>
 	{
 		const originalValue = packageValue.substr(2);
 
 		if (ignoreArray.includes(originalValue))
 		{
-			resultArray[originalValue] = packageArray[packageValue];
+			resultObject[originalValue] = packageObject[packageValue];
 		}
 		else if (!ignoreArray.includes(packageValue))
 		{
-			resultArray[packageValue] = packageArray[packageValue];
+			resultObject[packageValue] = packageObject[packageValue];
 		}
 	});
-	return resultArray;
+	return resultObject;
 }
 
 /**
@@ -122,27 +122,27 @@ function restore(packageArray)
 function init()
 {
 	const manager = option.get('manager');
-	const managerArray = option.get('managerArray');
+	const managerObject = option.get('managerObject');
 	const targetArray = option.get('targetArray');
 
 	let managerProcess = null;
 
-	spinner.start(wordingArray.handpick + ' ' + targetArray.join(' / ') + ' ' + wordingArray.via + ' ' + manager.toUpperCase());
+	spinner.start(wordingObject.handpick + ' ' + targetArray.join(' / ') + ' ' + wordingObject.via + ' ' + manager.toUpperCase());
 	readFile()
-		.then(packageArray =>
+		.then(packageObject =>
 		{
-			writeFile(prepare(packageArray))
+			writeFile(prepare(packageObject))
 				.then(() =>
 				{
-					if (manager in managerArray)
+					if (manager in managerObject)
 					{
-						managerProcess = spawn(manager, managerArray[manager],
+						managerProcess = spawn(manager, managerObject[manager],
 						{
 							cwd: path.dirname(option.get('path')),
 							stdio: 'ignore',
 							shell: true
 						});
-						readFile().then(packageArray => writeFile(restore(packageArray)));
+						readFile().then(packageObject => writeFile(restore(packageObject)));
 						managerProcess.on('close', code => code === 0 ? spinner.succeed() : spinner.fail());
 						managerProcess.on('error', () => null);
 					}
@@ -157,12 +157,12 @@ function init()
  *
  * @since 1.0.0
  *
- * @param {object} injector
+ * @param {object} injectorObject
  *
  * @return {object}
  */
 
-function construct(injector)
+function construct(injectorObject)
 {
 	const exports =
 	{
@@ -175,10 +175,10 @@ function construct(injector)
 
 	/* handle injector */
 
-	if (injector.option && injector.option)
+	if (injectorObject.option && injectorObject.option)
 	{
-		spinner = injector.spinner;
-		option = injector.option;
+		spinner = injectorObject.spinner;
+		option = injectorObject.option;
 	}
 	return exports;
 }
