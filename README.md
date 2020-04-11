@@ -8,6 +8,12 @@ Handpick
 [![License](https://img.shields.io/npm/l/handpick.svg)](https://npmjs.com/package/handpick)
 
 
+Preview
+-------
+
+![Terminal Session](https://raw.githack.com/redaxmedia/handpick/master/.github/terminal-session.svg)
+
+
 Installation
 ------------
 

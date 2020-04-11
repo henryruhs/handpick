@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="400" width="914">
+	<rect x="0" y="0" height="400" width="914" />
+	<circle cx="20" cy="20" r="6" class="is-error" />
+	<circle cx="40" cy="20" r="6" class="is-warning "/>
+	<circle cx="60" cy="20" r="6" class="is-success" />
+	<foreignObject x="20" y="50" height="320" width="867">
+		<pre xmlns="http://www.w3.org/1999/xhtml"><span class="is-success">redaxmedia@local</span>:<span class="is-info">~/angular-project</span>$ handpick
+<span class="is-success">✔</span> Hand picking dependencies / devDependencies via NPM
+
+<span class="is-warning">869</span> packages loaded
+
+
+<span class="is-success">redaxmedia@local</span>:<span class="is-info">~/angular-project</span>$ handpick --target=lintDependencies
+<span class="is-success">✔</span> Hand picking lintDependencies via NPM
+
+<span class="is-warning">774</span> packages loaded to run <span class="is-warning">ng lint</span>
+
+
+<span class="is-success">redaxmedia@local</span>:<span class="is-info">~/angular-project</span>$ handpick --target=lintDependencies
+<span class="is-success">✔</span> Hand picking lintDependencies via NPM
+
+<span class="is-warning">036</span> packages loaded to run <span class="is-warning">tslint</span> without <span class="is-warning">codelyzer</span>
+		</pre>
+	</foreignObject>
+	<defs>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro');
+
+			::selection
+			{
+				all: unset;
+			}
+
+			rect
+			{
+				fill: #282c34;
+			}
+
+			pre
+			{
+				color: #aaa;
+				font: 16px 'Source Code Pro', monospace;
+				height: 100%;
+				margin: 0;
+				white-space: pre-wrap;
+			}
+
+			.is-success
+			{
+				color: #27c93f;
+				fill: #27c93f;
+			}
+
+			.is-warning
+			{
+				color: #ffbd2e;
+				fill: #ffbd2e;
+			}
+
+			.is-error
+			{
+				color: #ff5f56;
+				fill: #ff5f56;
+			}
+
+			.is-info
+			{
+				color: #2eceff;
+				fill: #2eceff;
+			}
+		</style>
+	</defs>
+</svg>
