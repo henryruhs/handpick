@@ -11,7 +11,7 @@ Handpick
 Preview
 -------
 
-![Terminal Session](https://raw.githack.com/redaxmedia/handpick/master/.github/terminal-session.svg)
+![Terminal Session](https://raw.githubusercontent.com/redaxmedia/handpick/master/.github/terminal-session.svg?sanitize=true)
 
 
 Installation
