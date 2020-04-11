@@ -136,22 +136,19 @@ function init()
 			writeObjectToFile(prepare(packageObject))
 				.then(() =>
 				{
-					if (manager in managerObject)
+					managerProcess = spawn(manager, managerObject[manager],
 					{
-						managerProcess = spawn(manager, managerObject[manager],
-						{
-							cwd: path.dirname(option.get('path')),
-							stdio: 'ignore',
-							shell: true
-						});
-						managerProcess.on('close', code =>
-						{
-							writeFile(originalContent)
-								.then(code === 0 ? spinner.succeed() : spinner.fail())
-								.catch(error => spinner.fail(error.toString()));
-						});
-						managerProcess.on('error', () => null);
-					}
+						cwd: path.dirname(option.get('path')),
+						stdio: 'ignore',
+						shell: true
+					});
+					managerProcess.on('close', code =>
+					{
+						writeFile(originalContent)
+							.then(code === 0 ? spinner.succeed() : spinner.fail())
+							.catch(error => spinner.fail(error.toString()));
+					});
+					managerProcess.on('error', () => null);
 				})
 				.catch(error => spinner.fail(error.toString()));
 		})
