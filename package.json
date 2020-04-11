@@ -1,7 +1,7 @@
 {
 	"name": "handpick",
 	"description": "Handpick conditional dependencies like a boss",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"license": "MIT",
 	"keywords":
 	[
