@@ -39,6 +39,7 @@
 				color: #aaa;
 				font-size: 16px;
 				height: 100%;
+				line-height: 20px;
 				margin: 0;
 				line-height: 20px;
 				white-space: pre-wrap;
