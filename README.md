@@ -33,9 +33,9 @@ Run the command:
 handpick [options]
 
 -V, --version
+-T, --target
 -M, --manager
 -P, --path
--T, --target
 -h, --help
 ```
 
@@ -45,9 +45,9 @@ Options
 
 | Name    | Type    | Default                        | Mandatory |
 |---------|---------|--------------------------------|-----------|
+| target  | string  | dependencies / devDependencies | optional  |
 | manager | string  | npm                            | optional  |
 | path    | string  | package.json                   | optional  |
-| target  | string  | dependencies / devDependencies | optional  |
 
 
 Examples
@@ -74,7 +74,7 @@ handpick --target=lintDependencies
 Install the `devDependencies` and `lintDependencies` via YARN:
 
 ```
-handpick --manager=yarn --target=devDependencies --target=lintDependencies
+handpick --target=devDependencies --target=lintDependencies --manager=yarn
 ```
 
 Install the `dependencies` and `devDependencies` within path:
@@ -82,3 +82,13 @@ Install the `dependencies` and `devDependencies` within path:
 ```
 handpick --path=../package.json
 ```
+
+
+Managers
+--------
+
+| Name | Value |
+|------|-------|
+| NPM  | npm   |
+| PNPM | pnpm  |
+| YARN | yarn  |

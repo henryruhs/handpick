@@ -7,6 +7,11 @@
 			"install",
 			"--no-package-lock"
 		],
+		"pnpm":
+		[
+			"install",
+			"--no-lockfile"
+		],
 		"yarn":
 		[
 			"--no-lockfile"
