@@ -8,6 +8,33 @@ let spinner;
 let option;
 
 /**
+ * init spinner
+ *
+ * @since 1.3.0
+ *
+ * @return {void}
+ */
+
+function _initSpinner()
+{
+	const manager = option.get('manager');
+	const targetArray = option.get('targetArray');
+	const filterArray = option.get('filterArray');
+	const wordingArray =
+		[
+			wordingObject.handpick,
+			targetArray.join(' ' + wordingObject.and + ' ')
+		];
+
+	if (filterArray.length > 0)
+	{
+		wordingArray.push(wordingObject.without, filterArray.join(' ' + wordingObject.and + ' '));
+	}
+	wordingArray.push(wordingObject.via, manager.toUpperCase());
+	spinner.start(wordingArray.join(' '));
+}
+
+/**
  * read file
  *
  * @since 1.0.0
@@ -110,7 +137,7 @@ function prepare(packageObject)
 	{
 		Object.keys(resultObject['dependencies']).filter(resultValue =>
 		{
-			if (!Object.keys(packageObject[filterValue]).includes(resultValue))
+			if (packageObject[filterValue] && !Object.keys(packageObject[filterValue]).includes(resultValue))
 			{
 				filterObject[resultValue] = resultObject['dependencies'][resultValue];
 			}
@@ -132,12 +159,11 @@ function init()
 {
 	const manager = option.get('manager');
 	const managerObject = option.get('managerObject');
-	const targetArray = option.get('targetArray');
 
 	let originalContent = null;
 	let managerProcess = null;
 
-	spinner.start(wordingObject.handpick + ' ' + targetArray.join(' / ') + ' ' + wordingObject.via + ' ' + manager.toUpperCase());
+	_initSpinner();
 	readFile()
 		.then(content =>
 		{
