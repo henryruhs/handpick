@@ -34,6 +34,7 @@ handpick [options]
 
 -V, --version
 -T, --target
+-F, --filter
 -M, --manager
 -P, --path
 -h, --help
