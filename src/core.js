@@ -149,6 +149,18 @@ function init()
 							.catch(error => spinner.fail(error.toString()));
 					});
 					managerProcess.on('error', () => null);
+					[
+						'SIGHUP',
+						'SIGINT',
+						'SIGQUIT',
+						'SIGTERM'
+					].forEach((eventType) =>
+					{
+						process.on(eventType, () => managerProcess.emit('error',
+						{
+							code: 1
+						}));
+					});
 				})
 				.catch(error => spinner.fail(error.toString()));
 		})
