@@ -28,5 +28,6 @@
 		"dependencies",
 		"devDependencies"
 	],
+	"filterArray": [],
 	"prefix": "__"
 }

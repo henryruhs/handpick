@@ -81,6 +81,8 @@ function prepare(packageObject)
 {
 	const ignoreArray = option.get('ignoreArray');
 	const targetArray = option.get('targetArray');
+	const filterArray = option.get('filterArray');
+	const filterObject = {};
 	const resultObject = {};
 
 	Object.keys(packageObject).map(packageValue =>
@@ -103,6 +105,17 @@ function prepare(packageObject)
 				...packageObject[packageValue]
 			};
 		}
+	});
+	filterArray.map(filterValue =>
+	{
+		Object.keys(resultObject['dependencies']).filter(resultValue =>
+		{
+			if (!Object.keys(packageObject[filterValue]).includes(resultValue))
+			{
+				filterObject[resultValue] = resultObject['dependencies'][resultValue];
+			}
+		});
+		resultObject['dependencies'] = filterObject;
 	});
 	return resultObject;
 }

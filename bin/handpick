@@ -7,21 +7,24 @@ const handpick = require('../');
 const core = handpick.core;
 const packageObject = require('../package.json');
 const targetArray = [];
+const filterArray = [];
 
 let CORE;
 
 program
 	.version(packageObject.name + ' ' + packageObject.version)
+	.option('-T, --target <target>', null, target => targetArray.push(target))
+	.option('-F, --filter <target>', null, filter => filterArray.push(filter))
 	.option('-M, --manager <manager>')
 	.option('-P, --path <path>')
-	.option('-T, --target <target>', null, target => targetArray.push(target))
 	.parse(process.argv);
 
 option.init(
 {
+	targetArray: targetArray.length > 0 ? targetArray : option.get('targetArray'),
+	filterArray: filterArray.length > 0 ? filterArray : option.get('filterArray'),
 	manager: program.manager,
-	path: program.path,
-	targetArray: targetArray.length > 0 ? targetArray : option.get('targetArray')
+	path: program.path
 });
 CORE = new core(
 {

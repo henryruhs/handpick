@@ -1,13 +1,13 @@
 {
 	"name": "handpick",
 	"version": "1.0.0",
-	"dependencies":
+	"__dependencies":
 	{
 		"commander": "1.0.0",
 		"ora": "1.0.0",
 		"utility-redaxmedia": "1.0.0"
 	},
-	"devDependencies":
+	"__devDependencies":
 	{
 		"chai": "1.0.0",
 		"eslint": "1.0.0",
@@ -22,6 +22,13 @@
 	"testDependencies":
 	{
 		"chai": "1.0.0",
+		"mocha": "1.0.0"
+	},
+	"dependencies":
+	{
+		"chai": "1.0.0",
+		"eslint": "1.0.0",
+		"eslint-config-redaxmedia": "1.0.0",
 		"mocha": "1.0.0"
 	}
 }

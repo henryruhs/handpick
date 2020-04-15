@@ -46,6 +46,7 @@ Options
 | Name    | Type    | Default                        | Mandatory |
 |---------|---------|--------------------------------|-----------|
 | target  | string  | dependencies / devDependencies | optional  |
+| filter  | string  |                                | optional  |
 | manager | string  | npm                            | optional  |
 | path    | string  | package.json                   | optional  |
 
@@ -53,7 +54,7 @@ Options
 Examples
 --------
 
-Define lint dependencies inside `package.json` file:
+Define unofficial dependencies inside `package.json` file:
 
 ```json
 {
@@ -61,6 +62,11 @@ Define lint dependencies inside `package.json` file:
 	{
 		"eslint": "6.8.0",
 		"eslint-config-redaxmedia": "2.0.0"
+	},
+	"testDependencies":
+	{
+		"chai": "4.2.0",
+		"mocha": "7.1.1"
 	}
 }
 ```
@@ -75,6 +81,12 @@ Install the `devDependencies` and `lintDependencies` via YARN:
 
 ```
 handpick --target=devDependencies --target=lintDependencies --manager=yarn
+```
+
+Install the `devDependencies` without `testDependencies`:
+
+```
+handpick --target=devDependencies --filter=testDependencies
 ```
 
 Install the `dependencies` and `devDependencies` within path:

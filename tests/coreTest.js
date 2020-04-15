@@ -16,14 +16,14 @@ describe('core', () =>
 			path: 'tests/provider/package.json'
 		});
 		CORE.readObjectFromFile()
-			.then(packageArray =>
+			.then(packageObject =>
 			{
-				expect(packageArray).to.have.property('name');
-				expect(packageArray).to.have.property('version');
-				expect(packageArray).to.have.property('dependencies');
-				expect(packageArray).to.have.property('devDependencies');
-				expect(packageArray).to.have.property('lintDependencies');
-				expect(packageArray).to.have.property('buildDependencies');
+				expect(packageObject).to.have.property('name');
+				expect(packageObject).to.have.property('version');
+				expect(packageObject).to.have.property('dependencies');
+				expect(packageObject).to.have.property('devDependencies');
+				expect(packageObject).to.have.property('lintDependencies');
+				expect(packageObject).to.have.property('testDependencies');
 				done();
 			})
 			.catch(() => done('error'));
@@ -42,9 +42,9 @@ describe('core', () =>
 			.then(() =>
 			{
 				CORE.readObjectFromFile()
-					.then(packageArray =>
+					.then(packageObject =>
 					{
-						expect(packageArray).to.have.property('name');
+						expect(packageObject).to.have.property('name');
 						done();
 					})
 					.catch(() => done('error'));
@@ -59,13 +59,13 @@ describe('core', () =>
 			path: 'tests/provider/package.json'
 		});
 		CORE.readObjectFromFile()
-			.then(packageArray =>
+			.then(packageObject =>
 			{
-				option.set('path', 'tests/provider/package_prepare_prod_dev.json');
+				option.set('path', 'tests/provider/package_prepare_prod_and_dev.json');
 				CORE.readObjectFromFile()
-					.then(equalArray =>
+					.then(expectObject =>
 					{
-						expect(CORE.prepare(packageArray)).to.deep.equal(equalArray);
+						expect(CORE.prepare(packageObject)).to.deep.equal(expectObject);
 						done();
 					})
 					.catch(() => done('error'));
@@ -73,7 +73,7 @@ describe('core', () =>
 			.catch(() => done('error'));
 	});
 
-	it('prepare lint and build', done =>
+	it('prepare lint and test', done =>
 	{
 		option.init(
 		{
@@ -81,17 +81,46 @@ describe('core', () =>
 			targetArray:
 			[
 				'lintDependencies',
-				'buildDependencies'
+				'testDependencies'
 			]
 		});
 		CORE.readObjectFromFile()
-			.then(packageArray =>
+			.then(packageObject =>
 			{
-				option.set('path', 'tests/provider/package_prepare_lint_build.json');
+				option.set('path', 'tests/provider/package_prepare_lint_and_test.json');
 				CORE.readObjectFromFile()
-					.then(equalArray =>
+					.then(expectObject =>
 					{
-						expect(CORE.prepare(packageArray)).to.deep.equal(equalArray);
+						expect(CORE.prepare(packageObject)).to.deep.equal(expectObject);
+						done();
+					})
+					.catch(() => done('error'));
+			})
+			.catch(() => done('error'));
+	});
+
+	it('prepare dev without lint', done =>
+	{
+		option.init(
+		{
+			path: 'tests/provider/package.json',
+			targetArray:
+			[
+				'devDependencies'
+			],
+			filterArray:
+			[
+				'lintDependencies'
+			]
+		});
+		CORE.readObjectFromFile()
+			.then(packageObject =>
+			{
+				option.set('path', 'tests/provider/package_prepare_dev_without_lint.json');
+				CORE.readObjectFromFile()
+					.then(expectObject =>
+					{
+						expect(CORE.prepare(packageObject)).to.deep.equal(expectObject);
 						done();
 					})
 					.catch(() => done('error'));
