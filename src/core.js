@@ -153,7 +153,8 @@ function init()
 						'SIGHUP',
 						'SIGINT',
 						'SIGQUIT',
-						'SIGTERM'
+						'SIGTERM',
+						'uncaughtException'
 					].forEach((eventType) =>
 					{
 						process.on(eventType, () => managerProcess.emit('error',
