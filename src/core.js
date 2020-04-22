@@ -21,10 +21,10 @@ function _initSpinner()
 	const targetArray = option.get('targetArray');
 	const filterArray = option.get('filterArray');
 	const wordingArray =
-		[
-			wordingObject.handpick,
-			targetArray.join(' ' + wordingObject.and + ' ')
-		];
+	[
+		wordingObject.handpick,
+		targetArray.join(' ' + wordingObject.and + ' ')
+	];
 
 	if (filterArray.length > 0)
 	{
