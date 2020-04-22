@@ -17,7 +17,8 @@
 			"--no-lockfile"
 		]
 	},
-	"path": "package.json",
+	"path": ".",
+	"file": "package.json",
 	"ignoreArray":
 	[
 		"dependencies",

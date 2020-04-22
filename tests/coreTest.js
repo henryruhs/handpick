@@ -13,7 +13,8 @@ describe('core', () =>
 	{
 		option.init(
 		{
-			path: 'tests/provider/package.json'
+			path: 'tests/provider',
+			file: 'package_write.json'
 		});
 		CORE.readObjectFromFile()
 			.then(packageObject =>
@@ -33,7 +34,8 @@ describe('core', () =>
 	{
 		option.init(
 		{
-			path: 'tests/provider/package_write.json'
+			path: 'tests/provider',
+			file: 'package_write.json'
 		});
 		CORE.writeObjectToFile(
 			{
@@ -56,12 +58,13 @@ describe('core', () =>
 	{
 		option.init(
 		{
-			path: 'tests/provider/package.json'
+			path: 'tests/provider',
+			file: 'package.json'
 		});
 		CORE.readObjectFromFile()
 			.then(packageObject =>
 			{
-				option.set('path', 'tests/provider/package_prepare_prod_and_dev.json');
+				option.set('file', 'package_prepare_prod_and_dev.json');
 				CORE.readObjectFromFile()
 					.then(expectObject =>
 					{
@@ -77,7 +80,8 @@ describe('core', () =>
 	{
 		option.init(
 		{
-			path: 'tests/provider/package.json',
+			path: 'tests/provider',
+			file: 'package.json',
 			targetArray:
 			[
 				'lintDependencies',
@@ -87,7 +91,7 @@ describe('core', () =>
 		CORE.readObjectFromFile()
 			.then(packageObject =>
 			{
-				option.set('path', 'tests/provider/package_prepare_lint_and_test.json');
+				option.set('file', 'package_prepare_lint_and_test.json');
 				CORE.readObjectFromFile()
 					.then(expectObject =>
 					{
@@ -103,7 +107,8 @@ describe('core', () =>
 	{
 		option.init(
 		{
-			path: 'tests/provider/package.json',
+			path: 'tests/provider',
+			file: 'package.json',
 			targetArray:
 			[
 				'devDependencies'
@@ -116,7 +121,7 @@ describe('core', () =>
 		CORE.readObjectFromFile()
 			.then(packageObject =>
 			{
-				option.set('path', 'tests/provider/package_prepare_dev_without_lint.json');
+				option.set('file', 'package_prepare_dev_without_lint.json');
 				CORE.readObjectFromFile()
 					.then(expectObject =>
 					{

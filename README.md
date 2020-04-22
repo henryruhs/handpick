@@ -49,7 +49,7 @@ Options
 | target  | string  | dependencies / devDependencies | optional  |
 | filter  | string  |                                | optional  |
 | manager | string  | npm                            | optional  |
-| path    | string  | package.json                   | optional  |
+| path    | string  | .                              | optional  |
 
 
 Examples
@@ -93,7 +93,7 @@ handpick --target=devDependencies --filter=testDependencies
 Install the `dependencies` and `devDependencies` within path:
 
 ```
-handpick --path=../package.json
+handpick --path=../shared
 ```
 
 

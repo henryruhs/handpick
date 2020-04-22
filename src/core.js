@@ -44,7 +44,7 @@ function _initSpinner()
 
 async function readFile()
 {
-	const absolutePath = path.resolve(option.get('path'));
+	const absolutePath = path.resolve(option.get('path') + '/' + option.get('file'));
 
 	return await fs.promises.readFile(absolutePath);
 }
@@ -74,7 +74,7 @@ async function readObjectFromFile()
 
 async function writeFile(content)
 {
-	const absolutePath = path.resolve(option.get('path'));
+	const absolutePath = path.resolve(option.get('path') + '/' + option.get('file'));
 
 	return await fs.promises.writeFile(absolutePath, content);
 }
@@ -177,7 +177,7 @@ function init()
 				{
 					managerProcess = spawn(manager, managerObject[manager],
 					{
-						cwd: path.dirname(option.get('path')),
+						cwd: option.get('path'),
 						stdio: 'ignore',
 						shell: true
 					});
