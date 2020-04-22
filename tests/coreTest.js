@@ -14,7 +14,7 @@ describe('core', () =>
 		option.init(
 		{
 			path: 'tests/provider',
-			file: 'package_write.json'
+			file: 'package.json'
 		});
 		CORE.readObjectFromFile()
 			.then(packageObject =>
