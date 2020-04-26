@@ -4,6 +4,7 @@ Handpick
 > Handpick conditional dependencies like a boss.
 
 [![Build Status](https://img.shields.io/travis/redaxmedia/handpick.svg)](https://travis-ci.org/redaxmedia/handpick)
+[![Coverage Status](https://coveralls.io/repos/github/redaxmedia/handpick/badge.svg)](https://coveralls.io/github/redaxmedia/handpick)
 [![NPM Version](https://img.shields.io/npm/v/handpick.svg)](https://npmjs.com/package/handpick)
 [![License](https://img.shields.io/npm/l/handpick.svg)](https://npmjs.com/package/handpick)
 
