@@ -123,7 +123,7 @@ function prepare(packageObject)
 /**
  * start wording
  *
- * @since 1.4.1
+ * @since 1.5.0
  *
  * @return {string}
  */
