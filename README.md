@@ -63,12 +63,12 @@ Define unofficial dependencies inside `package.json` file:
 	"lintDependencies":
 	{
 		"eslint": "6.8.0",
-		"eslint-config-redaxmedia": "2.0.0"
+		"eslint-config-redaxmedia": "2.1.0"
 	},
 	"testDependencies":
 	{
 		"chai": "4.2.0",
-		"mocha": "7.1.1"
+		"mocha": "7.1.2"
 	}
 }
 ```

@@ -8,33 +8,6 @@ let spinner;
 let option;
 
 /**
- * init spinner
- *
- * @since 1.3.0
- *
- * @return {void}
- */
-
-function _initSpinner()
-{
-	const manager = option.get('manager');
-	const targetArray = option.get('targetArray');
-	const filterArray = option.get('filterArray');
-	const wordingArray =
-	[
-		wordingObject.handpick,
-		targetArray.join(' ' + wordingObject.and + ' ')
-	];
-
-	if (filterArray.length > 0)
-	{
-		wordingArray.push(wordingObject.without, filterArray.join(' ' + wordingObject.and + ' '));
-	}
-	wordingArray.push(wordingObject.via, manager.toUpperCase());
-	spinner.start(wordingArray.join(' '));
-}
-
-/**
  * read file
  *
  * @since 1.0.0
@@ -148,6 +121,33 @@ function prepare(packageObject)
 }
 
 /**
+ * start wording
+ *
+ * @since 1.4.1
+ *
+ * @return {string}
+ */
+
+function startWording()
+{
+	const manager = option.get('manager');
+	const targetArray = option.get('targetArray');
+	const filterArray = option.get('filterArray');
+	const wordingArray =
+	[
+		wordingObject.handpick,
+		targetArray.join(' ' + wordingObject.and + ' ')
+	];
+
+	if (filterArray.length > 0)
+	{
+		wordingArray.push(wordingObject.without, filterArray.join(' ' + wordingObject.and + ' '));
+	}
+	wordingArray.push(wordingObject.via, manager.toUpperCase());
+	return wordingArray.join(' ');
+}
+
+/**
  * init
  *
  * @since 1.0.0
@@ -163,7 +163,7 @@ function init()
 	let originalContent = null;
 	let managerProcess = null;
 
-	_initSpinner();
+	spinner.start(startWording());
 	readFile()
 		.then(content =>
 		{
@@ -222,6 +222,7 @@ function construct(injectorObject)
 	const exports =
 	{
 		init,
+		startWording,
 		readFile,
 		readObjectFromFile,
 		writeFile,

@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const option = require('utility-redaxmedia').option(__dirname + '/../option.json');
+const helper = require('utility-redaxmedia').helper;
 const handpick = require('../');
 const core = handpick.core;
 const CORE = new core(
@@ -9,12 +10,18 @@ const CORE = new core(
 
 describe('core', () =>
 {
+	beforeEach(() =>
+	{
+		const initObject = helper.module.load(__dirname + '/../option.json');
+
+		option.init(initObject);
+	});
+
 	it('read object from file', done =>
 	{
 		option.init(
 		{
-			path: 'tests/provider',
-			file: 'package.json'
+			path: 'tests/provider'
 		});
 		CORE.readObjectFromFile()
 			.then(packageObject =>
@@ -58,8 +65,7 @@ describe('core', () =>
 	{
 		option.init(
 		{
-			path: 'tests/provider',
-			file: 'package.json'
+			path: 'tests/provider'
 		});
 		CORE.readObjectFromFile()
 			.then(packageObject =>
@@ -81,7 +87,6 @@ describe('core', () =>
 		option.init(
 		{
 			path: 'tests/provider',
-			file: 'package.json',
 			targetArray:
 			[
 				'lintDependencies',
@@ -108,7 +113,6 @@ describe('core', () =>
 		option.init(
 		{
 			path: 'tests/provider',
-			file: 'package.json',
 			targetArray:
 			[
 				'devDependencies'
@@ -131,5 +135,24 @@ describe('core', () =>
 					.catch(() => done('error'));
 			})
 			.catch(() => done('error'));
+	});
+
+	it('start wording', () =>
+	{
+		option.init(
+		{
+			path: 'tests/provider'
+		});
+		expect(CORE.startWording()).to.equal('Hand picking dependencies and devDependencies via NPM');
+		option.set('manager', 'yarn');
+		option.set('targetArray',
+		[
+			'devDependencies'
+		]);
+		option.set('filterArray',
+		[
+			'lintDependencies'
+		]);
+		expect(CORE.startWording()).to.equal('Hand picking devDependencies without lintDependencies via YARN');
 	});
 });
