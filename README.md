@@ -24,6 +24,48 @@ Install on your system:
 npm install handpick --global
 ```
 
+Setup
+-----
+
+Create a `.handpick` file to override configuration:
+
+```json
+{
+	"manager": "npm",
+	"managerObject":
+	{
+		"npm":
+		[
+			"install",
+			"--no-package-lock"
+		],
+		"pnpm":
+		[
+			"install",
+			"--no-lockfile"
+		],
+		"yarn":
+		[
+			"--no-lockfile"
+		]
+	},
+	"path": ".",
+	"file": "package.json",
+	"ignoreArray":
+	[
+		"dependencies",
+		"devDependencies"
+	],
+	"targetArray":
+	[
+		"dependencies",
+		"devDependencies"
+	],
+	"filterArray": [],
+	"prefix": "__"
+}
+```
+
 
 Usage
 -----
@@ -34,10 +76,11 @@ Run the command:
 handpick [options]
 
 -V, --version
--T, --target
--F, --filter
--M, --manager
--P, --path
+-C, --config <config>
+-T, --target <target>
+-F, --filter <filter>
+-M, --manager <manager>
+-P, --path <path>
 -h, --help
 ```
 
@@ -47,6 +90,7 @@ Options
 
 | Name    | Type    | Default                        | Mandatory |
 |---------|---------|--------------------------------|-----------|
+| config  | string  | .handpick                      | optional  |
 | target  | string  | dependencies / devDependencies | optional  |
 | filter  | string  |                                | optional  |
 | manager | string  | npm                            | optional  |
@@ -62,7 +106,7 @@ Define unofficial dependencies inside `package.json` file:
 {
 	"lintDependencies":
 	{
-		"eslint": "6.8.0",
+		"eslint": "7.0.0",
 		"eslint-config-redaxmedia": "2.1.0"
 	},
 	"testDependencies":
