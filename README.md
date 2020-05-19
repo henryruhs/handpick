@@ -77,10 +77,10 @@ handpick [options]
 
 -V, --version
 -C, --config <config>
--T, --target
--F, --filter
--M, --manager
--P, --path
+-T, --target <target>
+-F, --filter <filter>
+-M, --manager <manager>
+-P, --path <path>
 -h, --help
 ```
 
