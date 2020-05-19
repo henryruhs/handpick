@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
-const option = require('utility-redaxmedia').option(__dirname + '/../option.json');
 const helper = require('utility-redaxmedia').helper;
 const handpick = require('../');
 const core = handpick.core;
+const option = handpick.option;
 const CORE = new core(
 {
 	option
@@ -14,14 +14,14 @@ describe('core', () =>
 	{
 		const initObject = helper.module.load(__dirname + '/../option.json');
 
-		option.init(initObject);
+		option.initWithConfig(initObject);
 	});
 
 	it('read object from file', done =>
 	{
-		option.init(
+		option.initWithConfig(
 		{
-			path: 'tests/provider'
+			path: 'tests/provider/core'
 		});
 		CORE.readObjectFromFile()
 			.then(packageObject =>
@@ -39,9 +39,9 @@ describe('core', () =>
 
 	it('write object to file', done =>
 	{
-		option.init(
+		option.initWithConfig(
 		{
-			path: 'tests/provider',
+			path: 'tests/provider/core',
 			file: 'package_write.json'
 		});
 		CORE.writeObjectToFile(
@@ -63,9 +63,9 @@ describe('core', () =>
 
 	it('prepare prod and dev', done =>
 	{
-		option.init(
+		option.initWithConfig(
 		{
-			path: 'tests/provider'
+			path: 'tests/provider/core'
 		});
 		CORE.readObjectFromFile()
 			.then(packageObject =>
@@ -84,9 +84,9 @@ describe('core', () =>
 
 	it('prepare lint and test', done =>
 	{
-		option.init(
+		option.initWithConfig(
 		{
-			path: 'tests/provider',
+			path: 'tests/provider/core',
 			targetArray:
 			[
 				'lintDependencies',
@@ -110,9 +110,9 @@ describe('core', () =>
 
 	it('prepare dev without lint', done =>
 	{
-		option.init(
+		option.initWithConfig(
 		{
-			path: 'tests/provider',
+			path: 'tests/provider/core',
 			targetArray:
 			[
 				'devDependencies'
@@ -139,9 +139,9 @@ describe('core', () =>
 
 	it('start wording', () =>
 	{
-		option.init(
+		option.initWithConfig(
 		{
-			path: 'tests/provider'
+			path: 'tests/provider/core'
 		});
 		expect(CORE.startWording()).to.equal('Hand picking dependencies and devDependencies via NPM');
 		option.set('manager', 'yarn');
