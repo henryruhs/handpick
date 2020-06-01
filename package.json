@@ -33,10 +33,10 @@
 	{
 		"chai": "4.2.0",
 		"coveralls": "3.1.0",
-		"eslint": "7.0.0",
+		"eslint": "7.1.0",
 		"eslint-config-redaxmedia": "2.1.0",
-		"mocha": "7.1.2",
-		"nyc": "15.0.1"
+		"mocha": "7.2.0",
+		"nyc": "15.1.0"
 	},
 	"scripts":
 	{
