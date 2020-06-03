@@ -1,3 +1,4 @@
+const { promisify } = require('util');
 const fs = require('fs');
 const spawn = require('child_process').spawn;
 const path = require('path');
@@ -18,8 +19,9 @@ let option;
 async function readFile()
 {
 	const absolutePath = path.resolve(option.get('path') + '/' + option.get('file'));
+	const readFileAsync = promisify(fs.readFile);
 
-	return await fs.promises.readFile(absolutePath);
+	return await readFileAsync(absolutePath);
 }
 
 /**
@@ -48,8 +50,9 @@ async function readObjectFromFile()
 async function writeFile(content)
 {
 	const absolutePath = path.resolve(option.get('path') + '/' + option.get('file'));
+	const writeFileAsync = promisify(fs.writeFile);
 
-	return await fs.promises.writeFile(absolutePath, content);
+	return await writeFileAsync(absolutePath, content);
 }
 
 /**
