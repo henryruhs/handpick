@@ -107,7 +107,7 @@ Define unofficial dependencies inside `package.json` file:
 {
 	"lintDependencies":
 	{
-		"eslint": "7.0.0",
+		"eslint": "6.8.0",
 		"eslint-config-redaxmedia": "2.1.0"
 	},
 	"testDependencies":
