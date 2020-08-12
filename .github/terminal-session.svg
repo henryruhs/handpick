@@ -11,13 +11,13 @@
 
 
 <span class="is-success">redaxmedia@local</span>:<span class="is-info">~/angular-project</span>$ handpick --target=lintDependencies
-<span class="is-success">✔</span> Hand picking lintDependencies via NPM
+<span class="is-success">✔</span> Hand picking EXACT lintDependencies via NPM
 
 <span class="is-warning">774</span> packages loaded to run <span class="is-warning">ng lint</span>
 
 
 <span class="is-success">redaxmedia@local</span>:<span class="is-info">~/angular-project</span>$ handpick --target=lintDependencies
-<span class="is-success">✔</span> Hand picking lintDependencies via NPM
+<span class="is-success">✔</span> Hand picking EXACT lintDependencies via NPM
 
 <span class="is-warning">036</span> packages loaded to run <span class="is-warning">tslint</span> without <span class="is-warning">codelyzer</span>
 		</pre>
