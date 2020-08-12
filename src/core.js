@@ -1,3 +1,4 @@
+const semver = require('semver');
 const { promisify } = require('util');
 const fs = require('fs');
 const spawn = require('child_process').spawn;
@@ -85,16 +86,19 @@ function prepare(packageObject)
 	const ignoreArray = option.get('ignoreArray');
 	const targetArray = option.get('targetArray');
 	const filterArray = option.get('filterArray');
+	const range = option.get('range');
 	const filterObject = {};
 	const resultObject = {};
 
+	/* handle prefix */
+
 	Object.keys(packageObject).map(packageValue =>
 	{
-		const prefixValue = option.get('prefix') + packageValue;
+		const ignorePrefix = option.get('ignorePrefix') + packageValue;
 
 		if (ignoreArray.includes(packageValue))
 		{
-			resultObject[prefixValue] = packageObject[packageValue];
+			resultObject[ignorePrefix] = packageObject[packageValue];
 		}
 		else
 		{
@@ -109,6 +113,9 @@ function prepare(packageObject)
 			};
 		}
 	});
+
+	/* handle filter */
+
 	filterArray.map(filterValue =>
 	{
 		Object.keys(resultObject['dependencies']).filter(resultValue =>
@@ -119,6 +126,26 @@ function prepare(packageObject)
 			}
 		});
 		resultObject['dependencies'] = filterObject;
+	});
+
+	/* handle range */
+
+	Object.keys(resultObject['dependencies']).map(resultValue =>
+	{
+		const resultVersion = semver.coerce(resultObject['dependencies'][resultValue]).version;
+
+		if (range === 'exact')
+		{
+			resultObject['dependencies'][resultValue] = resultVersion;
+		}
+		if (range === 'patch')
+		{
+			resultObject['dependencies'][resultValue] = '~' + resultVersion;
+		}
+		if (range === 'minor')
+		{
+			resultObject['dependencies'][resultValue] = '^' + resultVersion;
+		}
 	});
 	return resultObject;
 }
@@ -136,9 +163,11 @@ function startWording()
 	const manager = option.get('manager');
 	const targetArray = option.get('targetArray');
 	const filterArray = option.get('filterArray');
+	const range = option.get('range');
 	const wordingArray =
 	[
 		wordingObject.handpick,
+		range.toUpperCase(),
 		targetArray.join(' ' + wordingObject.and + ' ')
 	];
 

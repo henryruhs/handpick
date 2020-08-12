@@ -18,8 +18,15 @@
 			"--no-lockfile"
 		]
 	},
-	"path": ".",
-	"file": "package.json",
+	"range": "exact",
+	"rangeArray":
+	[
+		"dirty",
+		"exact",
+		"patch",
+		"minor"
+	],
+	"ignorePrefix": "__",
 	"ignoreArray":
 	[
 		"dependencies",
@@ -31,5 +38,6 @@
 		"devDependencies"
 	],
 	"filterArray": [],
-	"prefix": "__"
+	"path": ".",
+	"file": "package.json"
 }

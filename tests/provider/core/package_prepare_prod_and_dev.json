@@ -24,6 +24,13 @@
 		"chai": "1.0.0",
 		"mocha": "1.0.0"
 	},
+	"dirtyDependencies":
+	{
+		"chai": "v2.0",
+		"eslint": "^2.0.0",
+		"eslint-config-redaxmedia": "~2.0.0",
+		"mocha": ">2"
+	},
 	"dependencies":
 	{
 		"chai": "1.0.0",

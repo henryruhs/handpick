@@ -32,6 +32,7 @@ describe('core', () =>
 				expect(packageObject).to.have.property('devDependencies');
 				expect(packageObject).to.have.property('lintDependencies');
 				expect(packageObject).to.have.property('testDependencies');
+				expect(packageObject).to.have.property('dirtyDependencies');
 				done();
 			})
 			.catch(() => done('error'));
@@ -80,6 +81,35 @@ describe('core', () =>
 					.catch(() => done('error'));
 			})
 			.catch(() => done('error'));
+	});
+
+	option.get('rangeArray').map(range =>
+	{
+		it('prepare dirty to ' + range, done =>
+		{
+			option.initWithConfig(
+			{
+				path: 'tests/provider/core',
+				range,
+				targetArray:
+				[
+					'dirtyDependencies'
+				]
+			});
+			CORE.readObjectFromFile()
+				.then(packageObject =>
+				{
+					option.set('file', 'package_prepare_dirty_to_' + range + '.json');
+					CORE.readObjectFromFile()
+						.then(expectObject =>
+						{
+							expect(CORE.prepare(packageObject)).to.deep.equal(expectObject);
+							done();
+						})
+						.catch(() => done('error'));
+				})
+				.catch(() => done('error'));
+		});
 	});
 
 	it('prepare lint and test', done =>
@@ -143,8 +173,9 @@ describe('core', () =>
 		{
 			path: 'tests/provider/core'
 		});
-		expect(CORE.startWording()).to.equal('Hand picking dependencies and devDependencies via NPM');
+		expect(CORE.startWording()).to.equal('Hand picking EXACT dependencies and devDependencies via NPM');
 		option.set('manager', 'yarn');
+		option.set('range', 'patch');
 		option.set('targetArray',
 		[
 			'devDependencies'
@@ -153,6 +184,6 @@ describe('core', () =>
 		[
 			'lintDependencies'
 		]);
-		expect(CORE.startWording()).to.equal('Hand picking devDependencies without lintDependencies via YARN');
+		expect(CORE.startWording()).to.equal('Hand picking PATCH devDependencies without lintDependencies via YARN');
 	});
 });

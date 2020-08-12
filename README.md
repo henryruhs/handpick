@@ -50,8 +50,15 @@ Create a `.handpick` file to override configuration:
 			"--no-lockfile"
 		]
 	},
-	"path": ".",
-	"file": "package.json",
+	"range": "exact",
+	"rangeArray":
+	[
+		"dirty",
+		"exact",
+		"patch",
+		"minor"
+	],
+	"ignorePrefix": "__",
 	"ignoreArray":
 	[
 		"dependencies",
@@ -63,7 +70,8 @@ Create a `.handpick` file to override configuration:
 		"devDependencies"
 	],
 	"filterArray": [],
-	"prefix": "__"
+	"path": ".",
+	"file": "package.json"
 }
 ```
 
@@ -81,6 +89,7 @@ handpick [options]
 -T, --target <target>
 -F, --filter <filter>
 -M, --manager <manager>
+-R, --range <range>
 -P, --path <path>
 -h, --help
 ```
@@ -89,13 +98,14 @@ handpick [options]
 Options
 -------
 
-| Name    | Type    | Default                        | Mandatory |
-|---------|---------|--------------------------------|-----------|
-| config  | string  | .handpick                      | optional  |
-| target  | string  | dependencies / devDependencies | optional  |
-| filter  | string  |                                | optional  |
-| manager | string  | npm                            | optional  |
-| path    | string  | .                              | optional  |
+| Name    | Type   | Default                        | Mandatory |
+|---------|--------|--------------------------------|-----------|
+| config  | string | .handpick                      | optional  |
+| target  | string | dependencies / devDependencies | optional  |
+| filter  | string |                                | optional  |
+| manager | string | npm                            | optional  |
+| range   | string | exact                          | optional  |
+| path    | string | .                              | optional  |
 
 
 Examples
@@ -113,7 +123,7 @@ Define unofficial dependencies inside `package.json` file:
 	"testDependencies":
 	{
 		"chai": "4.2.0",
-		"mocha": "7.1.2"
+		"mocha": "7.2.0"
 	}
 }
 ```
@@ -140,6 +150,12 @@ Install the `dependencies` and `devDependencies` within path:
 
 ```
 handpick --path=../shared
+```
+
+Install the `dependencies` with `exact` range:
+
+```
+handpick --target=dependencies --range=exact
 ```
 
 
