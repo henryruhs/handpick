@@ -50,8 +50,14 @@ Create a `.handpick` file to override configuration:
 			"--no-lockfile"
 		]
 	},
-	"path": ".",
-	"file": "package.json",
+	"range": "exact",
+	"rangeArray":
+	[
+		"exact",
+		"patch",
+		"minor"
+	],
+	"ignorePrefix": "__",
 	"ignoreArray":
 	[
 		"dependencies",
@@ -63,7 +69,8 @@ Create a `.handpick` file to override configuration:
 		"devDependencies"
 	],
 	"filterArray": [],
-	"prefix": "__"
+	"path": ".",
+	"file": "package.json"
 }
 ```
 
@@ -81,6 +88,7 @@ handpick [options]
 -T, --target <target>
 -F, --filter <filter>
 -M, --manager <manager>
+-R, --range <range>
 -P, --path <path>
 -h, --help
 ```
@@ -107,13 +115,13 @@ Define unofficial dependencies inside `package.json` file:
 {
 	"lintDependencies":
 	{
-		"eslint": "6.8.0",
+		"eslint": "7.6.0",
 		"eslint-config-redaxmedia": "2.1.0"
 	},
 	"testDependencies":
 	{
 		"chai": "4.2.0",
-		"mocha": "7.1.2"
+		"mocha": "8.1.1"
 	}
 }
 ```

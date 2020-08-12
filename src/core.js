@@ -90,11 +90,11 @@ function prepare(packageObject)
 
 	Object.keys(packageObject).map(packageValue =>
 	{
-		const prefixValue = option.get('prefix') + packageValue;
+		const ignorePrefix = option.get('ignorePrefix') + packageValue;
 
 		if (ignoreArray.includes(packageValue))
 		{
-			resultObject[prefixValue] = packageObject[packageValue];
+			resultObject[ignorePrefix] = packageObject[packageValue];
 		}
 		else
 		{
@@ -136,9 +136,11 @@ function startWording()
 	const manager = option.get('manager');
 	const targetArray = option.get('targetArray');
 	const filterArray = option.get('filterArray');
+	const range = option.get('range');
 	const wordingArray =
 	[
 		wordingObject.handpick,
+		range.toUpperCase(),
 		targetArray.join(' ' + wordingObject.and + ' ')
 	];
 

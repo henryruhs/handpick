@@ -8,6 +8,8 @@ const option = handpick.option;
 const packageObject = require('../package.json');
 const targetArray = [];
 const filterArray = [];
+const managerArray = Object.keys(option.get('managerObject'));
+const rangeArray = option.get('rangeArray');
 
 let CORE;
 
@@ -16,7 +18,8 @@ program
 	.option('-C, --config <config>')
 	.option('-T, --target <target>', null, target => targetArray.push(target))
 	.option('-F, --filter <target>', null, filter => filterArray.push(filter))
-	.option('-M, --manager <manager>')
+	.option('-M, --manager <manager>', managerArray.join(' | '))
+	.option('-R, --range <range>', rangeArray.join(' | '))
 	.option('-P, --path <path>')
 	.parse(process.argv);
 
