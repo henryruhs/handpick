@@ -83,12 +83,7 @@ describe('core', () =>
 			.catch(() => done('error'));
 	});
 
-	[
-		'exact',
-		'patch',
-		'minor'
-	]
-	.map(range =>
+	option.get('rangeArray').map(range =>
 	{
 		it('prepare dirty to ' + range, done =>
 		{
