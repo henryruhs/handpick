@@ -173,9 +173,9 @@ describe('core', () =>
 		{
 			path: 'tests/provider/core'
 		});
-		expect(CORE.startWording()).to.equal('Hand picking EXACT dependencies and devDependencies via NPM');
+		expect(CORE.startWording()).to.equal('Hand picking DIRTY dependencies and devDependencies via NPM');
 		option.set('manager', 'yarn');
-		option.set('range', 'patch');
+		option.set('range', 'exact');
 		option.set('targetArray',
 		[
 			'devDependencies'
@@ -184,6 +184,6 @@ describe('core', () =>
 		[
 			'lintDependencies'
 		]);
-		expect(CORE.startWording()).to.equal('Hand picking PATCH devDependencies without lintDependencies via YARN');
+		expect(CORE.startWording()).to.equal('Hand picking EXACT devDependencies without lintDependencies via YARN');
 	});
 });
