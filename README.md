@@ -123,7 +123,7 @@ Define unofficial dependencies inside `package.json` file:
 	"testDependencies":
 	{
 		"chai": "4.2.0",
-		"mocha": "8.1.1"
+		"mocha": "7.2.0"
 	}
 }
 ```
