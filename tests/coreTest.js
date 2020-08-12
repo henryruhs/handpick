@@ -32,6 +32,7 @@ describe('core', () =>
 				expect(packageObject).to.have.property('devDependencies');
 				expect(packageObject).to.have.property('lintDependencies');
 				expect(packageObject).to.have.property('testDependencies');
+				expect(packageObject).to.have.property('dirtyDependencies');
 				done();
 			})
 			.catch(() => done('error'));
@@ -80,6 +81,40 @@ describe('core', () =>
 					.catch(() => done('error'));
 			})
 			.catch(() => done('error'));
+	});
+
+	[
+		'exact',
+		'patch',
+		'minor'
+	]
+	.map(range =>
+	{
+		it('prepare dirty to ' + range, done =>
+		{
+			option.initWithConfig(
+			{
+				path: 'tests/provider/core',
+				range,
+				targetArray:
+				[
+					'dirtyDependencies'
+				]
+			});
+			CORE.readObjectFromFile()
+				.then(packageObject =>
+				{
+					option.set('file', 'package_prepare_dirty_to_' + range + '.json');
+					CORE.readObjectFromFile()
+						.then(expectObject =>
+						{
+							expect(CORE.prepare(packageObject)).to.deep.equal(expectObject);
+							done();
+						})
+						.catch(() => done('error'));
+				})
+				.catch(() => done('error'));
+		});
 	});
 
 	it('prepare lint and test', done =>

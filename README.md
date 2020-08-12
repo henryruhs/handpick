@@ -97,13 +97,14 @@ handpick [options]
 Options
 -------
 
-| Name    | Type    | Default                        | Mandatory |
-|---------|---------|--------------------------------|-----------|
-| config  | string  | .handpick                      | optional  |
-| target  | string  | dependencies / devDependencies | optional  |
-| filter  | string  |                                | optional  |
-| manager | string  | npm                            | optional  |
-| path    | string  | .                              | optional  |
+| Name    | Type   | Default                        | Mandatory |
+|---------|--------|--------------------------------|-----------|
+| config  | string | .handpick                      | optional  |
+| target  | string | dependencies / devDependencies | optional  |
+| filter  | string |                                | optional  |
+| manager | string | npm                            | optional  |
+| range   | string | exact                          | optional  |
+| path    | string | .                              | optional  |
 
 
 Examples
@@ -148,6 +149,12 @@ Install the `dependencies` and `devDependencies` within path:
 
 ```
 handpick --path=../shared
+```
+
+Install the `dirtyDependencies` within `exact`, `patch` or `minor` range:
+
+```
+handpick --range=exact|patch|minor
 ```
 
 

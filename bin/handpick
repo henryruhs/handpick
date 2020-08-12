@@ -28,8 +28,9 @@ option.initWithConfig(
 	config: program.config,
 	targetArray: targetArray.length > 0 ? targetArray : option.get('targetArray'),
 	filterArray: filterArray.length > 0 ? filterArray : option.get('filterArray'),
-	manager: program.manager,
-	path: program.path
+	manager: managerArray.includes(program.manager) ? program.manager : option.get('manager'),
+	path: program.path,
+	range: rangeArray.includes(program.range) ? program.range : option.get('range')
 });
 CORE = new core(
 {
