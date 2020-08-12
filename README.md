@@ -53,6 +53,7 @@ Create a `.handpick` file to override configuration:
 	"range": "exact",
 	"rangeArray":
 	[
+		"dirty",
 		"exact",
 		"patch",
 		"minor"
@@ -116,7 +117,7 @@ Define unofficial dependencies inside `package.json` file:
 {
 	"lintDependencies":
 	{
-		"eslint": "7.6.0",
+		"eslint": "6.8.0",
 		"eslint-config-redaxmedia": "2.1.0"
 	},
 	"testDependencies":
@@ -151,10 +152,10 @@ Install the `dependencies` and `devDependencies` within path:
 handpick --path=../shared
 ```
 
-Install the `dirtyDependencies` within `exact`, `patch` or `minor` range:
+Install the `dependencies` with `exact` range:
 
 ```
-handpick --range=exact|patch|minor
+handpick --target=dependencies --range=exact
 ```
 
 

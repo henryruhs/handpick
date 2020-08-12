@@ -21,6 +21,7 @@
 	"range": "exact",
 	"rangeArray":
 	[
+		"dirty",
 		"exact",
 		"patch",
 		"minor"
