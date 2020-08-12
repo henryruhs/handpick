@@ -50,7 +50,7 @@ Create a `.handpick` file to override configuration:
 			"--no-lockfile"
 		]
 	},
-	"range": "exact",
+	"range": "dirty",
 	"rangeArray":
 	[
 		"dirty",
@@ -104,7 +104,7 @@ Options
 | target  | string | dependencies / devDependencies | optional  |
 | filter  | string |                                | optional  |
 | manager | string | npm                            | optional  |
-| range   | string | exact                          | optional  |
+| range   | string | dirty                          | optional  |
 | path    | string | .                              | optional  |
 
 
