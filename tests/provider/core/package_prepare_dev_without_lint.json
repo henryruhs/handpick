@@ -29,7 +29,8 @@
 		"chai": "v2.0",
 		"eslint": "^2.0.0",
 		"eslint-config-redaxmedia": "~2.0.0",
-		"mocha": ">2"
+		"mocha": ">2",
+		"sinon": "https://github.com/sinonjs/sinon.git"
 	},
 	"dependencies":
 	{

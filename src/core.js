@@ -132,19 +132,20 @@ function prepare(packageObject)
 
 	Object.keys(resultObject['dependencies']).map(resultValue =>
 	{
-		const resultVersion = semver.coerce(resultObject['dependencies'][resultValue]).version;
+		const coerceObject = semver.coerce(resultObject['dependencies'][resultValue]);
+		const version = coerceObject ? coerceObject.version : null;
 
-		if (range === 'exact')
+		if (range === 'exact' && version)
 		{
-			resultObject['dependencies'][resultValue] = resultVersion;
+			resultObject['dependencies'][resultValue] = version;
 		}
-		if (range === 'patch')
+		if (range === 'patch' && version)
 		{
-			resultObject['dependencies'][resultValue] = '~' + resultVersion;
+			resultObject['dependencies'][resultValue] = '~' + version;
 		}
-		if (range === 'minor')
+		if (range === 'minor' && version)
 		{
-			resultObject['dependencies'][resultValue] = '^' + resultVersion;
+			resultObject['dependencies'][resultValue] = '^' + version;
 		}
 	});
 	return resultObject;
