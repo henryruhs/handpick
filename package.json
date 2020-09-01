@@ -25,7 +25,7 @@
 	},
 	"dependencies":
 	{
-		"commander": "6.0.0",
+		"commander": "6.1.0",
 		"ora": "5.0.0",
 		"semver": "7.3.2",
 		"utility-redaxmedia": "1.0.0"
