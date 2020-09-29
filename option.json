@@ -38,6 +38,5 @@
 		"devDependencies"
 	],
 	"filterArray": [],
-	"path": ".",
-	"file": "package.json"
+	"path": "."
 }

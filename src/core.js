@@ -19,7 +19,7 @@ let option;
 
 async function readFile()
 {
-	const absolutePath = path.resolve(option.get('path') + '/' + option.get('file'));
+	const absolutePath = path.resolve(option.get('path') + '/package.json');
 	const readFileAsync = promisify(fs.readFile);
 
 	return await readFileAsync(absolutePath);
@@ -50,7 +50,7 @@ async function readObjectFromFile()
 
 async function writeFile(content)
 {
-	const absolutePath = path.resolve(option.get('path') + '/' + option.get('file'));
+	const absolutePath = path.resolve(option.get('path') + '/package.json');
 	const writeFileAsync = promisify(fs.writeFile);
 
 	return await writeFileAsync(absolutePath, content);
@@ -69,6 +69,21 @@ async function writeFile(content)
 async function writeObjectToFile(packageObject)
 {
 	return await writeFile(helper.json.stringify(packageObject));
+}
+
+/**
+ * count package
+ *
+ * @since 3.1.0
+ *
+ * @return {number}
+ */
+
+function countPackage()
+{
+	const absolutePath = path.resolve(option.get('path') + '/node_modules');
+
+	return fs.existsSync(absolutePath) ? fs.readdirSync(absolutePath).length : 0;
 }
 
 /**
@@ -181,6 +196,36 @@ function startWording()
 }
 
 /**
+ * end wording
+ *
+ * @since 3.1.0
+ *
+ * @param {number} startTime
+ * @param {number} endTime
+ * @param {number} startPackage
+ * @param {number} endPackage
+ *
+ * @return {string}
+ */
+
+function endWording(startTime, endTime, startPackage, endPackage)
+{
+	const resultTime = (endTime - startTime) / 1000;
+	const resultPackage = endPackage - startPackage;
+	const wordingArray =
+	[
+		wordingObject.done,
+		resultPackage,
+		resultPackage > 1 ? wordingObject.packages : wordingObject.package,
+		wordingObject.in,
+		resultTime.toFixed(2),
+		resultTime > 1 ? wordingObject.seconds : wordingObject.second
+	];
+
+	return wordingArray.join(' ');
+}
+
+/**
  * init
  *
  * @since 1.0.0
@@ -192,6 +237,8 @@ function init()
 {
 	const manager = option.get('manager');
 	const managerObject = option.get('managerObject');
+	const startTime = Date.now();
+	const startPackage = countPackage();
 
 	let originalContent = null;
 	let managerProcess = null;
@@ -218,6 +265,7 @@ function init()
 					{
 						writeFile(originalContent)
 							.then(code === 0 ? spinner.succeed() : spinner.fail())
+							.then(spinner.info(endWording(startTime, Date.now(), startPackage, countPackage())))
 							.catch(error => spinner.fail(error.toString()));
 					});
 					managerProcess.on('error', () => null);
@@ -256,6 +304,7 @@ function construct(injectorObject)
 	{
 		init,
 		startWording,
+		endWording,
 		readFile,
 		readObjectFromFile,
 		writeFile,

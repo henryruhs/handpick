@@ -70,8 +70,7 @@ Create a `.handpick` file to override configuration:
 		"devDependencies"
 	],
 	"filterArray": [],
-	"path": ".",
-	"file": "package.json"
+	"path": "."
 }
 ```
 

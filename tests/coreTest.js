@@ -186,4 +186,14 @@ describe('core', () =>
 		]);
 		expect(CORE.startWording()).to.equal('Hand picking EXACT devDependencies without lintDependencies via YARN');
 	});
+
+	it('end wording', () =>
+	{
+		option.initWithConfig(
+		{
+			path: 'tests/provider/core'
+		});
+		expect(CORE.endWording(0, 1000, 0, 1)).to.equal('Done 1 package in 1.00 second');
+		expect(CORE.endWording(0, 2000, 0, 2)).to.equal('Done 2 packages in 2.00 seconds');
+	});
 });
