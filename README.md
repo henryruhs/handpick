@@ -71,7 +71,8 @@ Create a `.handpick` file to override configuration:
 	],
 	"filterArray": [],
 	"path": ".",
-	"file": "package.json"
+	"packageFile": "package.json",
+	"packageDirectory": "node_modules"
 }
 ```
 

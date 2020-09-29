@@ -39,5 +39,6 @@
 	],
 	"filterArray": [],
 	"path": ".",
-	"file": "package.json"
+	"packageFile": "package.json",
+	"packageDirectory": "node_modules"
 }
