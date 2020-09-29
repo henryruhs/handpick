@@ -10,7 +10,7 @@ let spinner;
 let option;
 
 /**
- * read the package file
+ * read package file
  *
  * @since 1.0.0
  *
@@ -26,7 +26,7 @@ async function readPackageFile()
 }
 
 /**
- * read object from the package file
+ * read object from package file
  *
  * @since 1.0.0
  *
@@ -39,7 +39,7 @@ async function readObjectFromPackageFile()
 }
 
 /**
- * write the package file
+ * write package file
  *
  * @since 1.0.0
  *
@@ -57,7 +57,7 @@ async function writePackageFile(content)
 }
 
 /**
- * write object to the package file
+ * write object to package file
  *
  * @since 1.0.0
  *
@@ -72,7 +72,7 @@ async function writeObjectToPackageFile(packageObject)
 }
 
 /**
- * count the package directory
+ * count package directory
  *
  * @since 3.1.0
  *
@@ -309,6 +309,7 @@ function construct(injectorObject)
 		readObjectFromPackageFile,
 		writePackageFile,
 		writeObjectToPackageFile,
+		countPackageDirectory,
 		prepare
 	};
 

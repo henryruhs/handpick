@@ -17,7 +17,7 @@ describe('core', () =>
 		option.initWithConfig(initObject);
 	});
 
-	it('read object from file', done =>
+	it('read object from package file', done =>
 	{
 		option.initWithConfig(
 		{
@@ -38,7 +38,7 @@ describe('core', () =>
 			.catch(() => done('error'));
 	});
 
-	it('write object to file', done =>
+	it('write object to package file', done =>
 	{
 		option.initWithConfig(
 		{
@@ -60,6 +60,11 @@ describe('core', () =>
 					.catch(() => done('error'));
 			})
 			.catch(() => done('error'));
+	});
+
+	it('count package directory', () =>
+	{
+		expect(CORE.countPackageDirectory()).to.be.above(10);
 	});
 
 	it('prepare prod and dev', done =>
