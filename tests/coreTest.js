@@ -23,7 +23,7 @@ describe('core', () =>
 		{
 			path: 'tests/provider/core'
 		});
-		CORE.readObjectFromFile()
+		CORE.readObjectFromPackageFile()
 			.then(packageObject =>
 			{
 				expect(packageObject).to.have.property('name');
@@ -43,15 +43,15 @@ describe('core', () =>
 		option.initWithConfig(
 		{
 			path: 'tests/provider/core',
-			file: 'package_write.json'
+			packageFile: 'package_write.json'
 		});
-		CORE.writeObjectToFile(
+		CORE.writeObjectToPackageFile(
 			{
 				name: 'test-write'
 			})
 			.then(() =>
 			{
-				CORE.readObjectFromFile()
+				CORE.readObjectFromPackageFile()
 					.then(packageObject =>
 					{
 						expect(packageObject).to.have.property('name');
@@ -68,11 +68,11 @@ describe('core', () =>
 		{
 			path: 'tests/provider/core'
 		});
-		CORE.readObjectFromFile()
+		CORE.readObjectFromPackageFile()
 			.then(packageObject =>
 			{
-				option.set('file', 'package_prepare_prod_and_dev.json');
-				CORE.readObjectFromFile()
+				option.set('packageFile', 'package_prepare_prod_and_dev.json');
+				CORE.readObjectFromPackageFile()
 					.then(expectObject =>
 					{
 						expect(CORE.prepare(packageObject)).to.deep.equal(expectObject);
@@ -96,11 +96,11 @@ describe('core', () =>
 					'dirtyDependencies'
 				]
 			});
-			CORE.readObjectFromFile()
+			CORE.readObjectFromPackageFile()
 				.then(packageObject =>
 				{
-					option.set('file', 'package_prepare_dirty_to_' + range + '.json');
-					CORE.readObjectFromFile()
+					option.set('packageFile', 'package_prepare_dirty_to_' + range + '.json');
+					CORE.readObjectFromPackageFile()
 						.then(expectObject =>
 						{
 							expect(CORE.prepare(packageObject)).to.deep.equal(expectObject);
@@ -123,11 +123,11 @@ describe('core', () =>
 				'testDependencies'
 			]
 		});
-		CORE.readObjectFromFile()
+		CORE.readObjectFromPackageFile()
 			.then(packageObject =>
 			{
-				option.set('file', 'package_prepare_lint_and_test.json');
-				CORE.readObjectFromFile()
+				option.set('packageFile', 'package_prepare_lint_and_test.json');
+				CORE.readObjectFromPackageFile()
 					.then(expectObject =>
 					{
 						expect(CORE.prepare(packageObject)).to.deep.equal(expectObject);
@@ -152,11 +152,11 @@ describe('core', () =>
 				'lintDependencies'
 			]
 		});
-		CORE.readObjectFromFile()
+		CORE.readObjectFromPackageFile()
 			.then(packageObject =>
 			{
-				option.set('file', 'package_prepare_dev_without_lint.json');
-				CORE.readObjectFromFile()
+				option.set('packageFile', 'package_prepare_dev_without_lint.json');
+				CORE.readObjectFromPackageFile()
 					.then(expectObject =>
 					{
 						expect(CORE.prepare(packageObject)).to.deep.equal(expectObject);

@@ -14,6 +14,7 @@ describe('option', () =>
 		expect(option.get('config')).to.equal('tests/provider/option/.handpick');
 		expect(option.get('ignorePrefix')).to.equal('____');
 		expect(option.get('manager')).to.equal('yarn');
-		expect(option.get('file')).to.equal('package.json');
+		expect(option.get('packageFile')).to.equal('package.json');
+		expect(option.get('packageDirectory')).to.equal('node_modules');
 	});
 });

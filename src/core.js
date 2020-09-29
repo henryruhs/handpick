@@ -10,36 +10,36 @@ let spinner;
 let option;
 
 /**
- * read file
+ * read the package file
  *
  * @since 1.0.0
  *
  * @return {Promise}
  */
 
-async function readFile()
+async function readPackageFile()
 {
-	const absolutePath = path.resolve(option.get('path') + '/package.json');
+	const absolutePath = path.resolve(option.get('path') + '/' + option.get('packageFile'));
 	const readFileAsync = promisify(fs.readFile);
 
 	return await readFileAsync(absolutePath);
 }
 
 /**
- * read object from file
+ * read object from the package file
  *
  * @since 1.0.0
  *
  * @return {Promise}
  */
 
-async function readObjectFromFile()
+async function readObjectFromPackageFile()
 {
-	return await readFile().then(content => helper.json.parse(content));
+	return await readPackageFile().then(content => helper.json.parse(content));
 }
 
 /**
- * write file
+ * write the package file
  *
  * @since 1.0.0
  *
@@ -48,16 +48,16 @@ async function readObjectFromFile()
  * @return {Promise}
  */
 
-async function writeFile(content)
+async function writePackageFile(content)
 {
-	const absolutePath = path.resolve(option.get('path') + '/package.json');
+	const absolutePath = path.resolve(option.get('path') + '/' + option.get('packageFile'));
 	const writeFileAsync = promisify(fs.writeFile);
 
 	return await writeFileAsync(absolutePath, content);
 }
 
 /**
- * write object to file
+ * write object to the package file
  *
  * @since 1.0.0
  *
@@ -66,22 +66,22 @@ async function writeFile(content)
  * @return {Promise}
  */
 
-async function writeObjectToFile(packageObject)
+async function writeObjectToPackageFile(packageObject)
 {
-	return await writeFile(helper.json.stringify(packageObject));
+	return await writePackageFile(helper.json.stringify(packageObject));
 }
 
 /**
- * count package
+ * count the package directory
  *
  * @since 3.1.0
  *
  * @return {number}
  */
 
-function countPackage()
+function countPackageDirectory()
 {
-	const absolutePath = path.resolve(option.get('path') + '/node_modules');
+	const absolutePath = path.resolve(option.get('path') + '/' + option.get('packageDirectory'));
 
 	return fs.existsSync(absolutePath) ? fs.readdirSync(absolutePath).length : 0;
 }
@@ -238,13 +238,13 @@ function init()
 	const manager = option.get('manager');
 	const managerObject = option.get('managerObject');
 	const startTime = Date.now();
-	const startPackage = countPackage();
+	const startPackage = countPackageDirectory();
 
 	let originalContent = null;
 	let managerProcess = null;
 
 	spinner.start(startWording());
-	readFile()
+	readPackageFile()
 		.then(content =>
 		{
 			originalContent = content;
@@ -252,7 +252,7 @@ function init()
 		})
 		.then(packageObject =>
 		{
-			writeObjectToFile(prepare(packageObject))
+			writeObjectToPackageFile(prepare(packageObject))
 				.then(() =>
 				{
 					managerProcess = spawn(manager, managerObject[manager],
@@ -263,9 +263,9 @@ function init()
 					});
 					managerProcess.on('close', code =>
 					{
-						writeFile(originalContent)
+						writePackageFile(originalContent)
 							.then(code === 0 ? spinner.succeed() : spinner.fail())
-							.then(spinner.info(endWording(startTime, Date.now(), startPackage, countPackage())))
+							.then(spinner.info(endWording(startTime, Date.now(), startPackage, countPackageDirectory())))
 							.catch(error => spinner.fail(error.toString()));
 					});
 					managerProcess.on('error', () => null);
@@ -305,10 +305,10 @@ function construct(injectorObject)
 		init,
 		startWording,
 		endWording,
-		readFile,
-		readObjectFromFile,
-		writeFile,
-		writeObjectToFile,
+		readPackageFile,
+		readObjectFromPackageFile,
+		writePackageFile,
+		writeObjectToPackageFile,
 		prepare
 	};
 

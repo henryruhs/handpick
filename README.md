@@ -70,7 +70,9 @@ Create a `.handpick` file to override configuration:
 		"devDependencies"
 	],
 	"filterArray": [],
-	"path": "."
+	"path": ".",
+	"packageFile": "package.json",
+	"packageDirectory": "node_modules"
 }
 ```
 
