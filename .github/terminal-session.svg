@@ -4,22 +4,19 @@
 	<circle cx="40" cy="20" r="6" class="is-warning "/>
 	<circle cx="60" cy="20" r="6" class="is-success" />
 	<foreignObject x="20" y="50" height="320" width="867">
-		<pre xmlns="http://www.w3.org/1999/xhtml" class="code-terminal-session"><span class="is-success">redaxmedia@local</span>:<span class="is-info">~/angular-project</span>$ handpick
+		<pre xmlns="http://www.w3.org/1999/xhtml" class="code-terminal-session"><span class="is-success">redaxmedia@local</span>:<span class="is-info">~/project</span>$ handpick
 <span class="is-success">✔</span> Hand picking DIRTY dependencies and devDependencies via NPM
+<span class="is-info">ℹ</span> Done 1000 packages in 100.00 seconds
 
-<span class="is-warning">869</span> packages loaded
 
-
-<span class="is-success">redaxmedia@local</span>:<span class="is-info">~/angular-project</span>$ handpick --target=lintDependencies
+<span class="is-success">redaxmedia@local</span>:<span class="is-info">~/project</span>$ handpick --target=lintDependencies
 <span class="is-success">✔</span> Hand picking DIRTY lintDependencies via NPM
+<span class="is-info">ℹ</span> Done 100 packages in 20.00 seconds
 
-<span class="is-warning">774</span> packages loaded to run <span class="is-warning">ng lint</span>
 
-
-<span class="is-success">redaxmedia@local</span>:<span class="is-info">~/angular-project</span>$ handpick --target=lintDependencies
-<span class="is-success">✔</span> Hand picking DIRTY lintDependencies via NPM
-
-<span class="is-warning">036</span> packages loaded to run <span class="is-warning">tslint</span> without <span class="is-warning">codelyzer</span>
+<span class="is-success">redaxmedia@local</span>:<span class="is-info">~/project</span>$ handpick --filter=lintDependencies
+<span class="is-success">✔</span> Hand picking DIRTY dependencies and devDependencies without lintDependencies via NPM
+<span class="is-info">ℹ</span> Done 900 packages in 80.00 seconds
 		</pre>
 	</foreignObject>
 	<defs>
