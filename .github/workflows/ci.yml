@@ -1,4 +1,4 @@
-name: node
+name: ci
 
 on: push
 
@@ -11,7 +11,7 @@ jobs:
   steps:
   - name: checkout
     uses: actions/checkout@v2
-  - name: ${{ matrix.node-version }}
+  - name: node ${{ matrix.node-version }}
     uses: actions/setup-node@v1
     with:
      node-version: ${{ matrix.node-version }}
