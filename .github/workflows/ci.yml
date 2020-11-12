@@ -6,10 +6,12 @@ jobs:
  lint:
   runs-on: ubuntu-latest
   steps:
-  - uses: actions/checkout@v2
-  - uses: actions/setup-node@v1
+  - name: Checkout
+    uses: actions/checkout@v2
+  - name: Set up Node 15
+    uses: actions/setup-node@v1
     with:
-     node-version: ${{ matrix.node-version }}
+     node-version: 15
   - run: npm install
   - run: npm run lint
  test:
