@@ -7,14 +7,14 @@ jobs:
   runs-on: ubuntu-latest
   strategy:
    matrix:
-    node-version: [ 8, 9, 10, 11, 12, 13, 14, 15 ]
+    node: [ 8, 9, 10, 11, 12, 13, 14, 15 ]
   steps:
-  - name: checkout
+  - name: Checkout
     uses: actions/checkout@v2
-  - name: node ${{ matrix.node-version }}
+  - name: Node ${{ matrix.node }}
     uses: actions/setup-node@v1
     with:
-     node-version: ${{ matrix.node-version }}
+     node-version: ${{ matrix.node }}
   - run: npm install
   - run: npm run lint
   - run: npm run test:coverage
