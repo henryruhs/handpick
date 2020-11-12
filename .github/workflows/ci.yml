@@ -3,7 +3,16 @@ name: ci
 on: push
 
 jobs:
- build:
+ lint:
+  runs-on: ubuntu-latest
+  steps:
+  - uses: actions/checkout@v2
+  - uses: actions/setup-node@v1
+    with:
+     node-version: ${{ matrix.node-version }}
+  - run: npm install
+  - run: npm run lint
+ test:
   runs-on: ubuntu-latest
   strategy:
    matrix:
@@ -16,5 +25,4 @@ jobs:
     with:
      node-version: ${{ matrix.node-version }}
   - run: npm install
-  - run: npm run lint
   - run: npm run test:coverage
