@@ -65,6 +65,11 @@ describe('core', () =>
 	it('count package directory', () =>
 	{
 		expect(CORE.countPackageDirectory()).to.be.above(10);
+		option.initWithConfig(
+		{
+			packageDirectory: 'invalid'
+		});
+		expect(CORE.countPackageDirectory()).to.be.equal(0);
 	});
 
 	it('prepare prod and dev', done =>

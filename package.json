@@ -1,7 +1,7 @@
 {
 	"name": "handpick",
 	"description": "Handpick conditional dependencies like a boss",
-	"version": "3.1.0",
+	"version": "3.1.1",
 	"license": "MIT",
 	"keywords":
 	[
@@ -25,7 +25,7 @@
 	},
 	"dependencies":
 	{
-		"commander": "6.1.0",
+		"commander": "6.2.0",
 		"ora": "5.1.0",
 		"semver": "7.3.2",
 		"utility-redaxmedia": "1.0.0"
