@@ -26,7 +26,7 @@ describe('core', () =>
 			done();
 		});
 	})
-	.timeout(5000);
+	.timeout(10000);
 
 	it('run help command', done =>
 	{
