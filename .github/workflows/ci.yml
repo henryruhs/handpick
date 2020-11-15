@@ -43,4 +43,4 @@ jobs:
   - name: Report to coveralls
     uses: coverallsapp/github-action@v1.1.2
     with:
-     github-token: ${{ secret.GITHUB_TOKEN }}
+     github-token: ${{ secrets.GITHUB_TOKEN }}
