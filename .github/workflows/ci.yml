@@ -40,6 +40,7 @@ jobs:
      node-version: 15
   - run: npm install
   - run: npm run test:coverage
+  - run: npm run test:report
   - name: Report to coveralls
     uses: coverallsapp/github-action@v1.1.2
     with:
