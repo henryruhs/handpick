@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+const exec = require('child_process').exec;
 const helper = require('utility-redaxmedia').helper;
 const handpick = require('../');
 const core = handpick.core;
@@ -15,6 +16,34 @@ describe('core', () =>
 		const initObject = helper.module.load(__dirname + '/../option.json');
 
 		option.initWithConfig(initObject);
+	});
+
+	it('run main command', done =>
+	{
+		exec('bin/handpick', error =>
+		{
+			expect(error).to.be.null;
+			done();
+		});
+	})
+	.timeout(10000);
+
+	it('run help command', done =>
+	{
+		exec('bin/handpick --help', (error, stdout) =>
+		{
+			expect(stdout).to.match(/handpick/);
+			done();
+		});
+	});
+
+	it('run version command', done =>
+	{
+		exec('bin/handpick --version', (error, stdout) =>
+		{
+			expect(stdout).to.match(/handpick/);
+			done();
+		});
 	});
 
 	it('read object from package file', done =>
