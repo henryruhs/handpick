@@ -42,7 +42,7 @@ jobs:
   - run: npm install nyc  
   - run: node_modules/.bin/nyc node_modules/.bin/mocha
   - run: node_modules/.bin/nyc report --reporter=lcov
-  - name: Report to coveralls
+  - name: Report to Coveralls
     uses: coverallsapp/github-action@v1.1.2
     with:
      github-token: ${{ secrets.GITHUB_TOKEN }}
