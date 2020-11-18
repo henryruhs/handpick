@@ -15,11 +15,10 @@ jobs:
   - run: npm install
   - run: npm run lint
  test:
-  runs-on: ${{ matrix.os }}
+  runs-on: ubuntu-latest
   strategy:
    matrix:
     node-version: [ 8, 9, 10, 11, 12, 13, 14, 15 ]
-    os: [ macos-latest, ubuntu-latest ]
   steps:
   - name: Checkout
     uses: actions/checkout@v2
