@@ -1,7 +1,7 @@
 {
 	"name": "handpick",
 	"description": "Handpick conditional dependencies like a boss",
-	"version": "3.1.1",
+	"version": "3.1.2",
 	"license": "MIT",
 	"keywords":
 	[
@@ -35,16 +35,13 @@
 		"chai": "4.2.0",
 		"eslint": "6.8.0",
 		"eslint-config-redaxmedia": "2.1.0",
-		"mocha": "7.2.0",
-		"nyc": "15.1.0"
+		"mocha": "7.2.0"
 	},
 	"scripts":
 	{
 		"lint": "eslint bin/handpick src tests",
 		"fix": "eslint bin/handpick src tests --fix",
-		"test": "mocha",
-		"test:coverage": "nyc mocha",
-		"test:report": "nyc report --reporter=lcov"
+		"test": "mocha"
 	},
 	"bin":
 	{
