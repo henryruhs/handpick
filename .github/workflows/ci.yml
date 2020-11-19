@@ -40,8 +40,7 @@ jobs:
      node-version: 15
   - run: npm install
   - run: npm install nyc  
-  - run: node_modules/.bin/nyc node_modules/.bin/mocha
-  - run: node_modules/.bin/nyc report --reporter=lcov
+  - run: node_modules/.bin/nyc --reporter=lcov node_modules/.bin/mocha 
   - name: Report to Coveralls
     uses: coverallsapp/github-action@v1.1.2
     with:
