@@ -275,7 +275,7 @@ function init()
 						'SIGQUIT',
 						'SIGTERM',
 						'uncaughtException'
-					].forEach((eventType) =>
+					].forEach(eventType =>
 					{
 						process.on(eventType, () => managerProcess.emit('error',
 						{
