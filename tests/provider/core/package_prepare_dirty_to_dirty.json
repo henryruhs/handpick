@@ -19,6 +19,10 @@
 		"eslint": "1.0.0",
 		"eslint-config-redaxmedia": "1.0.0"
 	},
+	"assertDependencies":
+	{
+		"chai": "1.0.0"
+	},
 	"testDependencies":
 	{
 		"chai": "1.0.0",
@@ -27,17 +31,21 @@
 	"dirtyDependencies":
 	{
 		"chai": "v2.0",
+		"commander": "2",
 		"eslint": "^2.0.0",
 		"eslint-config-redaxmedia": "~2.0.0",
 		"mocha": ">2",
-		"sinon": "https://github.com/sinonjs/sinon.git"
+		"ora": "2.0",
+		"utility-redaxmedia": "https://github.com/redaxmedia/utility-redaxmedia.git"
 	},
 	"dependencies":
 	{
 		"chai": "v2.0",
+		"commander": "2",
 		"eslint": "^2.0.0",
 		"eslint-config-redaxmedia": "~2.0.0",
 		"mocha": ">2",
-		"sinon": "https://github.com/sinonjs/sinon.git"
+		"ora": "2.0",
+		"utility-redaxmedia": "https://github.com/redaxmedia/utility-redaxmedia.git"
 	}
 }

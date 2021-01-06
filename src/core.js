@@ -102,6 +102,7 @@ function prepare(packageObject)
 	const targetArray = option.get('targetArray');
 	const filterArray = option.get('filterArray');
 	const range = option.get('range');
+	const filterFlatArray = [];
 	const filterObject = {};
 	const resultObject = {};
 
@@ -133,15 +134,19 @@ function prepare(packageObject)
 
 	filterArray.map(filterValue =>
 	{
-		Object.keys(resultObject['dependencies']).filter(resultValue =>
+		Object.keys(resultObject[filterValue]).map(filterFlatValue =>
 		{
-			if (packageObject[filterValue] && !Object.keys(packageObject[filterValue]).includes(resultValue))
-			{
-				filterObject[resultValue] = resultObject['dependencies'][resultValue];
-			}
+			filterFlatArray.push(filterFlatValue);
 		});
-		resultObject['dependencies'] = filterObject;
 	});
+	Object.keys(resultObject['dependencies']).map(resultValue =>
+	{
+		if (!filterFlatArray.includes(resultValue))
+		{
+			filterObject[resultValue] = resultObject['dependencies'][resultValue];
+		}
+	});
+	resultObject['dependencies'] = filterObject;
 
 	/* handle range */
 

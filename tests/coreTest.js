@@ -177,7 +177,7 @@ describe('core', () =>
 			.catch(() => done('error'));
 	});
 
-	it('prepare dev without lint', done =>
+	it('prepare dev without assert and lint', done =>
 	{
 		option.initWithConfig(
 		{
@@ -188,13 +188,14 @@ describe('core', () =>
 			],
 			filterArray:
 			[
+				'assertDependencies',
 				'lintDependencies'
 			]
 		});
 		CORE.readObjectFromPackageFile()
 			.then(packageObject =>
 			{
-				option.set('packageFile', 'package_prepare_dev_without_lint.json');
+				option.set('packageFile', 'package_prepare_dev_without_assert_and_lint.json');
 				CORE.readObjectFromPackageFile()
 					.then(expectObject =>
 					{
