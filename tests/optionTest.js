@@ -9,7 +9,7 @@ describe('option', () =>
 		option.initWithConfig(
 		{
 			config: 'tests/provider/option/.handpick',
-			ignorePrefix: "____"
+			ignorePrefix: '____'
 		});
 		expect(option.get('config')).to.equal('tests/provider/option/.handpick');
 		expect(option.get('ignorePrefix')).to.equal('____');
