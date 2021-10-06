@@ -248,11 +248,15 @@ function init()
 	let originalContent = null;
 	let managerProcess = null;
 
-	spinner.start(startWording());
+	spinner.start(
+	{
+		text: startWording()
+	});
 	readPackageFile()
 		.then(content =>
 		{
 			originalContent = content;
+
 			return helper.json.parse(content);
 		})
 		.then(packageObject =>
@@ -269,9 +273,15 @@ function init()
 					managerProcess.on('close', code =>
 					{
 						writePackageFile(originalContent)
-							.then(code === 0 ? spinner.succeed() : spinner.fail())
-							.then(spinner.info(endWording(startTime, Date.now(), startPackage, countPackageDirectory())))
-							.catch(error => spinner.fail(error.toString()));
+							.then(code === 0 ? spinner.success() : spinner.error())
+							.then(spinner.update(
+							{
+								text: endWording(startTime, Date.now(), startPackage, countPackageDirectory())
+							}))
+							.catch(error => spinner.error(
+							{
+								text: error.toString()
+							}));
 					});
 					managerProcess.on('error', () => null);
 					[
@@ -288,9 +298,15 @@ function init()
 						}));
 					});
 				})
-				.catch(error => spinner.fail(error.toString()));
+				.catch(error => spinner.error(
+				{
+					text: error.toString()
+				}));
 		})
-		.catch(error => spinner.fail(error.toString()));
+		.catch(error => spinner.error(
+		{
+			text: error.toString()
+		}));
 }
 
 /**
