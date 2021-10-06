@@ -248,8 +248,7 @@ function init()
 	let originalContent = null;
 	let managerProcess = null;
 
-	spinner.start();
-	spinner.update(
+	spinner.start(
 	{
 		text: startWording()
 	});
