@@ -274,9 +274,10 @@ function init()
 					{
 						writePackageFile(originalContent)
 							.then(code === 0 ? spinner.success() : spinner.error())
-							.then(spinner.update(
+							.then(spinner.stop(
 							{
-								text: endWording(startTime, Date.now(), startPackage, countPackageDirectory())
+								text: endWording(startTime, Date.now(), startPackage, countPackageDirectory()),
+								mark: '-'
 							}))
 							.catch(error => spinner.error(
 							{

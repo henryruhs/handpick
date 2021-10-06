@@ -6,17 +6,17 @@
 	<foreignObject x="20" y="50" height="320" width="867">
 		<pre xmlns="http://www.w3.org/1999/xhtml" class="code-terminal-session"><span class="is-success">redaxmedia@local</span>:<span class="is-info">~/project</span>$ handpick
 <span class="is-success">✔</span> Hand picking DIRTY dependencies and devDependencies via NPM
-<span class="is-info">ℹ</span> Done 1000 packages in 100.00 seconds
+<span>-</span> Done 1000 packages in 100.00 seconds
 
 
 <span class="is-success">redaxmedia@local</span>:<span class="is-info">~/project</span>$ handpick --target=lintDependencies
 <span class="is-success">✔</span> Hand picking DIRTY lintDependencies via NPM
-<span class="is-info">ℹ</span> Done 100 packages in 20.00 seconds
+<span>-</span> Done 100 packages in 20.00 seconds
 
 
 <span class="is-success">redaxmedia@local</span>:<span class="is-info">~/project</span>$ handpick --filter=lintDependencies
 <span class="is-success">✔</span> Hand picking DIRTY dependencies and devDependencies without lintDependencies via NPM
-<span class="is-info">ℹ</span> Done 900 packages in 80.00 seconds
+<span>-</span> Done 900 packages in 80.00 seconds
 		</pre>
 	</foreignObject>
 	<defs>
