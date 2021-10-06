@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
-const ora = require('ora');
+const createSpinner = require('nanospinner').createSpinner;
 const handpick = require('../');
 const core = handpick.core;
 const option = handpick.option;
@@ -34,10 +34,7 @@ option.initWithConfig(
 });
 CORE = new core(
 {
-	spinner: ora(
-	{
-		spinner: 'bouncingBar'
-	}),
+	spinner: createSpinner(),
 	option
 });
 CORE.init();
