@@ -34,7 +34,11 @@ option.initWithConfig(
 });
 CORE = new core(
 {
-	spinner: ora(),
+	spinner: ora(
+	{
+		spinner: 'dots',
+		interval: 40
+	}),
 	option
 });
 CORE.init();
