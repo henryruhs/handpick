@@ -1,7 +1,7 @@
 {
 	"name": "handpick",
 	"description": "Handpick conditional dependencies like a boss",
-	"version": "4.0.1",
+	"version": "3.2.0",
 	"license": "MIT",
 	"keywords":
 	[
@@ -26,13 +26,13 @@
 	"dependencies":
 	{
 		"commander": "6.2.1",
-		"nanospinner": "0.2.2",
-		"semver": "7.3.4",
-		"utility-redaxmedia": "1.1.0"
+		"ora": "5.1.0",
+		"semver": "7.3.5",
+		"utility-redaxmedia": "1.2.0"
 	},
 	"devDependencies":
 	{
-		"chai": "4.2.0",
+		"chai": "4.3.4",
 		"eslint": "6.8.0",
 		"eslint-config-redaxmedia": "3.2.0",
 		"mocha": "7.2.0"
