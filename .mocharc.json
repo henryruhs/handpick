@@ -3,6 +3,11 @@
 	[
 		"ts"
 	],
+	"node-option":
+	[
+		"experimental-specifier-resolution=node",
+		"loader=ts-node/esm"
+	],
 	"require": "tests/setup.mjs",
 	"spec": "tests/**/*.spec.ts"
 }
