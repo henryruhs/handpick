@@ -1,10 +1,15 @@
-import * as ora from 'ora';
+import ora, { Ora } from 'ora';
 
 export class Spinner
 {
-	protected spinner : ora.Ora;
+	protected spinner : Ora;
 
 	constructor()
+	{
+		this.createInstance();
+	}
+
+	createInstance() : void
 	{
 		this.spinner = ora(
 		{
@@ -13,7 +18,7 @@ export class Spinner
 		});
 	}
 
-	getInstance() : ora.Ora
+	getInstance() : Ora
 	{
 		return this.spinner;
 	}
