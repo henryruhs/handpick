@@ -1,14 +1,20 @@
-import { program } from 'commander';
 import * as fs from 'fs-extra';
-import { Option } from './Option';
+import { Option } from './option';
+import { Spinner } from './spinner';
+import { program } from 'commander';
 
-export class Cli
+export class Core
 {
-	constructor(protected option : Option)
+	constructor (protected option : Option, protected spinner : Spinner)
 	{
 	}
 
-	init(process : NodeJS.Process) : void
+	init() : void
+	{
+		this.spinner.getInstance().start('@start');
+	}
+
+	cli(process : NodeJS.Process) : void
 	{
 		const packageObject : Record<string, string> = fs.readJsonSync('./package.json');
 		const targetArray : string[] = [];
@@ -24,22 +30,17 @@ export class Cli
 			.option('-P, --path <path>')
 			.parse(process.argv);
 
-		this.setOption(targetArray, filterArray);
-	}
+		/* init as needed */
 
-	protected setOption(targetArray : string[], filterArray : string[]) : void
-	{
-		this.option.set('config', program.config);
-		if (targetArray.length)
+		this.option.initWithConfig(
 		{
-			this.option.set('targetArray', targetArray);
-		}
-		if (filterArray.length)
-		{
-			this.option.set('filterArray', filterArray);
-		}
-		this.option.set('manager', program.manager);
-		this.option.set('path', program.path);
-		this.option.set('range', program.range);
+			config: program.config,
+			targetArray: targetArray.length ? targetArray : this.option.get('targetArray'),
+			filterArray: filterArray.length ? filterArray : this.option.get('filterArray'),
+			manager: program.manager,
+			path: program.path,
+			range: program.range
+		});
+		this.init();
 	}
 }

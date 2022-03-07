@@ -1,7 +1,8 @@
 {
 	"extension":
 	[
-		"js"
+		"ts"
 	],
-	"spec": "tests/*Test.js"
+	"require": "tests/setup.mjs",
+	"spec": "tests/**/*.spec.ts"
 }

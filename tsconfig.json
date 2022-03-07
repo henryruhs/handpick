@@ -1,6 +1,22 @@
 {
 	"compilerOptions":
 	{
-		"strict": true
-	}
+		"target": "es5",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"declaration": true,
+		"outDir": "./build"
+	},
+	"include":
+	[
+		"./src",
+		"./option.json",
+		"./wording.json",
+		"./package.json"
+	],
+	"exclude":
+	[
+		"./node_modules"
+	]
 }

@@ -8,17 +8,17 @@ jobs:
   steps:
   - name: Checkout
     uses: actions/checkout@v2
-  - name: Set up Node 14
+  - name: Set up Node 16
     uses: actions/setup-node@v1
     with:
-     node-version: 14
+     node-version: 16
   - run: npm install
   - run: npm run lint
  test:
   runs-on: ubuntu-latest
   strategy:
    matrix:
-    node-version: [ 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
+    node-version: [ 12, 13, 14, 15, 16, 17 ]
   steps:
   - name: Checkout
     uses: actions/checkout@v2
@@ -34,10 +34,10 @@ jobs:
   steps:
   - name: Checkout
     uses: actions/checkout@v2
-  - name: Set up Node 14
+  - name: Set up Node 16
     uses: actions/setup-node@v1
     with:
-     node-version: 14
+     node-version: 16
   - run: npm install
   - run: npm install nyc
   - run: node_modules/.bin/nyc --reporter=lcov node_modules/.bin/mocha
