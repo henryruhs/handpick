@@ -34,12 +34,12 @@ export class Core
 
 		this.option.initWithConfig(
 		{
-			config: program.config,
+			config: program.getOptionValue('config'),
 			targetArray: targetArray.length ? targetArray : this.option.get('targetArray'),
 			filterArray: filterArray.length ? filterArray : this.option.get('filterArray'),
-			manager: program.manager,
-			path: program.path,
-			range: program.range
+			manager: program.getOptionValue('manager'),
+			path: program.getOptionValue('path'),
+			range: program.getOptionValue('range')
 		});
 		this.init();
 	}
