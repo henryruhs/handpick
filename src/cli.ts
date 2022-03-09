@@ -2,4 +2,4 @@
 
 import { Core, Option, Spinner, Helper } from '.';
 
-(new Core(new Option(new Helper()), new Spinner())).cli(process);
+(new Core(new Option(new Helper()), new Spinner(), new Helper())).cli(process);

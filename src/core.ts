@@ -1,11 +1,11 @@
-import * as fs from 'fs-extra';
 import { Option } from './option';
 import { Spinner } from './spinner';
+import { Helper } from './helper';
 import { program } from 'commander';
 
 export class Core
 {
-	constructor (protected option : Option, protected spinner : Spinner)
+	constructor (protected option : Option, protected spinner : Spinner, protected helper : Helper)
 	{
 	}
 
@@ -16,7 +16,7 @@ export class Core
 
 	cli(process : NodeJS.Process) : void
 	{
-		const packageObject : Record<string, string> = fs.readJsonSync('./package.json');
+		const packageObject : Record<string, string> = this.helper.readJsonSync('./package.json') as Record<string, string>;
 		const targetArray : string[] = [];
 		const filterArray : string[] = [];
 

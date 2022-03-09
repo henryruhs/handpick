@@ -4,7 +4,7 @@ describe('Core', () =>
 {
 	it('create instance', done =>
 	{
-		new Core(new Option(new Helper()), new Spinner());
+		new Core(new Option(new Helper()), new Spinner(), new Helper());
 		done();
 	});
 });
