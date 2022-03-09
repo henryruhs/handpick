@@ -1,10 +1,10 @@
-import { Core, Option, Spinner } from '../src';
+import { Core, Option, Spinner, Helper } from '../src';
 
 describe('Core', () =>
 {
 	it('create instance', done =>
 	{
-		new Core(new Option(), new Spinner());
+		new Core(new Option(new Helper()), new Spinner());
 		done();
 	});
 });

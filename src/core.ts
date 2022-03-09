@@ -32,7 +32,7 @@ export class Core
 
 		/* init as needed */
 
-		this.option.initWithConfig(
+		this.option.setAll(
 		{
 			config: program.getOptionValue('config'),
 			targetArray: targetArray.length ? targetArray : this.option.get('targetArray'),

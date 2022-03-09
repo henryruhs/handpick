@@ -1,34 +1,22 @@
 import * as fs from 'fs';
+import { Helper } from './helper';
 
 export class Option
 {
-	protected optionObject : Record<string, number | string | string[]> = this.readJsonSync('./src/assets/option.json');
+	protected optionObject : object = this.helper.readJsonSync('./src/assets/option.json');
+
+	constructor(protected helper : Helper)
+	{
+	}
 
 	init(initObject : Record<string, number | string | string[]>) : void
 	{
-		this.optionObject =
-		{
-			...this.optionObject,
-			...this.tidy(initObject)
-		};
-	}
-
-	initWithConfig(initObject : Record<string, number | string | string[]>) : void
-	{
-		if (fs.existsSync(this.get('config') as fs.PathLike))
-		{
-			this.init(
-			{
-				...this.readJsonSync(this.get('config') as string),
-				...this.tidy(initObject)
-			});
-		}
 		if (fs.existsSync(initObject.config as fs.PathLike))
 		{
-			this.init(
+			this.setAll(
 			{
-				...this.readJsonSync(initObject.config as string),
-				...this.tidy(initObject)
+				...this.helper.readJsonSync(initObject.config as fs.PathLike),
+				...this.helper.tidy(initObject)
 			});
 		}
 	}
@@ -38,30 +26,27 @@ export class Option
 		return this.optionObject[name];
 	}
 
+	getAll() : object
+	{
+		return this.optionObject;
+	}
+
 	set(name : string, value : number | string | string[]) : void
 	{
 		this.optionObject[name] = value;
 	}
 
+	setAll(optionObject : Record<string, number | string | string[]>) : void
+	{
+		this.optionObject =
+		{
+			...this.optionObject,
+			...this.helper.tidy(optionObject)
+		};
+	}
+
 	clear() : void
 	{
 		this.optionObject = {};
-	}
-
-	protected tidy(dirtyObject : object) : object
-	{
-		return JSON.parse(JSON.stringify(dirtyObject));
-	}
-
-	protected readJsonSync(path : string) : Record<string, number | string | string[]>
-	{
-		try
-		{
-			return JSON.parse(fs.readFileSync(path, 'utf-8'));
-		}
-		catch
-		{
-			return {};
-		}
 	}
 }

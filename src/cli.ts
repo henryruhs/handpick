@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { Core, Option, Spinner } from '.';
+import { Core, Option, Spinner, Helper } from '.';
 
-(new Core(new Option(), new Spinner())).cli(process);
+(new Core(new Option(new Helper()), new Spinner())).cli(process);

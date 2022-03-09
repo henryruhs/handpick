@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Option } from '../src';
+import { Option, Helper } from '../src';
 
 describe('option', () =>
 {
@@ -7,12 +7,15 @@ describe('option', () =>
 
 	beforeEach(() =>
 	{
-		option = new Option();
+		option = new Option(new Helper());
 	});
 
-	it('init with config', () =>
+	it('init', () =>
 	{
-		option.initWithConfig(
+		expect(option.get('config')).to.equal('.handpick');
+		expect(option.get('ignorePrefix')).to.equal('__');
+		expect(option.get('manager')).to.equal('npm');
+		option.init(
 		{
 			config: 'tests/provider/option/.handpick',
 			ignorePrefix: '____'
@@ -22,5 +25,11 @@ describe('option', () =>
 		expect(option.get('manager')).to.equal('yarn');
 		expect(option.get('packageFile')).to.equal('package.json');
 		expect(option.get('packageDirectory')).to.equal('node_modules');
+	});
+
+	it('clear', () =>
+	{
+		option.clear();
+		expect(option.getAll()).to.deep.equal({});
 	});
 });
