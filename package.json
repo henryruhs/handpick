@@ -27,7 +27,6 @@
 	"dependencies":
 	{
 		"commander": "9.0.0",
-		"fs-extra": "10.0.1",
 		"ora": "6.1.0",
 		"semver": "7.3.5",
 		"rxjs": "7.5.4",
@@ -35,7 +34,6 @@
 	},
 	"devDependencies":
 	{
-		"@types/fs-extra": "9.0.13",
 		"@types/mocha": "9.1.0",
 		"@types/node": "17.0.21",
 		"@types/semver": "7.3.9",

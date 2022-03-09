@@ -1,9 +1,8 @@
-import * as fs from 'fs-extra';
-import { PathLike } from 'fs';
+import * as fs from 'fs';
 
 export class Option
 {
-	protected optionObject : Record<string, number | string | string[]> = {};
+	protected optionObject : Record<string, number | string | string[]> = this.readJsonSync('./src/assets/option.json');
 
 	init(initObject : Record<string, number | string | string[]>) : void
 	{
@@ -16,19 +15,19 @@ export class Option
 
 	initWithConfig(initObject : Record<string, number | string | string[]>) : void
 	{
-		if (fs.existsSync(this.get('config') as PathLike))
+		if (fs.existsSync(this.get('config') as fs.PathLike))
 		{
 			this.init(
 			{
-				...fs.readJsonSync(this.get('config') as string),
+				...this.readJsonSync(this.get('config') as string),
 				...this.tidy(initObject)
 			});
 		}
-		if (fs.existsSync(initObject.config as PathLike))
+		if (fs.existsSync(initObject.config as fs.PathLike))
 		{
 			this.init(
 			{
-				...fs.readJsonSync(initObject.config as string),
+				...this.readJsonSync(initObject.config as string),
 				...this.tidy(initObject)
 			});
 		}
@@ -49,8 +48,20 @@ export class Option
 		this.optionObject = {};
 	}
 
-	tidy(dirtyObject : object) : object
+	protected tidy(dirtyObject : object) : object
 	{
 		return JSON.parse(JSON.stringify(dirtyObject));
+	}
+
+	protected readJsonSync(path : string) : Record<string, number | string | string[]>
+	{
+		try
+		{
+			return JSON.parse(fs.readFileSync(path, 'utf-8'));
+		}
+		catch
+		{
+			return {};
+		}
 	}
 }

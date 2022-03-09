@@ -11,8 +11,8 @@
 	"include":
 	[
 		"./src",
-		"./option.json",
-		"./wording.json",
+		"./src/assets/option.json",
+		"./src/assets/wording.json",
 		"./package.json"
 	],
 	"exclude":
