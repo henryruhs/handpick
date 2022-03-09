@@ -3,10 +3,11 @@ import { Helper } from './helper';
 
 export class Option
 {
-	protected optionObject : object = this.helper.readJsonSync('./src/assets/option.json');
+	protected optionObject : object;
 
 	constructor(protected helper : Helper)
 	{
+		this.optionObject = this.helper.readJsonSync('./src/assets/option.json');
 	}
 
 	init(initObject : Record<string, number | string | string[]>) : void
