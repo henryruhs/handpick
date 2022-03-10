@@ -16,7 +16,7 @@ export class Core
 
 	cli(process : NodeJS.Process) : void
 	{
-		const packageObject : Record<string, string> = this.helper.readJsonSync('./package.json') as Record<string, string>;
+		const packageObject : Record<string, string> = this.helper.readJsonSync(this.helper.resolvePath('../package.json')) as Record<string, string>;
 		const targetArray : string[] = [];
 		const filterArray : string[] = [];
 

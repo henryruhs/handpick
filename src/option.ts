@@ -7,7 +7,7 @@ export class Option
 
 	constructor(protected helper : Helper)
 	{
-		this.optionObject = this.helper.readJsonSync('./src/assets/option.json');
+		this.optionObject = this.helper.readJsonSync(this.helper.resolvePath('./assets/option.json'));
 	}
 
 	init(initObject : Record<string, number | string | string[]>) : void
