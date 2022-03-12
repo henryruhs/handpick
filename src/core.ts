@@ -1,10 +1,13 @@
+import { program } from 'commander';
 import { Option } from './option';
 import { Spinner } from './spinner';
 import { Helper } from './helper';
-import { program } from 'commander';
+import { PackageSet } from './typing';
 
 export class Core
 {
+	packageObject : PackageSet = this.helper.readJsonSync(this.helper.resolvePath('../package.json')) as PackageSet;
+
 	constructor (protected option : Option, protected spinner : Spinner, protected helper : Helper)
 	{
 	}
@@ -16,12 +19,11 @@ export class Core
 
 	cli(process : NodeJS.Process) : void
 	{
-		const packageObject : Record<string, string> = this.helper.readJsonSync(this.helper.resolvePath('../package.json')) as Record<string, string>;
 		const targetArray : string[] = [];
 		const filterArray : string[] = [];
 
 		program
-			.version(packageObject.name + ' ' + packageObject.version)
+			.version(this.packageObject.name + ' ' + this.packageObject.version)
 			.option('-C, --config <config>')
 			.option('-T, --target <target>', '', target => targetArray.push(target))
 			.option('-F, --filter <target>', '', filter => filterArray.push(filter))
@@ -32,7 +34,7 @@ export class Core
 
 		/* init as needed */
 
-		this.option.setAll(
+		this.option.init(
 		{
 			config: program.getOptionValue('config'),
 			targetArray: targetArray.length ? targetArray : this.option.get('targetArray'),

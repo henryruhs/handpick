@@ -27,9 +27,16 @@ describe('option', () =>
 		expect(option.get('packageDirectory')).to.equal('node_modules');
 	});
 
+	it('get and set', () =>
+	{
+		expect(option.get('manager')).to.equal('npm');
+		option.set('manager', 'yarn');
+		expect(option.get('manager')).to.equal('yarn');
+	});
+
 	it('clear', () =>
 	{
 		option.clear();
-		expect(option.getAll()).to.deep.equal({});
+		expect(option.get('config')).to.be.null;
 	});
 });
