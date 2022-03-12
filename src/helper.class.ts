@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-export class Helper
+export class HelperClass
 {
 	tidy(dirtyObject : object) : object
 	{

@@ -1,4 +1,4 @@
-export interface PackageSet
+export interface Package
 {
 	name : string;
 	version : string;

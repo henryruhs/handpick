@@ -1,11 +1,11 @@
 {
 	"compilerOptions":
 	{
+		"resolveJsonModule": true,
+		"declaration": true,
 		"target": "es2015",
 		"module": "esnext",
 		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"declaration": true,
 		"outDir": "./build"
 	},
 	"include":

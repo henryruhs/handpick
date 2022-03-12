@@ -1,6 +1,6 @@
 import ora, { Ora } from 'ora';
 
-export class Spinner
+export class SpinnerClass
 {
 	protected spinner : Ora;
 

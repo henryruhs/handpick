@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { Core, Option, Spinner, Helper } from './index';
+import { CoreClass, OptionClass, SpinnerClass, HelperClass } from './index';
 
-(new Core(new Option(new Helper()), new Spinner(), new Helper())).cli(process);
+(new CoreClass(new OptionClass(new HelperClass()), new SpinnerClass(), new HelperClass())).cli(process);

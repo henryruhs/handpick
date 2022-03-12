@@ -1,14 +1,14 @@
 import { program } from 'commander';
-import { Option } from './option';
-import { Spinner } from './spinner';
-import { Helper } from './helper';
-import { PackageSet } from './typing';
+import { OptionClass } from './option.class';
+import { SpinnerClass } from './spinner.class';
+import { HelperClass } from './helper.class';
+import { Package } from './core.interface';
 
-export class Core
+export class CoreClass
 {
-	packageObject : PackageSet = this.helper.readJsonSync(this.helper.resolvePath('../package.json')) as PackageSet;
+	packageObject : Package = this.helper.readJsonSync(this.helper.resolvePath('../package.json')) as Package;
 
-	constructor (protected option : Option, protected spinner : Spinner, protected helper : Helper)
+	constructor (protected option : OptionClass, protected spinner : SpinnerClass, protected helper : HelperClass)
 	{
 	}
 
@@ -27,7 +27,7 @@ export class Core
 			.option('-C, --config <config>')
 			.option('-T, --target <target>', '', target => targetArray.push(target))
 			.option('-F, --filter <target>', '', filter => filterArray.push(filter))
-			.option('-M, --manager <manager>', Array(this.option.get('managerArray')).join(' | '))
+			.option('-M, --manager <manager>', Object.keys(this.option.get('managerObject')).join(' | '))
 			.option('-R, --range <range>', Array(this.option.get('rangeArray')).join(' | '))
 			.option('-P, --path <path>')
 			.parse(process.argv);
@@ -37,8 +37,8 @@ export class Core
 		this.option.init(
 		{
 			config: program.getOptionValue('config'),
-			targetArray: targetArray.length ? targetArray : this.option.get('targetArray'),
-			filterArray: filterArray.length ? filterArray : this.option.get('filterArray'),
+			targetArray: targetArray.length ? targetArray : this.option.get('targetArray') as string[],
+			filterArray: filterArray.length ? filterArray : this.option.get('filterArray') as string[],
 			manager: program.getOptionValue('manager'),
 			path: program.getOptionValue('path'),
 			range: program.getOptionValue('range')
