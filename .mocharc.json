@@ -9,5 +9,6 @@
 		"loader=ts-node/esm"
 	],
 	"require": "tests/setup.mjs",
-	"spec": "tests/**/*.spec.ts"
+	"spec": "tests/**/*.spec.ts",
+	"timeout": 4000
 }

@@ -1,4 +1,4 @@
-import { Manager, Range } from './option.type';
+import { Manager, Range } from './option.type.js';
 
 export interface Options
 {

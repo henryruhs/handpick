@@ -41,7 +41,7 @@
 		"@types/semver": "7.3.9",
 		"chai": "4.3.6",
 		"eslint": "8.10.0",
-		"eslint-config-redaxmedia": "4.0.0",
+		"eslint-config-redaxmedia": "4.2.1",
 		"mocha": "9.1.3",
 		"ts-node": "10.7.0"
 	},

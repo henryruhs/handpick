@@ -1,8 +1,8 @@
 import { program } from 'commander';
-import { OptionClass } from './option.class';
-import { SpinnerClass } from './spinner.class';
-import { HelperClass } from './helper.class';
-import { Package } from './core.interface';
+import { OptionClass } from './option.class.js';
+import { SpinnerClass } from './spinner.class.js';
+import { HelperClass } from './helper.class.js';
+import { Package } from './core.interface.js';
 
 export class CoreClass
 {

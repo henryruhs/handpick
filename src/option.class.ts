@@ -1,6 +1,6 @@
 import * as fs from 'fs';
-import { HelperClass } from './helper.class';
-import { Options } from './option.interface';
+import { HelperClass } from './helper.class.js';
+import { Options } from './option.interface.js';
 
 export class OptionClass
 {

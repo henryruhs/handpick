@@ -15,7 +15,7 @@ export class HelperClass
 		{
 			return JSON.parse(content);
 		}
-		catch (exception)
+		catch
 		{
 			return {};
 		}
