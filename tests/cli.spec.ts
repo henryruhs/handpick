@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { exec } from 'child_process';
 
-describe('Cli', () =>
+describe('cli', () =>
 {
 	it('run help command', done =>
 	{

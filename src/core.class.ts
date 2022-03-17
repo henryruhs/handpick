@@ -14,7 +14,6 @@ export class CoreClass
 
 	init() : void
 	{
-		this.spinner.getInstance().start('@start');
 	}
 
 	cli(process : NodeJS.Process) : void

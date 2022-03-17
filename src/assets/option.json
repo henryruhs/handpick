@@ -38,6 +38,20 @@
 		"devDependencies"
 	],
 	"filterArray": [],
+	"spinnerInterval": 40,
+	"spinnerArray":
+	[
+		"⠋",
+		"⠙",
+		"⠹",
+		"⠸",
+		"⠼",
+		"⠴",
+		"⠦",
+		"⠧",
+		"⠇",
+		"⠏"
+	],
 	"path": ".",
 	"packageFile": "package.json",
 	"packageDirectory": "node_modules"

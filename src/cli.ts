@@ -2,4 +2,9 @@
 
 import { CoreClass, OptionClass, SpinnerClass, HelperClass } from './index.js';
 
-(new CoreClass(new OptionClass(new HelperClass()), new SpinnerClass(), new HelperClass())).cli(process);
+const helper : HelperClass = new HelperClass();
+const option : OptionClass = new OptionClass(helper);
+const spinner : SpinnerClass = new SpinnerClass(option);
+const core : CoreClass = new CoreClass(option, spinner, helper);
+
+core.cli(process);

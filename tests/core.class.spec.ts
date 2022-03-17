@@ -1,10 +1,21 @@
+import { expect } from 'chai';
 import { CoreClass, OptionClass, SpinnerClass, HelperClass } from '../src';
 
-describe('Core', () =>
+describe('core', () =>
 {
-	it('create instance', done =>
+	let core : CoreClass;
+
+	beforeEach(() =>
 	{
-		new CoreClass(new OptionClass(new HelperClass()), new SpinnerClass(), new HelperClass());
-		done();
+		const helper : HelperClass = new HelperClass();
+		const option : OptionClass = new OptionClass(helper);
+		const spinner : SpinnerClass = new SpinnerClass(option);
+
+		core = new CoreClass(option, spinner, helper);
+	});
+
+	it('valid instance', () =>
+	{
+		expect(core).to.be.instanceof(CoreClass);
 	});
 });
