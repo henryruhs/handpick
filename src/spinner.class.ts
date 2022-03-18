@@ -7,6 +7,8 @@ export class SpinnerClass
 {
 	protected stream : NodeJS.WriteStream = process.stdout;
 	protected interval : Subscription;
+	protected spinnerPeriod : number = this.option.get('spinnerPeriod') as number;
+	protected spinnerArray : string[] = this.option.get('spinnerArray') as string[];
 
 	constructor(protected option : OptionClass)
 	{
@@ -14,19 +16,16 @@ export class SpinnerClass
 
 	start(message ?: string) : void
 	{
-		const spinnerInterval : number = this.option.get('spinnerInterval') as number;
-		const spinnerArray : string[] = this.option.get('spinnerArray') as string[];
-
-		this.interval = interval(spinnerInterval)
+		this.interval = interval(this.spinnerPeriod)
 			.pipe(
-				take(spinnerArray.length),
-				map(index => spinnerArray[index]),
+				take(this.spinnerArray.length),
+				map(index => this.spinnerArray[index]),
 				repeat()
 			)
-			.subscribe(frame =>
+			.subscribe(spinnerFrame =>
 			{
 				this.stream.write(Cursor.HIDE);
-				this.stream.write(frame);
+				this.stream.write(spinnerFrame);
 				if (message)
 				{
 					this.stream.write(' ' + message);
