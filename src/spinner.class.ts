@@ -1,4 +1,3 @@
-import { Subscription, interval, take, map, repeat } from 'rxjs';
 import { EOL } from 'os';
 import { OptionClass } from './option.class.js';
 import { Cursor } from './spinner.enum.js';
@@ -6,7 +5,7 @@ import { Cursor } from './spinner.enum.js';
 export class SpinnerClass
 {
 	protected stream : NodeJS.WriteStream = process.stdout;
-	protected interval : Subscription;
+	protected interval : NodeJS.Timer;
 	protected spinnerPeriod : number = this.option.get('spinnerPeriod') as number;
 	protected spinnerArray : string[] = this.option.get('spinnerArray') as string[];
 
@@ -16,22 +15,22 @@ export class SpinnerClass
 
 	start(message ?: string) : void
 	{
-		this.interval = interval(this.spinnerPeriod)
-			.pipe(
-				take(this.spinnerArray.length),
-				map(index => this.spinnerArray[index]),
-				repeat()
-			)
-			.subscribe(spinnerFrame =>
+		let index : number = 0;
+
+		this.interval = setInterval(() =>
+		{
+			if (index === this.spinnerArray.length)
 			{
-				this.stream.write(Cursor.HIDE);
-				this.stream.write(spinnerFrame);
-				if (message)
-				{
-					this.stream.write(' ' + message);
-				}
-				this.stream.cursorTo(0);
-			});
+				index = 0;
+			}
+			this.stream.write(Cursor.HIDE);
+			this.stream.write(this.spinnerArray[index++]);
+			if (message)
+			{
+				this.stream.write(' ' + message);
+			}
+			this.stream.cursorTo(0);
+		}, this.spinnerPeriod);
 	}
 
 	stop(message ?: string) : void
@@ -42,6 +41,6 @@ export class SpinnerClass
 			this.stream.write(message + EOL);
 		}
 		this.stream.write(Cursor.SHOW);
-		this.interval.unsubscribe();
+		clearInterval(this.interval);
 	}
 }

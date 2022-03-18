@@ -14,6 +14,8 @@ export class CoreClass
 
 	init() : void
 	{
+		this.spinner.start('Hand picking DIRTY dependencies and devDependencies via NPM');
+		setTimeout(() => this.spinner.stop('Done 0 package in 2.42 seconds'), 10000);
 	}
 
 	cli(process : NodeJS.Process) : void
