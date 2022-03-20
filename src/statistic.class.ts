@@ -27,12 +27,12 @@ export class StatisticClass
 		return this;
 	}
 
-	getTime() : number
+	calcResultTime() : number
 	{
 		return this.stopTime - this.stopTime;
 	}
 
-	getPackage() : number
+	calcResultPackage() : number
 	{
 		return this.startPackage - this.stopPackage;
 	}
@@ -40,7 +40,7 @@ export class StatisticClass
 	protected countPackages() : number
 	{
 		const { path, packageDirectory } = this.option.getAll();
-		const absolutePath : PathLike = this.helper.resolvePath(path + '/' + packageDirectory) as PathLike;
+		const absolutePath : PathLike = this.helper.resolveAbsolutePath(path + '/' + packageDirectory);
 
 		return existsSync(absolutePath) ? readdirSync(absolutePath).length : 0;
 	}

@@ -26,7 +26,7 @@ export class HelperClass
 		return this.parseJson(readFileSync(path, 'utf-8'));
 	}
 
-	resolvePath(path : string) : string
+	resolveAbsolutePath(path : string) : PathLike
 	{
 		return dirname(fileURLToPath(import.meta.url)) + '/' + path;
 	}

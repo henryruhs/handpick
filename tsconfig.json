@@ -1,6 +1,7 @@
 {
 	"compilerOptions":
 	{
+		"allowSyntheticDefaultImports": true,
 		"resolveJsonModule": true,
 		"declaration": true,
 		"target": "es2015",
