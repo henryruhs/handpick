@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { CoreClass, OptionClass, SpinnerClass, HelperClass } from '../src';
+import { CoreClass, HelperClass, OptionClass, SpinnerClass, StatisticClass } from '../src';
 
 describe('core', () =>
 {
@@ -10,8 +10,9 @@ describe('core', () =>
 		const helper : HelperClass = new HelperClass();
 		const option : OptionClass = new OptionClass(helper);
 		const spinner : SpinnerClass = new SpinnerClass(option);
+		const statistic : StatisticClass = new StatisticClass(helper, option);
 
-		core = new CoreClass(option, spinner, helper);
+		core = new CoreClass(helper, option, spinner, statistic);
 	});
 
 	it('valid instance', () =>

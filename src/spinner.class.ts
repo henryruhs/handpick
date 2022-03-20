@@ -7,18 +7,18 @@ export class SpinnerClass
 	protected stream : NodeJS.WriteStream = process.stdout;
 	protected interval : NodeJS.Timer;
 	protected message : string;
-	protected spinnerPeriod : number = this.option.get('spinnerPeriod') as number;
+	protected spinnerTime : number = this.option.get('spinnerTime') as number;
 	protected spinnerArray : string[] = this.option.get('spinnerArray') as string[];
 
 	constructor(protected option : OptionClass)
 	{
 	}
 
-	start(message ?: string) : void
+	start(message ?: string) : this
 	{
 		let index : number = 0;
 
-		this.message = message;
+		this.setMessage(message);
 		this.interval = setInterval(() =>
 		{
 			if (index === this.spinnerArray.length)
@@ -26,40 +26,46 @@ export class SpinnerClass
 				index = 0;
 			}
 			this.stream.write(Cursor.HIDE);
+			this.stream.clearLine(0);
+			this.stream.cursorTo(0);
 			this.stream.write(this.spinnerArray[index++]);
 			if (this.message)
 			{
 				this.stream.write(' ' + this.message);
 			}
-			this.stream.cursorTo(0);
-		}, this.spinnerPeriod);
+		}, this.spinnerTime);
+		return this;
 	}
 
-	success(message ?: string) : void
+	setMessage(message : string) : this
+	{
+		this.message = message;
+		return this;
+	}
+
+	success(message ?: string) : this
+	{
+		this.hasUnicodeSupport() ? this.stop(message, Symbol.TICK) : this.stop(message);
+		return this;
+	}
+
+	error(message ?: string) : this
+	{
+		this.hasUnicodeSupport() ? this.stop(message, Symbol.CROSS) : this.stop(message);
+		return this;
+	}
+
+	stop(message ?: string, symbol ?: string) : this
 	{
 		this.stream.clearLine(0);
-		if (this.hasUnicodeSupport())
+		this.stream.cursorTo(0);
+		if (symbol)
 		{
-			this.stream.write(Symbol.TICK);
+			this.stream.write(symbol);
 		}
-		this.stop(message);
-	}
-
-	error(message ?: string) : void
-	{
-		this.stream.clearLine(0);
-		if (this.hasUnicodeSupport())
-		{
-			this.stream.write(Symbol.CROSS);
-		}
-		this.stop(message);
-	}
-
-	stop(message ?: string) : void
-	{
 		if (this.message)
 		{
-			if (this.hasUnicodeSupport())
+			if (symbol)
 			{
 				this.stream.write(' ');
 			}
@@ -67,10 +73,12 @@ export class SpinnerClass
 		}
 		if (message)
 		{
-			this.stream.write(EOL + message + EOL);
+			this.stream.write(EOL + message);
 		}
+		this.stream.write(EOL);
 		this.stream.write(Cursor.SHOW);
 		clearInterval(this.interval);
+		return this;
 	}
 
 	protected hasUnicodeSupport() : boolean

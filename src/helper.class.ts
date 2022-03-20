@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import { readFileSync, PathLike } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -21,9 +21,9 @@ export class HelperClass
 		}
 	}
 
-	readJsonSync(path : fs.PathLike) : object
+	readJsonSync(path : PathLike) : object
 	{
-		return this.parseJson(fs.readFileSync(path, 'utf-8'));
+		return this.parseJson(readFileSync(path, 'utf-8'));
 	}
 
 	resolvePath(path : string) : string

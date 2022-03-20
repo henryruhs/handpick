@@ -38,7 +38,7 @@
 		"devDependencies"
 	],
 	"filterArray": [],
-	"spinnerPeriod": 40,
+	"spinnerTime": 40,
 	"spinnerArray":
 	[
 		"⠋",
