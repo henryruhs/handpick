@@ -1,3 +1,4 @@
+import os from 'os';
 import { readFileSync, PathLike } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -19,6 +20,14 @@ export class HelperClass
 		{
 			return {};
 		}
+	}
+
+	stringifyObject(dataObject : object, indent : number = 2) : string
+	{
+		const content : string = JSON.stringify(dataObject, null, indent) + os.EOL;
+		const pattern : RegExp = new RegExp(os.EOL, 'g');
+
+		return content.replace(pattern, os.EOL);
 	}
 
 	readJsonSync(path : PathLike) : object

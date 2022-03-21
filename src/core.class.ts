@@ -1,4 +1,5 @@
 import { readFile, writeFile, PathLike } from 'fs';
+import { ChildProcess, spawn } from 'child_process';
 import { promisify } from 'util';
 import * as semver from 'semver';
 import { SemVer } from 'semver';
@@ -8,13 +9,13 @@ import { SpinnerClass } from './spinner.class.js';
 import { HelperClass } from './helper.class.js';
 import { Package, Wording } from './core.interface.js';
 import { StatisticClass } from './statistic.class';
-import { ChildProcess } from 'child_process';
 
 export class CoreClass
 {
-	managerProcess : ChildProcess;
 	packageObject : Package = this.helper.readJsonSync(this.helper.resolveAbsolutePath('../package.json')) as Package;
 	wordingObject : Wording = this.helper.readJsonSync(this.helper.resolveAbsolutePath('./assets/wording.json')) as Wording;
+	managerProcess : ChildProcess;
+	packageContent : string;
 
 	constructor (
 		protected helper : HelperClass,
@@ -27,17 +28,51 @@ export class CoreClass
 
 	init() : void
 	{
-		// const { manager, managerObject } = this.option.getAll();
+		const { manager, managerObject, path } = this.option.getAll();
 
 		this.statistic.start();
 		this.spinner.start(this.startWording());
-
-		setTimeout(() => this.spinner.setMessage('Wait'), 1000);
-		setTimeout(() =>
-		{
-			this.statistic.stop();
-			this.spinner.success(this.endWording(this.statistic.calcResultTime(), this.statistic.calcResultPackage()));
-		}, 2000);
+		this.readPackageFile()
+			.then(content => this.packageContent = content)
+			.then(content => this.helper.parseJson(content))
+			.then((packageObject : Package) =>
+			{
+				this.writePackageFile(this.helper.stringifyObject(this.preparePackage(packageObject)))
+					.then(() =>
+					{
+						this.managerProcess = spawn(manager, managerObject[manager],
+						{
+							cwd: path,
+							stdio: 'ignore',
+							shell: true
+						});
+						this.managerProcess.on('close', (code : number) =>
+						{
+							this.writePackageFile(this.packageContent)
+								.then(() => this.statistic.stop())
+								.then(() => this.endWording(this.statistic.calcResultTime(), this.statistic.calcResultPackage()))
+								.then(wording => code === 0 ? this.spinner.success(wording) : this.spinner.error(wording))
+								.catch((error : Error) => this.spinner.error(error.message));
+						});
+						this.managerProcess.on('error', () => null);
+						[
+							'SIGHUP',
+							'SIGINT',
+							'SIGQUIT',
+							'SIGTERM',
+							'uncaughtException'
+						]
+						.forEach(eventType =>
+						{
+							process.on(eventType, () => this.managerProcess.emit('error',
+							{
+								code: 1
+							}));
+						});
+					})
+					.catch((error : Error) => this.spinner.error(error.message));
+			})
+			.catch((error : Error) => this.spinner.error(error.message));
 	}
 
 	cli(process : NodeJS.Process) : void
@@ -102,14 +137,14 @@ export class CoreClass
 		return wordingArray.join(' ');
 	}
 
-	protected async readPackageFile() : Promise<typeof readFile>
+	protected async readPackageFile() : Promise<string>
 	{
 		const readFileAsync : Function = promisify(readFile);
 
 		return await readFileAsync(this.resolvePackagePath());
 	}
 
-	protected async writePackageFile(content : string) : Promise<typeof writeFile>
+	protected async writePackageFile(content : string) : Promise<void>
 	{
 		const writeFileAsync : Function = promisify(writeFile);
 
@@ -123,7 +158,7 @@ export class CoreClass
 		return this.helper.resolveAbsolutePath(path + '/' + packageFile);
 	}
 
-	protected prepare(packageObject : Package) : Partial<Package>
+	protected preparePackage(packageObject : Package) : Partial<Package>
 	{
 		const { ignoreArray, targetArray, filterArray, range, ignorePrefix } = this.option.getAll();
 		const filterFlatArray : string[] = [];
