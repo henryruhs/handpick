@@ -4,11 +4,11 @@ import { promisify } from 'util';
 import * as semver from 'semver';
 import { SemVer } from 'semver';
 import { program } from 'commander';
+import { HelperClass } from './helper.class.js';
 import { OptionClass } from './option.class.js';
 import { SpinnerClass } from './spinner.class.js';
-import { HelperClass } from './helper.class.js';
-import { Package, Wording } from './core.interface.js';
 import { StatisticClass } from './statistic.class';
+import { Package, Wording } from './core.interface.js';
 
 export class CoreClass
 {
@@ -28,8 +28,6 @@ export class CoreClass
 
 	init() : void
 	{
-		const { manager, managerObject, path } = this.option.getAll();
-
 		this.statistic.start();
 		this.spinner.start(this.startWording());
 		this.readPackageFile()
@@ -38,38 +36,7 @@ export class CoreClass
 			.then((packageObject : Package) =>
 			{
 				this.writePackageFile(this.helper.stringifyObject(this.preparePackage(packageObject)))
-					.then(() =>
-					{
-						this.managerProcess = spawn(manager, managerObject[manager],
-						{
-							cwd: path,
-							stdio: 'ignore',
-							shell: true
-						});
-						this.managerProcess.on('close', (code : number) =>
-						{
-							this.writePackageFile(this.packageContent)
-								.then(() => this.statistic.stop())
-								.then(() => this.endWording(this.statistic.calcResultTime(), this.statistic.calcResultPackage()))
-								.then(wording => code === 0 ? this.spinner.success(wording) : this.spinner.error(wording))
-								.catch((error : Error) => this.spinner.error(error.message));
-						});
-						this.managerProcess.on('error', () => null);
-						[
-							'SIGHUP',
-							'SIGINT',
-							'SIGQUIT',
-							'SIGTERM',
-							'uncaughtException'
-						]
-						.forEach(eventType =>
-						{
-							process.on(eventType, () => this.managerProcess.emit('error',
-							{
-								code: 1
-							}));
-						});
-					})
+					.then(() => this.handleManager())
 					.catch((error : Error) => this.spinner.error(error.message));
 			})
 			.catch((error : Error) => this.spinner.error(error.message));
@@ -135,6 +102,41 @@ export class CoreClass
 		];
 
 		return wordingArray.join(' ');
+	}
+
+	protected handleManager() : void
+	{
+		const { manager, managerObject, path } = this.option.getAll();
+
+		this.managerProcess = spawn(manager, managerObject[manager],
+		{
+			cwd: path,
+			stdio: 'ignore',
+			shell: true
+		});
+		this.managerProcess.on('close', (code : number) =>
+		{
+			this.writePackageFile(this.packageContent)
+				.then(() => this.statistic.stop())
+				.then(() => this.endWording(this.statistic.calcResultTime(), this.statistic.calcResultPackage()))
+				.then(wording => code === 1 ? this.spinner.error(wording) : this.spinner.success(wording))
+				.catch((error : Error) => this.spinner.error(error.message));
+		});
+		this.managerProcess.on('error', () => null);
+		[
+			'SIGHUP',
+			'SIGINT',
+			'SIGQUIT',
+			'SIGTERM',
+			'uncaughtException'
+		]
+		.forEach(eventType =>
+		{
+			process.on(eventType, () => this.managerProcess.emit('error',
+			{
+				code: 1
+			}));
+		});
 	}
 
 	protected async readPackageFile() : Promise<string>
