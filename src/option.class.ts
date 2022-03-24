@@ -17,10 +17,14 @@ export class OptionClass
 			this.options =
 			{
 				...this.options,
-				...this.helper.readJsonSync(initObject.config as PathLike),
-				...this.helper.tidy(initObject)
+				...this.helper.readJsonSync(initObject.config as PathLike)
 			};
 		}
+		this.options =
+		{
+			...this.options,
+			...this.helper.tidy(initObject)
+		};
 	}
 
 	get(name : keyof Options) : Options[keyof Options]
