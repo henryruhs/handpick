@@ -30,8 +30,8 @@ export class CoreClass
 		this.statistic.start();
 		this.spinner.start(this.startWording());
 		this.packager.readFileAsync()
-			.then(content => this.packageContent = content)
-			.then(content => this.helper.parseJson(content))
+			.then(content => this.packageContent = content.toString())
+			.then(content => this.helper.parseJson(content.toString()))
 			.then((packageObject : Package) => this.packager.prepare(packageObject))
 			.then((packageObject : Package) => this.helper.stringifyObject(packageObject))
 			.then((packageContent : string) =>

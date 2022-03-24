@@ -1,11 +1,11 @@
 import os from 'os';
-import { readFileSync, PathLike } from 'fs';
+import { readFileSync, existsSync, PathLike } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 export class HelperClass
 {
-	tidy(dirtyObject : object) : object
+	tidyObject(dirtyObject : object) : object
 	{
 		return JSON.parse(JSON.stringify(dirtyObject));
 	}
@@ -32,7 +32,7 @@ export class HelperClass
 
 	readJsonSync(path : PathLike) : object
 	{
-		return this.parseJson(readFileSync(path, 'utf-8'));
+		return existsSync(path) ? this.parseJson(readFileSync(path, 'utf-8')) : {};
 	}
 
 	resolveAbsolutePath(path : string) : PathLike

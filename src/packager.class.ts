@@ -12,7 +12,7 @@ export class PackagerClass
 	{
 	}
 
-	async readFileAsync() : Promise<string>
+	async readFileAsync() : Promise<Buffer>
 	{
 		const readFileAsync : Function = promisify(readFile);
 

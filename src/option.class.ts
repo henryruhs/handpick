@@ -1,4 +1,4 @@
-import { existsSync, PathLike } from 'fs';
+import { PathLike } from 'fs';
 import { HelperClass } from './helper.class.js';
 import { Options } from './option.interface.js';
 
@@ -12,18 +12,12 @@ export class OptionClass
 
 	init(initObject : Partial<Options>) : void
 	{
-		if (existsSync(initObject.config as PathLike))
-		{
-			this.options =
-			{
-				...this.options,
-				...this.helper.readJsonSync(initObject.config as PathLike)
-			};
-		}
 		this.options =
 		{
 			...this.options,
-			...this.helper.tidy(initObject)
+			...this.helper.readJsonSync(this.get('config') as PathLike),
+			...this.helper.readJsonSync(initObject.config as PathLike),
+			...this.helper.tidyObject(initObject)
 		};
 	}
 
