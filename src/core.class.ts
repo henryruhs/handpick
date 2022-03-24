@@ -1,14 +1,12 @@
-import { readFile, writeFile, PathLike } from 'fs';
 import { ChildProcess, spawn } from 'child_process';
-import { promisify } from 'util';
-import * as semver from 'semver';
-import { SemVer } from 'semver';
 import { program } from 'commander';
 import { HelperClass } from './helper.class.js';
 import { OptionClass } from './option.class.js';
+import { PackagerClass } from './packager.class.js';
 import { SpinnerClass } from './spinner.class.js';
-import { StatisticClass } from './statistic.class';
-import { Package, Wording } from './core.interface.js';
+import { StatisticClass } from './statistic.class.js';
+import { Wording } from './core.interface.js';
+import { Package } from './packager.interface';
 
 export class CoreClass
 {
@@ -20,6 +18,7 @@ export class CoreClass
 	constructor (
 		protected helper : HelperClass,
 		protected option : OptionClass,
+		protected packager : PackagerClass,
 		protected spinner : SpinnerClass,
 		protected statistic : StatisticClass
 	)
@@ -30,12 +29,14 @@ export class CoreClass
 	{
 		this.statistic.start();
 		this.spinner.start(this.startWording());
-		this.readPackageFile()
+		this.packager.readFileAsync()
 			.then(content => this.packageContent = content)
 			.then(content => this.helper.parseJson(content))
-			.then((packageObject : Package) =>
+			.then((packageObject : Package) => this.packager.prepare(packageObject))
+			.then((packageObject : Package) => this.helper.stringifyObject(packageObject))
+			.then((packageContent : string) =>
 			{
-				this.writePackageFile(this.helper.stringifyObject(this.preparePackage(packageObject)))
+				this.packager.writeFileAsync(packageContent)
 					.then(() => this.handleManager())
 					.catch((error : Error) => this.spinner.error(error.message));
 			})
@@ -116,7 +117,7 @@ export class CoreClass
 		});
 		this.managerProcess.on('close', (code : number) =>
 		{
-			this.writePackageFile(this.packageContent)
+			this.packager.writeFileAsync(this.packageContent)
 				.then(() => this.statistic.stop())
 				.then(() => this.endWording(this.statistic.calcResultTime(), this.statistic.calcResultPackage()))
 				.then(wording => code === 1 ? this.spinner.error(wording) : this.spinner.success(wording))
@@ -137,96 +138,5 @@ export class CoreClass
 				code: 1
 			}));
 		});
-	}
-
-	protected async readPackageFile() : Promise<string>
-	{
-		const readFileAsync : Function = promisify(readFile);
-
-		return await readFileAsync(this.resolvePackagePath());
-	}
-
-	protected async writePackageFile(content : string) : Promise<void>
-	{
-		const writeFileAsync : Function = promisify(writeFile);
-
-		return await writeFileAsync(this.resolvePackagePath(), content);
-	}
-
-	protected resolvePackagePath() : PathLike
-	{
-		const { path, packageFile } = this.option.getAll();
-
-		return this.helper.resolveAbsolutePath(path + '/' + packageFile);
-	}
-
-	protected preparePackage(packageObject : Package) : Partial<Package>
-	{
-		const { ignoreArray, targetArray, filterArray, range, ignorePrefix } = this.option.getAll();
-		const filterFlatArray : string[] = [];
-		const filterObject : Record<string, string> = {};
-		const resultObject : Partial<Package> = {};
-
-		/* handle prefix */
-
-		Object.keys(packageObject).map(packageValue =>
-		{
-			if (ignoreArray.includes(packageValue))
-			{
-				resultObject[ignorePrefix] = packageObject[packageValue];
-			}
-			else
-			{
-				resultObject[packageValue] = packageObject[packageValue];
-			}
-			if (targetArray.includes(packageValue))
-			{
-				resultObject.dependencies =
-				{
-					...resultObject.dependencies,
-					...packageObject[packageValue]
-				};
-			}
-		});
-
-		/* handle filter */
-
-		filterArray.map(filterValue =>
-		{
-			Object.keys(resultObject[filterValue]).map(filterFlatValue =>
-			{
-				filterFlatArray.push(filterFlatValue);
-			});
-		});
-		Object.keys(resultObject.dependencies).map(resultValue =>
-		{
-			if (!filterFlatArray.includes(resultValue))
-			{
-				filterObject[resultValue] = resultObject.dependencies[resultValue];
-			}
-		});
-		resultObject.dependencies = filterObject;
-
-		/* handle range */
-
-		Object.keys(resultObject.dependencies).map(resultValue =>
-		{
-			const coerceObject : SemVer = semver.coerce(resultObject.dependencies[resultValue]);
-			const version : string = coerceObject ? coerceObject.version : null;
-
-			if (range === 'exact' && version)
-			{
-				resultObject.dependencies[resultValue] = version;
-			}
-			if (range === 'patch' && version)
-			{
-				resultObject.dependencies[resultValue] = '~' + version;
-			}
-			if (range === 'minor' && version)
-			{
-				resultObject.dependencies[resultValue] = '^' + version;
-			}
-		});
-		return resultObject;
 	}
 }
