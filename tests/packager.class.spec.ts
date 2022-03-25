@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { HelperClass, OptionClass, PackagerClass } from '../src';
 import { Package } from '../src/packager.interface';
+import { Range } from '../src/option.type';
 
 describe('packager', () =>
 {
@@ -87,5 +88,107 @@ describe('packager', () =>
 					.catch(() => done('error'));
 			})
 			.catch(() => done('error'));
+	});
+	it('prepare lint and test', done =>
+	{
+		option.init(
+		{
+			path: 'tests/provider',
+			targetArray:
+			[
+				'lintDependencies',
+				'testDependencies'
+			]
+		});
+		packager
+			.readFileAsync()
+			.then(content => helper.parseJson(content.toString()))
+			.then((packageObject : Package) =>
+			{
+				option.set('packageFile', 'package_prepare_lint_and_test.json');
+				packager
+					.readFileAsync()
+					.then(content => helper.parseJson(content.toString()))
+					.then((expectObject : Package) =>
+					{
+						expect(packager.prepare(packageObject)).to.deep.equal(expectObject);
+						done();
+					})
+					.catch(() => done('error'));
+			})
+			.catch(() => done('error'));
+	});
+
+	it('prepare dev without assert and lint', done =>
+	{
+		option.init(
+		{
+			path: 'tests/provider',
+			targetArray:
+			[
+				'devDependencies'
+			],
+			filterArray:
+			[
+				'assertDependencies',
+				'lintDependencies'
+			]
+		});
+		packager
+			.readFileAsync()
+			.then(content => helper.parseJson(content.toString()))
+			.then((packageObject : Package) =>
+			{
+				option.set('packageFile', 'package_prepare_dev_without_assert_and_lint.json');
+				packager
+					.readFileAsync()
+					.then(content => helper.parseJson(content.toString()))
+					.then((expectObject : Package) =>
+					{
+						expect(packager.prepare(packageObject)).to.deep.equal(expectObject);
+						done();
+					})
+					.catch(() => done('error'));
+			})
+			.catch(() => done('error'));
+	});
+
+	[
+		'dirty',
+		'exact',
+		'minor',
+		'patch'
+	]
+	.map((range : Range) =>
+	{
+		it('prepare dirty to ' + range, done =>
+		{
+			option.init(
+			{
+				path: 'tests/provider',
+				range,
+				targetArray:
+				[
+					'dirtyDependencies'
+				]
+			});
+			packager
+				.readFileAsync()
+				.then(content => helper.parseJson(content.toString()))
+				.then((packageObject : Package) =>
+				{
+					option.set('packageFile', 'package_prepare_dirty_to_' + range + '.json');
+					packager
+						.readFileAsync()
+						.then(content => helper.parseJson(content.toString()))
+						.then((expectObject : Package) =>
+						{
+							expect(packager.prepare(packageObject)).to.deep.equal(expectObject);
+							done();
+						})
+						.catch(() => done('error'));
+				})
+				.catch(() => done('error'));
+		});
 	});
 });

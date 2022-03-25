@@ -74,7 +74,7 @@ export class CoreClass
 		this.init();
 	}
 
-	protected startWording() : string
+	startWording() : string
 	{
 		const { manager, targetArray, filterArray, range } = this.option.getAll();
 		const wordingArray : string[] =
@@ -92,7 +92,7 @@ export class CoreClass
 		return wordingArray.join(' ');
 	}
 
-	protected endWording(resultTime : number, resultPackage : number) : string
+	endWording(resultTime : number, resultPackage : number) : string
 	{
 		const wordingArray : string[] =
 		[
