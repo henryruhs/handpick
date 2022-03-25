@@ -29,14 +29,16 @@ export class CoreClass
 	{
 		this.statistic.start();
 		this.spinner.start(this.startWording());
-		this.packager.readFileAsync()
+		this.packager
+			.readFileAsync()
 			.then(content => this.packageContent = content.toString())
 			.then(content => this.helper.parseJson(content.toString()))
 			.then((packageObject : Package) => this.packager.prepare(packageObject))
 			.then((packageObject : Package) => this.helper.stringifyObject(packageObject))
 			.then((packageContent : string) =>
 			{
-				this.packager.writeFileAsync(packageContent)
+				this.packager
+					.writeFileAsync(packageContent)
 					.then(() => this.handleManager())
 					.catch((error : Error) => this.spinner.error(error.message));
 			})
@@ -117,7 +119,8 @@ export class CoreClass
 		});
 		this.managerProcess.on('close', (code : number) =>
 		{
-			this.packager.writeFileAsync(this.packageContent)
+			this.packager
+				.writeFileAsync(this.packageContent)
 				.then(() => this.statistic.stop())
 				.then(() => this.endWording(this.statistic.calcResultTime(), this.statistic.calcResultPackage()))
 				.then(wording => code === 1 ? this.spinner.error(wording) : this.spinner.success(wording))

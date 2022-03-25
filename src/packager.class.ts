@@ -38,7 +38,7 @@ export class PackagerClass
 		{
 			if (ignoreArray.includes(packageValue))
 			{
-				resultObject[ignorePrefix] = packageObject[packageValue];
+				resultObject[ignorePrefix + packageValue] = packageObject[packageValue];
 			}
 			else
 			{

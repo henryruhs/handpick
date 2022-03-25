@@ -17,10 +17,10 @@ describe('option', () =>
 		expect(option.get('manager')).to.equal('npm');
 		option.init(
 		{
-			config: 'tests/provider/option/.handpick',
+			config: 'tests/provider/.handpick',
 			ignorePrefix: '____'
 		});
-		expect(option.get('config')).to.equal('tests/provider/option/.handpick');
+		expect(option.get('config')).to.equal('tests/provider/.handpick');
 		expect(option.get('ignorePrefix')).to.equal('____');
 		expect(option.get('manager')).to.equal('yarn');
 		expect(option.get('packageFile')).to.equal('package.json');

@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { HelperClass, OptionClass, PackagerClass } from '../src';
+import { Package } from '../src/packager.interface';
 
 describe('packager', () =>
 {
@@ -18,11 +19,12 @@ describe('packager', () =>
 	{
 		option.init(
 		{
-			path: 'tests/provider/core'
+			path: 'tests/provider'
 		});
-		packager.readFileAsync()
+		packager
+			.readFileAsync()
 			.then(content => helper.parseJson(content.toString()))
-			.then(packageObject =>
+			.then((packageObject : Package) =>
 			{
 				expect(packageObject).to.have.property('name');
 				expect(packageObject).to.have.property('version');
@@ -40,7 +42,7 @@ describe('packager', () =>
 	{
 		option.init(
 		{
-			path: 'tests/provider/core',
+			path: 'tests/provider',
 			packageFile: 'package_write.json'
 		});
 		packager.writeFileAsync(helper.stringifyObject(
@@ -49,9 +51,10 @@ describe('packager', () =>
 		}))
 		.then(() =>
 		{
-			packager.readFileAsync()
+			packager
+				.readFileAsync()
 				.then(content => helper.parseJson(content.toString()))
-				.then(packageObject =>
+				.then((packageObject : Package) =>
 				{
 					expect(packageObject).to.have.property('name');
 					done();
@@ -59,5 +62,30 @@ describe('packager', () =>
 				.catch(() => done('error'));
 		})
 		.catch(() => done('error'));
+	});
+
+	it('prepare prod and dev', done =>
+	{
+		option.init(
+		{
+			path: 'tests/provider'
+		});
+		packager
+			.readFileAsync()
+			.then(content => helper.parseJson(content.toString()))
+			.then((packageObject : Package) =>
+			{
+				option.set('packageFile', 'package_prepare_prod_and_dev.json');
+				packager
+					.readFileAsync()
+					.then(content => helper.parseJson(content.toString()))
+					.then((expectObject : Package) =>
+					{
+						expect(packager.prepare(packageObject)).to.deep.equal(expectObject);
+						done();
+					})
+					.catch(() => done('error'));
+			})
+			.catch(() => done('error'));
 	});
 });
