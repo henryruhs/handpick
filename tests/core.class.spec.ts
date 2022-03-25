@@ -14,7 +14,7 @@ describe('core', () =>
 	{
 		helper = new HelperClass();
 		option = new OptionClass(helper);
-		packager = new PackagerClass(helper, option);
+		packager = new PackagerClass(option);
 		spinner = new SpinnerClass(option);
 		statistic = new StatisticClass(helper, option);
 		core = new CoreClass(helper, option, packager, spinner, statistic);

@@ -2,13 +2,12 @@ import { promisify } from 'util';
 import { readFile, writeFile, PathLike } from 'fs';
 import semver from 'semver';
 import { SemVer } from 'semver';
-import { HelperClass } from './helper.class.js';
 import { OptionClass } from './option.class.js';
 import { Package } from './packager.interface';
 
 export class PackagerClass
 {
-	constructor (protected helper : HelperClass, protected option : OptionClass)
+	constructor (protected option : OptionClass)
 	{
 	}
 
@@ -16,14 +15,14 @@ export class PackagerClass
 	{
 		const readFileAsync : Function = promisify(readFile);
 
-		return await readFileAsync(this.resolveAbsolutePath());
+		return await readFileAsync(this.resolvePath());
 	}
 
 	async writeFileAsync(content : string) : Promise<void>
 	{
 		const writeFileAsync : Function = promisify(writeFile);
 
-		return await writeFileAsync(this.resolveAbsolutePath(), content);
+		return await writeFileAsync(this.resolvePath(), content);
 	}
 
 	prepare(packageObject : Package) : Partial<Package>
@@ -96,10 +95,10 @@ export class PackagerClass
 		return resultObject;
 	}
 
-	protected resolveAbsolutePath() : PathLike
+	protected resolvePath() : PathLike
 	{
 		const { path, packageFile } = this.option.getAll();
 
-		return this.helper.resolveAbsolutePath(path + '/' + packageFile);
+		return path + '/' + packageFile;
 	}
 }
