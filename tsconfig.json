@@ -1,0 +1,23 @@
+{
+	"compilerOptions":
+	{
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"declaration": true,
+		"target": "es2015",
+		"module": "esnext",
+		"moduleResolution": "node",
+		"outDir": "./build"
+	},
+	"include":
+	[
+		"./src",
+		"./src/assets/option.json",
+		"./src/assets/wording.json",
+		"./package.json"
+	],
+	"exclude":
+	[
+		"./node_modules"
+	]
+}

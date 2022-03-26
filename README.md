@@ -32,6 +32,7 @@ Create a `.handpick` file to override configuration:
 
 ```json
 {
+	"config": ".handpick",
 	"manager": "npm",
 	"managerObject":
 	{
@@ -70,6 +71,20 @@ Create a `.handpick` file to override configuration:
 		"devDependencies"
 	],
 	"filterArray": [],
+	"spinnerTime": 40,
+	"spinnerArray":
+	[
+		"⠋",
+		"⠙",
+		"⠹",
+		"⠸",
+		"⠼",
+		"⠴",
+		"⠦",
+		"⠧",
+		"⠇",
+		"⠏"
+	],
 	"path": ".",
 	"packageFile": "package.json",
 	"packageDirectory": "node_modules"
