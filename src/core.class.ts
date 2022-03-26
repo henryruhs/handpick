@@ -47,16 +47,17 @@ export class CoreClass
 
 	cli(process : NodeJS.Process) : void
 	{
-		const targetArray : string[] = [];
-		const filterArray : string[] = [];
+		const { managerObject, targetArray, filterArray, rangeArray } = this.option.getAll();
+		const programTargetArray : string[] = [];
+		const programFilterArray : string[] = [];
 
 		program
 			.version(this.packageObject.name + ' ' + this.packageObject.version)
 			.option('-C, --config <config>')
-			.option('-T, --target <target>', '', target => targetArray.push(target))
-			.option('-F, --filter <target>', '', filter => filterArray.push(filter))
-			.option('-M, --manager <manager>', Object.keys(this.option.get('managerObject')).join(' | '))
-			.option('-R, --range <range>', (this.option.get('rangeArray') as string[]).join(' | '))
+			.option('-T, --target <target>', '', target => programTargetArray.push(target))
+			.option('-F, --filter <target>', '', filter => programFilterArray.push(filter))
+			.option('-M, --manager <manager>', Object.keys(managerObject).join(' | '))
+			.option('-R, --range <range>', rangeArray.join(' | '))
 			.option('-P, --path <path>')
 			.parse(process.argv);
 
@@ -65,11 +66,11 @@ export class CoreClass
 		this.option.init(
 		{
 			config: program.getOptionValue('config'),
-			targetArray: targetArray.length ? targetArray : this.option.get('targetArray') as string[],
-			filterArray: filterArray.length ? filterArray : this.option.get('filterArray') as string[],
+			targetArray: programTargetArray.length ? programTargetArray : targetArray,
+			filterArray: programFilterArray.length ? programFilterArray : filterArray,
 			manager: program.getOptionValue('manager'),
-			path: program.getOptionValue('path'),
-			range: program.getOptionValue('range')
+			range: program.getOptionValue('range'),
+			path: program.getOptionValue('path')
 		});
 		this.init();
 	}
