@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { mkdir, rmdir, PathLike } from 'fs';
 import { HelperClass, OptionClass, StatisticClass } from '../src';
 
-describe.only('statistic', () =>
+describe('statistic', () =>
 {
 	let helper : HelperClass;
 	let option : OptionClass;
