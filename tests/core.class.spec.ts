@@ -20,11 +20,6 @@ describe('core', () =>
 		core = new CoreClass(helper, option, packager, spinner, statistic);
 	});
 
-	it('valid instance', () =>
-	{
-		expect(core).to.be.instanceof(CoreClass);
-	});
-
 	it('start wording', () =>
 	{
 		option.init(
@@ -51,7 +46,7 @@ describe('core', () =>
 		{
 			path: 'tests/provider'
 		});
-		expect(core.endWording(1, 1)).to.equal('Done 1 package in 1.00 second');
-		expect(core.endWording(2, 2)).to.equal('Done 2 packages in 2.00 seconds');
+		expect(core.endWording(1000, 1)).to.equal('Done 1 package in 1.00 second');
+		expect(core.endWording(2000, 2)).to.equal('Done 2 packages in 2.00 seconds');
 	});
 });

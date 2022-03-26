@@ -10,5 +10,5 @@
 	],
 	"require": "tests/setup.mjs",
 	"spec": "tests/**/*.spec.ts",
-	"timeout": 4000
+	"timeout": 5000
 }

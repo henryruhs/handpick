@@ -100,8 +100,8 @@ export class CoreClass
 			resultPackage.toString(),
 			resultPackage > 1 ? this.wordingObject.packages : this.wordingObject.package,
 			this.wordingObject.in,
-			resultTime.toFixed(2),
-			resultTime > 1 ? this.wordingObject.seconds : this.wordingObject.second
+			(resultTime / 1000).toFixed(2),
+			(resultTime / 1000) > 1 ? this.wordingObject.seconds : this.wordingObject.second
 		];
 
 		return wordingArray.join(' ');

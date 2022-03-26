@@ -15,14 +15,14 @@ export class PackagerClass
 	{
 		const readFileAsync : Function = promisify(readFile);
 
-		return await readFileAsync(this.resolvePath());
+		return await readFileAsync(this.resolveFilePath());
 	}
 
 	async writeFileAsync(content : string) : Promise<void>
 	{
 		const writeFileAsync : Function = promisify(writeFile);
 
-		return await writeFileAsync(this.resolvePath(), content);
+		return await writeFileAsync(this.resolveFilePath(), content);
 	}
 
 	prepare(packageObject : Package) : Partial<Package>
@@ -95,7 +95,7 @@ export class PackagerClass
 		return resultObject;
 	}
 
-	protected resolvePath() : PathLike
+	protected resolveFilePath() : PathLike
 	{
 		const { path, packageFile } = this.option.getAll();
 

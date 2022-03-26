@@ -29,19 +29,23 @@ export class StatisticClass
 
 	calcResultTime() : number
 	{
-		return this.stopTime - this.stopTime;
+		return this.stopTime ? this.stopTime - this.startTime : 0;
 	}
 
 	calcResultPackage() : number
 	{
-		return this.startPackage - this.stopPackage;
+		return this.stopPackage ? this.stopPackage - this.startPackage : 0;
 	}
 
 	protected countPackages() : number
 	{
-		const { path, packageDirectory } = this.option.getAll();
-		const absolutePath : PathLike = this.helper.resolveAbsolutePath(path + '/' + packageDirectory);
+		return existsSync(this.resolveDirectoryPath()) ? readdirSync(this.resolveDirectoryPath()).length : 0;
+	}
 
-		return existsSync(absolutePath) ? readdirSync(absolutePath).length : 0;
+	protected resolveDirectoryPath() : PathLike
+	{
+		const { path, packageDirectory } = this.option.getAll();
+
+		return path + '/' + packageDirectory;
 	}
 }
