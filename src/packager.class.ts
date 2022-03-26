@@ -28,11 +28,11 @@ export class PackagerClass
 	prepare(packageObject : Package) : Partial<Package>
 	{
 		const { ignoreArray, targetArray, filterArray, range, ignorePrefix } = this.option.getAll();
-		const filterFlatArray : string[] = [];
+		const filterContentArray : string[] = [];
 		const filterObject : Record<string, string> = {};
 		const resultObject : Partial<Package> = {};
 
-		/* handle prefix */
+		/* handle target */
 
 		Object.keys(packageObject).map(packageValue =>
 		{
@@ -58,14 +58,14 @@ export class PackagerClass
 
 		filterArray.map(filterValue =>
 		{
-			Object.keys(resultObject[filterValue]).map(filterFlatValue =>
+			Object.keys(resultObject[filterValue]).map(filterContentValue =>
 			{
-				filterFlatArray.push(filterFlatValue);
+				filterContentArray.push(filterContentValue);
 			});
 		});
 		Object.keys(resultObject.dependencies).map(resultValue =>
 		{
-			if (!filterFlatArray.includes(resultValue))
+			if (!filterContentArray.includes(resultValue))
 			{
 				filterObject[resultValue] = resultObject.dependencies[resultValue];
 			}
