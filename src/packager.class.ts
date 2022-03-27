@@ -54,56 +54,61 @@ export class PackagerClass
 			}
 		});
 
-		/* handle filter */
+		/* process dependencies */
 
-		filterArray.map(filterValue =>
+		if (resultObject.dependencies)
 		{
-			Object.keys(resultObject[filterValue]).map(filterContentValue =>
+			/* handle filter */
+
+			filterArray.map(filterValue =>
 			{
-				filterContentArray.push(filterContentValue);
+				Object.keys(resultObject[filterValue]).map(filterContentValue =>
+				{
+					filterContentArray.push(filterContentValue);
+				});
 			});
-		});
-		Object.keys(resultObject.dependencies).map(resultValue =>
-		{
-			if (!filterContentArray.includes(resultValue))
+			Object.keys(resultObject.dependencies).map(resultValue =>
 			{
-				filterObject[resultValue] = resultObject.dependencies[resultValue];
-			}
-		});
-		resultObject.dependencies = filterObject;
+				if (!filterContentArray.includes(resultValue))
+				{
+					filterObject[resultValue] = resultObject.dependencies[resultValue];
+				}
+			});
+			resultObject.dependencies = filterObject;
 
-		/* handle reference */
+			/* handle reference */
 
-		Object.keys(resultObject.dependencies).map(resultValue =>
-		{
-			if (resultObject.dependencies[resultValue].startsWith(referencePrefix))
+			Object.keys(resultObject.dependencies).map(resultValue =>
 			{
-				const reference : keyof Package = resultObject.dependencies[resultValue].slice(1) as keyof Package ;
+				if (resultObject.dependencies[resultValue].startsWith(referencePrefix))
+				{
+					const reference : keyof Package = resultObject.dependencies[resultValue].slice(1) as keyof Package ;
 
-				resultObject.dependencies[resultValue] = packageObject[reference][resultValue];
-			}
-		});
+					resultObject.dependencies[resultValue] = packageObject[reference][resultValue];
+				}
+			});
 
-		/* handle range */
+			/* handle range */
 
-		Object.keys(resultObject.dependencies).map(resultValue =>
-		{
-			const coerceObject : SemVer = semver.coerce(resultObject.dependencies[resultValue]);
-			const version : string = coerceObject?.version;
-
-			if (range === 'exact' && version)
+			Object.keys(resultObject.dependencies).map(resultValue =>
 			{
-				resultObject.dependencies[resultValue] = version;
-			}
-			if (range === 'patch' && version)
-			{
-				resultObject.dependencies[resultValue] = '~' + version;
-			}
-			if (range === 'minor' && version)
-			{
-				resultObject.dependencies[resultValue] = '^' + version;
-			}
-		});
+				const coerceObject : SemVer = semver.coerce(resultObject.dependencies[resultValue]);
+				const version : string = coerceObject?.version;
+
+				if (range === 'exact' && version)
+				{
+					resultObject.dependencies[resultValue] = version;
+				}
+				if (range === 'patch' && version)
+				{
+					resultObject.dependencies[resultValue] = '~' + version;
+				}
+				if (range === 'minor' && version)
+				{
+					resultObject.dependencies[resultValue] = '^' + version;
+				}
+			});
+		}
 		return resultObject;
 	}
 
