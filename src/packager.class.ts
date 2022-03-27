@@ -27,12 +27,12 @@ export class PackagerClass
 
 	prepare(packageObject : Package) : Partial<Package>
 	{
-		const { ignoreArray, targetArray, filterArray, range, ignorePrefix } = this.option.getAll();
-		const filterFlatArray : string[] = [];
+		const { ignoreArray, targetArray, filterArray, range, ignorePrefix, referencePrefix } = this.option.getAll();
+		const filterContentArray : string[] = [];
 		const filterObject : Record<string, string> = {};
 		const resultObject : Partial<Package> = {};
 
-		/* handle prefix */
+		/* handle target */
 
 		Object.keys(packageObject).map(packageValue =>
 		{
@@ -58,26 +58,38 @@ export class PackagerClass
 
 		filterArray.map(filterValue =>
 		{
-			Object.keys(resultObject[filterValue]).map(filterFlatValue =>
+			Object.keys(resultObject[filterValue]).map(filterContentValue =>
 			{
-				filterFlatArray.push(filterFlatValue);
+				filterContentArray.push(filterContentValue);
 			});
 		});
 		Object.keys(resultObject.dependencies).map(resultValue =>
 		{
-			if (!filterFlatArray.includes(resultValue))
+			if (!filterContentArray.includes(resultValue))
 			{
 				filterObject[resultValue] = resultObject.dependencies[resultValue];
 			}
 		});
 		resultObject.dependencies = filterObject;
 
+		/* handle reference */
+
+		Object.keys(resultObject.dependencies).map(resultValue =>
+		{
+			if (resultObject.dependencies[resultValue].startsWith(referencePrefix))
+			{
+				const reference : keyof Package = resultObject.dependencies[resultValue].slice(1) as keyof Package ;
+
+				resultObject.dependencies[resultValue] = packageObject[reference][resultValue];
+			}
+		});
+
 		/* handle range */
 
 		Object.keys(resultObject.dependencies).map(resultValue =>
 		{
 			const coerceObject : SemVer = semver.coerce(resultObject.dependencies[resultValue]);
-			const version : string = coerceObject ? coerceObject.version : null;
+			const version : string = coerceObject?.version;
 
 			if (range === 'exact' && version)
 			{

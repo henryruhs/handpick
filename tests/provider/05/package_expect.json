@@ -1,0 +1,33 @@
+{
+	"name": "handpick",
+	"version": "1.0.0",
+	"__dependencies":
+	{
+		"a": "1.0.0",
+		"b": "1.0.0"
+	},
+	"__devDependencies":
+	{
+		"c": "1.0.0",
+		"d": "1.0.0",
+		"e": "1.0.0",
+		"f": "1.0.0"
+	},
+	"buildDependencies":
+	{
+		"a": "@dependencies",
+		"b": "@dependencies"
+	},
+	"lintDependencies":
+	{
+		"c": "@devDependencies",
+		"d": "@devDependencies"
+	},
+	"dependencies":
+	{
+		"a": "1.0.0",
+		"b": "1.0.0",
+		"c": "1.0.0",
+		"d": "1.0.0"
+	}
+}
