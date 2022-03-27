@@ -78,7 +78,7 @@ export class PackagerClass
 		{
 			if (resultObject.dependencies[resultValue].startsWith(referencePrefix))
 			{
-				const reference : string = resultObject.dependencies[resultValue].slice(1);
+				const reference : keyof Package = resultObject.dependencies[resultValue].slice(1) as keyof Package ;
 
 				resultObject.dependencies[resultValue] = packageObject[reference][resultValue];
 			}
