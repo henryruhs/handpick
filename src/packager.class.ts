@@ -77,7 +77,7 @@ export class PackagerClass
 		Object.keys(resultObject.dependencies).map(resultValue =>
 		{
 			const coerceObject : SemVer = semver.coerce(resultObject.dependencies[resultValue]);
-			const version : string = coerceObject ? coerceObject.version : null;
+			const version : string = coerceObject?.version;
 
 			if (range === 'exact' && version)
 			{

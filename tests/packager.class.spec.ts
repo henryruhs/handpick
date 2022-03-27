@@ -1,3 +1,4 @@
+import { mkdir, rmdir, unlink } from 'fs';
 import { expect } from 'chai';
 import { HelperClass, OptionClass, PackagerClass } from '../src';
 import { Package } from '../src/packager.interface';
@@ -20,7 +21,7 @@ describe('packager', () =>
 	{
 		option.init(
 		{
-			path: 'tests/provider'
+			path: 'tests/provider/01'
 		});
 		packager
 			.readFileAsync()
@@ -33,7 +34,6 @@ describe('packager', () =>
 				expect(packageObject).to.have.property('devDependencies');
 				expect(packageObject).to.have.property('lintDependencies');
 				expect(packageObject).to.have.property('testDependencies');
-				expect(packageObject).to.have.property('dirtyDependencies');
 				done();
 			})
 			.catch(() => done('error'));
@@ -43,40 +43,44 @@ describe('packager', () =>
 	{
 		option.init(
 		{
-			path: 'tests/provider',
-			packageFile: 'package_write.json'
+			path: 'tests/provider/00'
 		});
-		packager.writeFileAsync(helper.stringifyObject(
+		mkdir('tests/provider/00', () =>
 		{
-			name: 'test-write'
-		}))
-		.then(() =>
-		{
-			packager
-				.readFileAsync()
-				.then(content => helper.parseJson(content.toString()))
-				.then((packageObject : Package) =>
-				{
-					expect(packageObject).to.have.property('name');
-					done();
-				})
-				.catch(() => done('error'));
-		})
-		.catch(() => done('error'));
+			packager.writeFileAsync(helper.stringifyObject(
+			{
+				name: 'test',
+				version: '1.0.0'
+			}))
+			.then(() =>
+			{
+				packager
+					.readFileAsync()
+					.then(content => helper.parseJson(content.toString()))
+					.then((packageObject : Package) =>
+					{
+						expect(packageObject).to.have.property('name');
+						expect(packageObject).to.have.property('version');
+						unlink('tests/provider/00/package.json', () => rmdir('tests/provider/00', () => done()));
+					})
+					.catch(() => done('error'));
+			})
+			.catch(() => done('error'));
+		});
 	});
 
 	it('prepare prod and dev', done =>
 	{
 		option.init(
 		{
-			path: 'tests/provider'
+			path: 'tests/provider/02'
 		});
 		packager
 			.readFileAsync()
 			.then(content => helper.parseJson(content.toString()))
 			.then((packageObject : Package) =>
 			{
-				option.set('packageFile', 'package_prepare_prod_and_dev.json');
+				option.set('packageFile', 'package_expect.json');
 				packager
 					.readFileAsync()
 					.then(content => helper.parseJson(content.toString()))
@@ -89,11 +93,12 @@ describe('packager', () =>
 			})
 			.catch(() => done('error'));
 	});
+
 	it('prepare lint and test', done =>
 	{
 		option.init(
 		{
-			path: 'tests/provider',
+			path: 'tests/provider/03',
 			targetArray:
 			[
 				'lintDependencies',
@@ -105,7 +110,7 @@ describe('packager', () =>
 			.then(content => helper.parseJson(content.toString()))
 			.then((packageObject : Package) =>
 			{
-				option.set('packageFile', 'package_prepare_lint_and_test.json');
+				option.set('packageFile', 'package_expect.json');
 				packager
 					.readFileAsync()
 					.then(content => helper.parseJson(content.toString()))
@@ -119,19 +124,19 @@ describe('packager', () =>
 			.catch(() => done('error'));
 	});
 
-	it('prepare dev without assert and lint', done =>
+	it('prepare dev without lint and test', done =>
 	{
 		option.init(
 		{
-			path: 'tests/provider',
+			path: 'tests/provider/04',
 			targetArray:
 			[
 				'devDependencies'
 			],
 			filterArray:
 			[
-				'assertDependencies',
-				'lintDependencies'
+				'lintDependencies',
+				'testDependencies'
 			]
 		});
 		packager
@@ -139,7 +144,7 @@ describe('packager', () =>
 			.then(content => helper.parseJson(content.toString()))
 			.then((packageObject : Package) =>
 			{
-				option.set('packageFile', 'package_prepare_dev_without_assert_and_lint.json');
+				option.set('packageFile', 'package_expect.json');
 				packager
 					.readFileAsync()
 					.then(content => helper.parseJson(content.toString()))
@@ -165,7 +170,7 @@ describe('packager', () =>
 		{
 			option.init(
 			{
-				path: 'tests/provider',
+				path: 'tests/provider/05',
 				range,
 				targetArray:
 				[
@@ -177,7 +182,7 @@ describe('packager', () =>
 				.then(content => helper.parseJson(content.toString()))
 				.then((packageObject : Package) =>
 				{
-					option.set('packageFile', 'package_prepare_dirty_to_' + range + '.json');
+					option.set('packageFile', 'package_expect_' + range + '.json');
 					packager
 						.readFileAsync()
 						.then(content => helper.parseJson(content.toString()))
