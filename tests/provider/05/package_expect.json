@@ -1,12 +1,12 @@
 {
 	"name": "handpick",
 	"version": "1.0.0",
-	"dependencies":
+	"__dependencies":
 	{
 		"a": "1.0.0",
 		"b": "1.0.0"
 	},
-	"devDependencies":
+	"__devDependencies":
 	{
 		"c": "1.0.0",
 		"d": "1.0.0",
@@ -22,5 +22,12 @@
 	{
 		"c": "@devDependencies",
 		"d": "@devDependencies"
+	},
+	"dependencies":
+	{
+		"a": "1.0.0",
+		"b": "1.0.0",
+		"c": "1.0.0",
+		"d": "1.0.0"
 	}
 }

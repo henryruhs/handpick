@@ -71,6 +71,7 @@ Create a `.handpick` file to override configuration:
 		"devDependencies"
 	],
 	"filterArray": [],
+	"referencePrefix": "@",
 	"spinnerTime": 40,
 	"spinnerArray":
 	[
@@ -89,6 +90,7 @@ Create a `.handpick` file to override configuration:
 	"packageFile": "package.json",
 	"packageDirectory": "node_modules"
 }
+
 ```
 
 

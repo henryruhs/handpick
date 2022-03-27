@@ -158,6 +158,36 @@ describe('packager', () =>
 			.catch(() => done('error'));
 	});
 
+	it('prepare build and lint using reference', done =>
+	{
+		option.init(
+		{
+			path: 'tests/provider/05',
+			targetArray:
+			[
+				'buildDependencies',
+				'lintDependencies'
+			]
+		});
+		packager
+			.readFileAsync()
+			.then(content => helper.parseJson(content.toString()))
+			.then((packageObject : Package) =>
+			{
+				option.set('packageFile', 'package_expect.json');
+				packager
+					.readFileAsync()
+					.then(content => helper.parseJson(content.toString()))
+					.then((expectObject : Package) =>
+					{
+						expect(packager.prepare(packageObject)).to.deep.equal(expectObject);
+						done();
+					})
+					.catch(() => done('error'));
+			})
+			.catch(() => done('error'));
+	});
+
 	[
 		'dirty',
 		'exact',
@@ -170,7 +200,7 @@ describe('packager', () =>
 		{
 			option.init(
 			{
-				path: 'tests/provider/05',
+				path: 'tests/provider/06',
 				range,
 				targetArray:
 				[

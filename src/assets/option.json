@@ -38,6 +38,7 @@
 		"devDependencies"
 	],
 	"filterArray": [],
+	"referencePrefix": "@",
 	"spinnerTime": 40,
 	"spinnerArray":
 	[

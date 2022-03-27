@@ -16,6 +16,7 @@ export interface Options
 	ignoreArray : string[];
 	targetArray : string[];
 	filterArray : string[];
+	referencePrefix : string;
 	spinnerTime : number;
 	spinnerArray : string[];
 	path : string;

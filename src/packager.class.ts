@@ -27,7 +27,7 @@ export class PackagerClass
 
 	prepare(packageObject : Package) : Partial<Package>
 	{
-		const { ignoreArray, targetArray, filterArray, range, ignorePrefix } = this.option.getAll();
+		const { ignoreArray, targetArray, filterArray, range, ignorePrefix, referencePrefix } = this.option.getAll();
 		const filterContentArray : string[] = [];
 		const filterObject : Record<string, string> = {};
 		const resultObject : Partial<Package> = {};
@@ -71,6 +71,18 @@ export class PackagerClass
 			}
 		});
 		resultObject.dependencies = filterObject;
+
+		/* handle reference */
+
+		Object.keys(resultObject.dependencies).map(resultValue =>
+		{
+			if (resultObject.dependencies[resultValue].startsWith(referencePrefix))
+			{
+				const reference : string = resultObject.dependencies[resultValue].slice(1);
+
+				resultObject.dependencies[resultValue] = packageObject[reference][resultValue];
+			}
+		});
 
 		/* handle range */
 
