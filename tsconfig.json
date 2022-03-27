@@ -14,8 +14,7 @@
 		"./src",
 		"./src/assets/option.json",
 		"./src/assets/wording.json",
-		"./package.json",
-		"./README.md"
+		"./package.json"
 	],
 	"exclude":
 	[
