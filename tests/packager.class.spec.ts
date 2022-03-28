@@ -226,4 +226,21 @@ describe('packager', () =>
 				.catch(() => done('error'));
 		});
 	});
+
+	it('prepare workspace', done =>
+	{
+		option.init(
+		{
+			path: 'tests/provider/07'
+		});
+		packager
+			.readFileAsync()
+			.then(content => helper.parseJson(content.toString()))
+			.then((packageObject : Package) =>
+			{
+				expect(packager.prepare(packageObject)).to.deep.equal(packageObject);
+				done();
+			})
+			.catch(() => done('error'));
+	});
 });

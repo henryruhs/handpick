@@ -1,0 +1,10 @@
+{
+	"name": "handpick",
+	"version": "1.0.0",
+	"workspaces":
+	[
+		"01",
+		"02"
+	],
+	"private": true
+}
