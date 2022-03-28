@@ -28,6 +28,8 @@ npm install handpick --global
 Setup
 -----
 
+Define unofficial dependencies:
+
 ```json
 {
 	"lintDependencies":
