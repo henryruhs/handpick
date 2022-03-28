@@ -28,69 +28,14 @@ npm install handpick --global
 Setup
 -----
 
-Create a `.handpick` file to override configuration:
-
 ```json
 {
-	"config": ".handpick",
-	"manager": "npm",
-	"managerObject":
+	"lintDependencies":
 	{
-		"npm":
-		[
-			"install",
-			"--no-package-lock"
-		],
-		"pnpm":
-		[
-			"install",
-			"--no-lockfile"
-		],
-		"yarn":
-		[
-			"--no-lockfile"
-		]
-	},
-	"range": "dirty",
-	"rangeArray":
-	[
-		"dirty",
-		"exact",
-		"patch",
-		"minor"
-	],
-	"ignorePrefix": "__",
-	"ignoreArray":
-	[
-		"dependencies",
-		"devDependencies"
-	],
-	"targetArray":
-	[
-		"dependencies",
-		"devDependencies"
-	],
-	"filterArray": [],
-	"referencePrefix": "@",
-	"spinnerTime": 40,
-	"spinnerArray":
-	[
-		"⠋",
-		"⠙",
-		"⠹",
-		"⠸",
-		"⠼",
-		"⠴",
-		"⠦",
-		"⠧",
-		"⠇",
-		"⠏"
-	],
-	"path": ".",
-	"packageFile": "package.json",
-	"packageDirectory": "node_modules"
+		"eslint": "8.0.0",
+		"eslint-config-redaxmedia": "3.0.0"
+	}
 }
-
 ```
 
 
@@ -113,75 +58,7 @@ handpick [options]
 ```
 
 
-Options
--------
+Documentation
+-------------
 
-| Name    | Type   | Default                        | Mandatory |
-|---------|--------|--------------------------------|-----------|
-| config  | string | .handpick                      | optional  |
-| target  | string | dependencies / devDependencies | optional  |
-| filter  | string |                                | optional  |
-| manager | string | npm                            | optional  |
-| range   | string | dirty                          | optional  |
-| path    | string | .                              | optional  |
-
-
-Examples
---------
-
-Define unofficial dependencies inside `package.json` file:
-
-```json
-{
-	"lintDependencies":
-	{
-		"eslint": "6.8.0",
-		"eslint-config-redaxmedia": "2.1.0"
-	},
-	"testDependencies":
-	{
-		"chai": "4.2.0",
-		"mocha": "7.2.0"
-	}
-}
-```
-
-Install the `lintDependencies`:
-
-```
-handpick --target=lintDependencies
-```
-
-Install the `devDependencies` and `lintDependencies` via YARN:
-
-```
-handpick --target=devDependencies --target=lintDependencies --manager=yarn
-```
-
-Install the `devDependencies` without `testDependencies`:
-
-```
-handpick --target=devDependencies --filter=testDependencies
-```
-
-Install the `dependencies` and `devDependencies` within path:
-
-```
-handpick --path=../shared
-```
-
-Install the `dependencies` with `exact` range:
-
-```
-handpick --target=dependencies --range=exact
-```
-
-
-Managers
---------
-
-| Name | Value |
-|------|-------|
-| NPM  | npm   |
-| PNPM | pnpm  |
-| YARN | yarn  |
+Read the [documenation](https://redaxmedia.gitbook.io/handpick) for a deep dive.
