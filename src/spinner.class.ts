@@ -1,4 +1,5 @@
 import { EOL } from 'os';
+import { cursorTo, clearLine } from 'readline';
 import { OptionClass } from './option.class.js';
 import { Cursor, Symbol } from './spinner.enum.js';
 
@@ -26,8 +27,8 @@ export class SpinnerClass
 				index = 0;
 			}
 			this.stream.write(Cursor.HIDE);
-			this.stream.clearLine(0);
-			this.stream.cursorTo(0);
+			clearLine(this.stream, 0);
+			cursorTo(this.stream, 0);
 			this.stream.write(this.spinnerArray[index++]);
 			if (this.message)
 			{
@@ -57,8 +58,8 @@ export class SpinnerClass
 
 	stop(message ?: string, symbol ?: string) : this
 	{
-		this.stream.clearLine(0);
-		this.stream.cursorTo(0);
+		clearLine(this.stream, 0);
+		cursorTo(this.stream, 0);
 		if (symbol)
 		{
 			this.stream.write(symbol);
