@@ -1,5 +1,4 @@
 import { EOL } from 'os';
-import { cursorTo, clearLine } from 'readline';
 import { OptionClass } from './option.class.js';
 import { Cursor, Symbol } from './spinner.enum.js';
 
@@ -17,24 +16,31 @@ export class SpinnerClass
 
 	start(message ?: string) : this
 	{
-		let index : number = 0;
-
 		this.setMessage(message);
-		this.interval = setInterval(() =>
+		if (this.isInteractive() && this.hasUnicode())
 		{
-			if (index === this.spinnerArray.length)
+			let index : number = 0;
+
+			this.interval = setInterval(() =>
 			{
-				index = 0;
-			}
-			this.stream.write(Cursor.HIDE);
-			clearLine(this.stream, 0);
-			cursorTo(this.stream, 0);
-			this.stream.write(this.spinnerArray[index++]);
-			if (this.message)
-			{
-				this.stream.write(' ' + this.message);
-			}
-		}, this.spinnerTime);
+				if (index === this.spinnerArray.length)
+				{
+					index = 0;
+				}
+				this.stream.write(Cursor.HIDE);
+				this.stream.clearLine(0);
+				this.stream.cursorTo(0);
+				this.stream.write(this.spinnerArray[index++]);
+				if (this.message)
+				{
+					this.stream.write(' ' + this.message);
+				}
+			}, this.spinnerTime);
+		}
+		else if (this.message)
+		{
+			this.stream.write(this.message + EOL);
+		}
 		return this;
 	}
 
@@ -46,43 +52,50 @@ export class SpinnerClass
 
 	success(message ?: string) : this
 	{
-		this.hasUnicodeSupport() ? this.stop(message, Symbol.TICK) : this.stop(message);
+		this.stop(message, Symbol.TICK);
 		return this;
 	}
 
 	error(message ?: string) : this
 	{
-		this.hasUnicodeSupport() ? this.stop(message, Symbol.CROSS) : this.stop(message);
+		this.stop(message, Symbol.CROSS);
 		return this;
 	}
 
 	stop(message ?: string, symbol ?: string) : this
 	{
-		clearLine(this.stream, 0);
-		cursorTo(this.stream, 0);
-		if (symbol)
+		if (this.isInteractive() && this.hasUnicode())
 		{
-			this.stream.write(symbol);
-		}
-		if (this.message)
-		{
+			this.stream.clearLine(0);
+			this.stream.cursorTo(0);
 			if (symbol)
 			{
-				this.stream.write(' ');
+				this.stream.write(symbol);
 			}
-			this.stream.write(this.message);
+			if (this.message)
+			{
+				if (symbol)
+				{
+					this.stream.write(' ');
+				}
+				this.stream.write(this.message + EOL);
+			}
+			clearInterval(this.interval);
+			this.stream.write(Cursor.SHOW);
 		}
 		if (message)
 		{
-			this.stream.write(EOL + message);
+			this.stream.write(message + EOL);
 		}
-		this.stream.write(EOL);
-		this.stream.write(Cursor.SHOW);
-		clearInterval(this.interval);
 		return this;
 	}
 
-	protected hasUnicodeSupport() : boolean
+	protected isInteractive() : boolean
+	{
+		return this.stream.isTTY;
+	}
+
+	protected hasUnicode() : boolean
 	{
 		return [ 'darwin', 'linux' ].includes(process.platform);
 	}

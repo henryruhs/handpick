@@ -1,7 +1,7 @@
 export enum Cursor
 {
-	SHOW = '\u001B[?25h',
-	HIDE = '\u001B[?25l'
+	SHOW = '\u001b[?25h',
+	HIDE = '\u001b[?25l'
 }
 
 export enum Symbol
