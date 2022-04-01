@@ -7,7 +7,7 @@ import { Package } from './packager.interface';
 
 export class PackagerClass
 {
-	constructor (protected option : OptionClass)
+	constructor(protected option : OptionClass)
 	{
 	}
 

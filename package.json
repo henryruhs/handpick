@@ -40,7 +40,7 @@
 		"cpy-cli": "4.1.0",
 		"del-cli": "4.0.1",
 		"eslint": "8.12.0",
-		"eslint-config-redaxmedia": "4.2.3",
+		"eslint-config-redaxmedia": "4.3.0",
 		"mocha": "9.2.2",
 		"ts-node": "10.7.0"
 	},

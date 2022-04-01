@@ -15,7 +15,7 @@ export class CoreClass
 	managerProcess : ChildProcess;
 	packageContent : string;
 
-	constructor (
+	constructor(
 		protected helper : HelperClass,
 		protected option : OptionClass,
 		protected packager : PackagerClass,
