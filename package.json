@@ -1,7 +1,7 @@
 {
 	"name": "handpick",
 	"description": "Handpick conditional dependencies like a boss",
-	"version": "5.0.2",
+	"version": "5.0.3",
 	"license": "MIT",
 	"type": "module",
 	"keywords":
@@ -13,16 +13,16 @@
 	"author":
 	{
 		"name": "Henry Ruhs",
-		"url": "https://redaxmedia.com"
+		"url": "https://henryruhs.com"
 	},
 	"bugs":
 	{
-		"url": "https://github.com/redaxmedia/handpick/issues"
+		"url": "https://github.com/henryruhs/handpick/issues"
 	},
 	"repository":
 	{
 		"type": "git",
-		"url": "https://github.com/redaxmedia/handpick.git"
+		"url": "https://github.com/henryruhs/handpick.git"
 	},
 	"dependencies":
 	{
