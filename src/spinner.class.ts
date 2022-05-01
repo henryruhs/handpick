@@ -44,9 +44,12 @@ export class SpinnerClass
 		return this;
 	}
 
-	setMessage(message : string) : this
+	setMessage(message ?: string) : this
 	{
-		this.message = message;
+		if (message)
+		{
+			this.message = message;
+		}
 		return this;
 	}
 
