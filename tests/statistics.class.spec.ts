@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { mkdir, rmdir, PathLike } from 'fs';
-import { HelperClass, OptionClass, StatisticClass } from '../src';
+import { Helper, Option, Statistic } from '../src';
 
 describe('statistic', () =>
 {
-	let helper : HelperClass;
-	let option : OptionClass;
-	let statistic : StatisticClass;
+	let helper : Helper;
+	let option : Option;
+	let statistic : Statistic;
 
 	const resolveTestDirectoryPath : Function = () : PathLike =>
 	{
@@ -17,9 +17,9 @@ describe('statistic', () =>
 
 	beforeEach(() =>
 	{
-		helper = new HelperClass();
-		option = new OptionClass(helper);
-		statistic = new StatisticClass(helper, option);
+		helper = new Helper();
+		option = new Option(helper);
+		statistic = new Statistic(helper, option);
 	});
 
 	it('calc result time', done =>

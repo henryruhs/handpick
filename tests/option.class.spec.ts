@@ -1,13 +1,13 @@
 import { expect } from 'chai';
-import { OptionClass, HelperClass } from '../src';
+import { Option, Helper } from '../src';
 
 describe('option', () =>
 {
-	let option : OptionClass;
+	let option : Option;
 
 	beforeEach(() =>
 	{
-		option = new OptionClass(new HelperClass());
+		option = new Option(new Helper());
 	});
 
 	it('init', () =>

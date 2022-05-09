@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-import { CoreClass, HelperClass, OptionClass, PackagerClass, SpinnerClass, StatisticClass } from './index.js';
+import { Core, Helper, Option, Packager, Spinner, Statistic } from './index.js';
 
-const helper : HelperClass = new HelperClass();
-const option : OptionClass = new OptionClass(helper);
-const packager : PackagerClass = new PackagerClass(option);
-const spinner : SpinnerClass = new SpinnerClass(option);
-const statistic : StatisticClass = new StatisticClass(helper, option);
-const core : CoreClass = new CoreClass(helper, option, packager, spinner, statistic);
+const helper : Helper = new Helper();
+const option : Option = new Option(helper);
+const packager : Packager = new Packager(option);
+const spinner : Spinner = new Spinner(option);
+const statistic : Statistic = new Statistic(helper, option);
+const core : Core = new Core(helper, option, packager, spinner, statistic);
 
 core.cli(process);

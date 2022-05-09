@@ -2,12 +2,12 @@ import { promisify } from 'util';
 import { readFile, writeFile, PathLike } from 'fs';
 import semver from 'semver';
 import { SemVer } from 'semver';
-import { OptionClass } from './option.class.js';
+import { Option } from './option.class.js';
 import { Package } from './packager.interface';
 
-export class PackagerClass
+export class Packager
 {
-	constructor(protected option : OptionClass)
+	constructor(protected option : Option)
 	{
 	}
 

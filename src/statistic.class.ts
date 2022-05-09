@@ -1,15 +1,15 @@
 import { existsSync, readdirSync, PathLike } from 'fs';
-import { OptionClass } from './option.class.js';
-import { HelperClass } from './helper.class.js';
+import { Option } from './option.class.js';
+import { Helper } from './helper.class.js';
 
-export class StatisticClass
+export class Statistic
 {
 	protected startTime : number = 0;
 	protected stopTime : number = 0;
 	protected startPackage : number = 0;
 	protected stopPackage : number = 0;
 
-	constructor(protected helper : HelperClass, protected option : OptionClass)
+	constructor(protected helper : Helper, protected option : Option)
 	{
 	}
 

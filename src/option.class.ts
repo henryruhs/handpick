@@ -1,12 +1,12 @@
 import { PathLike } from 'fs';
-import { HelperClass } from './helper.class.js';
+import { Helper } from './helper.class.js';
 import { Options } from './option.interface.js';
 
-export class OptionClass
+export class Option
 {
 	protected options : Options = this.helper.readJsonSync(this.helper.resolveAbsolutePath('./assets/option.json')) as Options;
 
-	constructor(protected helper : HelperClass)
+	constructor(protected helper : Helper)
 	{
 	}
 

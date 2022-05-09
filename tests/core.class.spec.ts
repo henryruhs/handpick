@@ -1,23 +1,23 @@
 import { expect } from 'chai';
-import { CoreClass, HelperClass, OptionClass, PackagerClass, SpinnerClass, StatisticClass } from '../src';
+import { Core, Helper, Option, Packager, Spinner, Statistic } from '../src';
 
 describe('core', () =>
 {
-	let helper : HelperClass;
-	let option : OptionClass;
-	let packager : PackagerClass;
-	let spinner : SpinnerClass;
-	let statistic : StatisticClass;
-	let core : CoreClass;
+	let helper : Helper;
+	let option : Option;
+	let packager : Packager;
+	let spinner : Spinner;
+	let statistic : Statistic;
+	let core : Core;
 
 	beforeEach(() =>
 	{
-		helper = new HelperClass();
-		option = new OptionClass(helper);
-		packager = new PackagerClass(option);
-		spinner = new SpinnerClass(option);
-		statistic = new StatisticClass(helper, option);
-		core = new CoreClass(helper, option, packager, spinner, statistic);
+		helper = new Helper();
+		option = new Option(helper);
+		packager = new Packager(option);
+		spinner = new Spinner(option);
+		statistic = new Statistic(helper, option);
+		core = new Core(helper, option, packager, spinner, statistic);
 	});
 
 	it('start wording', () =>

@@ -1,8 +1,8 @@
 import { EOL } from 'os';
-import { OptionClass } from './option.class.js';
+import { Option } from './option.class.js';
 import { Cursor, Symbol } from './spinner.enum.js';
 
-export class SpinnerClass
+export class Spinner
 {
 	protected stream : NodeJS.WriteStream = process.stdout;
 	protected interval : NodeJS.Timer;
@@ -10,7 +10,7 @@ export class SpinnerClass
 	protected spinnerTime : number = this.option.get('spinnerTime') as number;
 	protected spinnerArray : string[] = this.option.get('spinnerArray') as string[];
 
-	constructor(protected option : OptionClass)
+	constructor(protected option : Option)
 	{
 	}
 

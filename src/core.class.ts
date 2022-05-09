@@ -1,14 +1,14 @@
 import { ChildProcess, spawn } from 'child_process';
 import { program } from 'commander';
-import { HelperClass } from './helper.class.js';
-import { OptionClass } from './option.class.js';
-import { PackagerClass } from './packager.class.js';
-import { SpinnerClass } from './spinner.class.js';
-import { StatisticClass } from './statistic.class.js';
+import { Helper } from './helper.class.js';
+import { Option } from './option.class.js';
+import { Packager } from './packager.class.js';
+import { Spinner } from './spinner.class.js';
+import { Statistic } from './statistic.class.js';
 import { Wording } from './core.interface.js';
 import { Package } from './packager.interface';
 
-export class CoreClass
+export class Core
 {
 	packageObject : Package = this.helper.readJsonSync(this.helper.resolveAbsolutePath('../package.json')) as Package;
 	wordingObject : Wording = this.helper.readJsonSync(this.helper.resolveAbsolutePath('./assets/wording.json')) as Wording;
@@ -16,11 +16,11 @@ export class CoreClass
 	packageContent : string;
 
 	constructor(
-		protected helper : HelperClass,
-		protected option : OptionClass,
-		protected packager : PackagerClass,
-		protected spinner : SpinnerClass,
-		protected statistic : StatisticClass
+		protected helper : Helper,
+		protected option : Option,
+		protected packager : Packager,
+		protected spinner : Spinner,
+		protected statistic : Statistic
 	)
 	{
 	}

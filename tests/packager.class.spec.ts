@@ -1,20 +1,20 @@
 import { mkdir, rmdir, unlink } from 'fs';
 import { expect } from 'chai';
-import { HelperClass, OptionClass, PackagerClass } from '../src';
+import { Helper, Option, Packager } from '../src';
 import { Package } from '../src/packager.interface';
 import { Range } from '../src/option.type';
 
 describe('packager', () =>
 {
-	let helper : HelperClass;
-	let option : OptionClass;
-	let packager : PackagerClass;
+	let helper : Helper;
+	let option : Option;
+	let packager : Packager;
 
 	beforeEach(() =>
 	{
-		helper = new HelperClass();
-		option = new OptionClass(helper);
-		packager = new PackagerClass(option);
+		helper = new Helper();
+		option = new Option(helper);
+		packager = new Packager(option);
 	});
 
 	it('read object from package file', done =>

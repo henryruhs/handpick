@@ -3,7 +3,7 @@ import { readFileSync, existsSync, PathLike } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-export class HelperClass
+export class Helper
 {
 	tidyObject(dirtyObject : object) : object
 	{
