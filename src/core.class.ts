@@ -12,7 +12,7 @@ import { Options } from './option.interface';
 export class Core
 {
 	packageObject : Package = this.helper.readJsonSync(this.helper.resolveAbsolutePath('../package.json')) as Package;
-	wordingObject : Wording = this.helper.readJsonSync(this.helper.resolveAbsolutePath('assets/wording.json')) as Wording;
+	wordingObject : Wording = this.helper.readJsonSync(this.helper.resolveAbsolutePath('./assets/wording.json')) as Wording;
 	managerProcess : ChildProcess;
 	packageContent : string;
 
