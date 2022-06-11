@@ -7,11 +7,12 @@ import { Spinner } from './spinner.class.js';
 import { Statistic } from './statistic.class.js';
 import { Wording } from './core.interface.js';
 import { Package } from './packager.interface';
+import { Options } from './option.interface';
 
 export class Core
 {
 	packageObject : Package = this.helper.readJsonSync(this.helper.resolveAbsolutePath('../package.json')) as Package;
-	wordingObject : Wording = this.helper.readJsonSync(this.helper.resolveAbsolutePath('./assets/wording.json')) as Wording;
+	wordingObject : Wording = this.helper.readJsonSync(this.helper.resolveAbsolutePath('assets/wording.json')) as Wording;
 	managerProcess : ChildProcess;
 	packageContent : string;
 
@@ -47,7 +48,7 @@ export class Core
 
 	cli(process : NodeJS.Process) : void
 	{
-		const { managerObject, targetArray, filterArray, rangeArray } = this.option.getAll();
+		const { managerObject, targetArray, filterArray, rangeArray } : Options = this.option.getAll();
 		const programTargetArray : string[] = [];
 		const programFilterArray : string[] = [];
 
@@ -77,7 +78,7 @@ export class Core
 
 	startWording() : string
 	{
-		const { manager, targetArray, filterArray, range } = this.option.getAll();
+		const { manager, targetArray, filterArray, range } : Options = this.option.getAll();
 		const wordingArray : string[] =
 		[
 			this.wordingObject.handpick,
@@ -110,7 +111,7 @@ export class Core
 
 	protected handleManager() : void
 	{
-		const { manager, managerObject, path } = this.option.getAll();
+		const { manager, managerObject, path } : Options = this.option.getAll();
 
 		this.managerProcess = spawn(manager, managerObject[manager],
 		{

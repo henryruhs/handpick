@@ -44,7 +44,7 @@ export class Statistic
 
 	protected resolveDirectoryPath() : PathLike
 	{
-		const { path, packageDirectory } = this.option.getAll();
+		const { path, packageDirectory } : { path : string, packageDirectory : string } = this.option.getAll();
 
 		return path + '/' + packageDirectory;
 	}
