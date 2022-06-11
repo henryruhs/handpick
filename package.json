@@ -49,8 +49,8 @@
 		"prebuild": "del build",
 		"build": "tsc",
 		"postbuild": "cpy README.md build",
-		"lint": "eslint {src,tests}",
-		"fix": "eslint {src,tests} --fix",
+		"lint": "eslint {src,tests}/**/**/*.ts",
+		"fix": "eslint {src,tests}/**/**/*.ts --fix",
 		"test": "mocha"
 	},
 	"bin":

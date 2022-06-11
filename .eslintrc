@@ -7,7 +7,7 @@
 	{
 		"project":
 		[
-			"tsconfig.lint.json"
+			"./tsconfig.lint.json"
 		]
 	}
 }
