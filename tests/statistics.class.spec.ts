@@ -10,7 +10,7 @@ describe('statistic', () =>
 
 	const resolveTestDirectoryPath : Function = () : PathLike =>
 	{
-		const { path, packageDirectory } = option.getAll();
+		const { path, packageDirectory } : { path : string, packageDirectory : string } = option.getAll();
 
 		return path + '/' + packageDirectory + '/__test__';
 	};

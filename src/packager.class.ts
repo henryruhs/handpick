@@ -4,6 +4,7 @@ import semver from 'semver';
 import { SemVer } from 'semver';
 import { Option } from './option.class.js';
 import { Package } from './packager.interface';
+import { Options } from './option.interface';
 
 export class Packager
 {
@@ -27,7 +28,7 @@ export class Packager
 
 	prepare(packageObject : Package) : Partial<Package>
 	{
-		const { ignoreArray, targetArray, filterArray, range, ignorePrefix, referencePrefix } = this.option.getAll();
+		const { ignoreArray, targetArray, filterArray, range, ignorePrefix, referencePrefix } : Options = this.option.getAll();
 		const filterContentArray : string[] = [];
 		const filterObject : Record<string, string> = {};
 		const resultObject : Partial<Package> = {};
@@ -114,7 +115,7 @@ export class Packager
 
 	protected resolveFilePath() : PathLike
 	{
-		const { path, packageFile } = this.option.getAll();
+		const { path, packageFile } : { path : string, packageFile : string } = this.option.getAll();
 
 		return path + '/' + packageFile;
 	}

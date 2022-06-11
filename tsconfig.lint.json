@@ -2,7 +2,7 @@
 	"extends": "./tsconfig.json",
 	"include":
 	[
-		"./src/cli.ts",
-		"./tests"
+		"src/cli.ts",
+		"tests"
 	]
 }

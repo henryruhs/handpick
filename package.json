@@ -1,7 +1,7 @@
 {
 	"name": "handpick",
 	"description": "Handpick conditional dependencies like a boss",
-	"version": "5.2.0",
+	"version": "5.3.0",
 	"license": "MIT",
 	"type": "module",
 	"keywords":
@@ -26,35 +26,35 @@
 	},
 	"dependencies":
 	{
-		"commander": "9.2.0",
+		"commander": "9.3.0",
 		"semver": "7.3.7",
-		"typescript": "4.6.4"
+		"typescript": "4.7.3"
 	},
 	"devDependencies":
 	{
-		"@isnotdefined/eslint-config": "4.8.1",
+		"@isnotdefined/eslint-config": "5.1.0",
 		"@types/chai": "4.3.1",
 		"@types/mocha": "9.1.1",
-		"@types/node": "17.0.31",
+		"@types/node": "17.0.42",
 		"@types/semver": "7.3.9",
 		"chai": "4.3.6",
 		"cpy-cli": "4.1.0",
 		"del-cli": "4.0.1",
-		"eslint": "8.15.0",
+		"eslint": "8.17.0",
 		"mocha": "10.0.0",
-		"ts-node": "10.7.0"
+		"ts-node": "10.8.1"
 	},
 	"scripts":
 	{
-		"prebuild": "del ./build",
+		"prebuild": "del build",
 		"build": "tsc",
-		"postbuild": "cpy README.md ./build",
-		"lint": "eslint ./{src,tests}/**/*.ts",
-		"fix": "eslint ./{src,tests}/**/*.ts --fix",
+		"postbuild": "cpy README.md build",
+		"lint": "eslint {src,tests}/**/**/*.ts",
+		"fix": "eslint {src,tests}/**/**/*.ts --fix",
 		"test": "mocha"
 	},
 	"bin":
 	{
-		"handpick": "./src/cli.js"
+		"handpick": "src/cli.js"
 	}
 }
