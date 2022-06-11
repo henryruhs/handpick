@@ -1,1 +1,0 @@
-import 'ts-node/register';
