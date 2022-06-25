@@ -50,7 +50,7 @@
 		"build": "tsc",
 		"postbuild": "cpy README.md build",
 		"lint": "eslint {src,tests}/**/**/*.ts",
-		"fix": "eslint {src,tests}/**/**/*.ts --fix",
+		"fix": "npm run lint -- --fix",
 		"test": "mocha"
 	},
 	"bin":
