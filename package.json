@@ -49,7 +49,7 @@
 		"prebuild": "del build",
 		"build": "tsc",
 		"postbuild": "cpy README.md build",
-		"lint": "eslint {src,tests}/**/**/*.ts",
+		"lint": "eslint src tests --ext=.ts",
 		"fix": "npm run lint -- --fix",
 		"test": "mocha"
 	},
