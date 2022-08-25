@@ -1,6 +1,12 @@
+export interface Metadata
+{
+	name : string;
+	version : string;
+}
+
 export interface Wording
 {
-	handpick : string;
+	picking : string;
 	and : string;
 	without : string;
 	via : string;

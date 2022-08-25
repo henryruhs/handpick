@@ -5,13 +5,13 @@ import { Option } from './option.class.js';
 import { Packager } from './packager.class.js';
 import { Spinner } from './spinner.class.js';
 import { Statistic } from './statistic.class.js';
-import { Wording } from './core.interface.js';
+import { Metadata, Wording } from './core.interface.js';
 import { Package } from './packager.interface';
 import { Options } from './option.interface';
 
 export class Core
 {
-	packageObject : Package = this.helper.readJsonSync(this.helper.resolveAbsolutePath('../package.json')) as Package;
+	metadataObject : Metadata = this.helper.readJsonSync(this.helper.resolveAbsolutePath('./assets/metadata.json')) as Package;
 	wordingObject : Wording = this.helper.readJsonSync(this.helper.resolveAbsolutePath('./assets/wording.json')) as Wording;
 	managerProcess : ChildProcess;
 	packageContent : string;
@@ -53,7 +53,7 @@ export class Core
 		const programFilterArray : string[] = [];
 
 		program
-			.version(this.packageObject.name + ' ' + this.packageObject.version)
+			.version(this.metadataObject.name + ' ' + this.metadataObject.version)
 			.option('-C, --config <config>')
 			.option('-T, --target <target>', '', target => programTargetArray.push(target))
 			.option('-F, --filter <target>', '', filter => programFilterArray.push(filter))
@@ -81,7 +81,7 @@ export class Core
 		const { manager, targetArray, filterArray, range } : Options = this.option.getAll();
 		const wordingArray : string[] =
 		[
-			this.wordingObject.handpick,
+			this.wordingObject.picking,
 			range.toUpperCase(),
 			targetArray.join(' ' + this.wordingObject.and + ' ')
 		];
@@ -128,7 +128,7 @@ export class Core
 				.then(wording => code === 1 ? this.spinner.error(wording) : this.spinner.success(wording))
 				.catch((error : Error) => this.spinner.error(error.message));
 		});
-		this.managerProcess.on('error', () => null);
+		this.managerProcess.on('error', (error : Error) => this.spinner.error(error.message));
 		[
 			'SIGHUP',
 			'SIGINT',

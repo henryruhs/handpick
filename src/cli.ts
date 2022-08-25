@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { Core, Helper, Option, Packager, Spinner, Statistic } from './index.js';
 
 const helper : Helper = new Helper();

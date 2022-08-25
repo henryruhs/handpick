@@ -5,17 +5,17 @@
 	<circle cx="60" cy="20" r="6" class="is-success" />
 	<foreignObject x="20" y="50" height="320" width="867">
 		<pre xmlns="http://www.w3.org/1999/xhtml" class="code-terminal-session"><span class="is-success">user@local</span>:<span class="is-info">~/project</span>$ handpick
-✔ Hand picking DIRTY dependencies and devDependencies via NPM
+✔ Picking DIRTY dependencies and devDependencies via NPM
 Done 1000 packages in 100.00 seconds
 
 
 <span class="is-success">user@local</span>:<span class="is-info">~/project</span>$ handpick --target=lintDependencies
-✔ Hand picking DIRTY lintDependencies via NPM
+✔ Picking DIRTY lintDependencies via NPM
 Done 100 packages in 20.00 seconds
 
 
 <span class="is-success">user@local</span>:<span class="is-info">~/project</span>$ handpick --filter=lintDependencies
-✔ Hand picking DIRTY dependencies and devDependencies without lintDependencies via NPM
+✔ Picking DIRTY dependencies and devDependencies without lintDependencies via NPM
 Done 900 packages in 80.00 seconds
 		</pre>
 	</foreignObject>

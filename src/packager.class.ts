@@ -1,7 +1,6 @@
 import { promisify } from 'util';
-import { readFile, writeFile, PathLike } from 'fs';
-import semver from 'semver';
-import { SemVer } from 'semver';
+import { PathLike, readFile, writeFile } from 'fs';
+import semver, { SemVer } from 'semver';
 import { Option } from './option.class.js';
 import { Package } from './packager.interface';
 import { Options } from './option.interface';

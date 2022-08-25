@@ -8,6 +8,5 @@
 		"experimental-specifier-resolution=node",
 		"loader=ts-node/esm"
 	],
-	"spec": "tests/**/**/*.spec.ts",
-	"timeout": 5000
+	"spec": "tests"
 }
