@@ -128,7 +128,7 @@ export class Core
 				.then(wording => code === 1 ? this.spinner.error(wording) : this.spinner.success(wording))
 				.catch((error : Error) => this.spinner.error(error.message));
 		});
-		this.managerProcess.on('error', (error : Error) => this.spinner.error(error.message));
+		this.managerProcess.on('error', () => null);
 		[
 			'SIGHUP',
 			'SIGINT',
