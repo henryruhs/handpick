@@ -30,13 +30,18 @@ export class Helper
 		return content.replace(pattern, os.EOL);
 	}
 
-	readJsonSync(path : PathLike) : object
+	resolveAbsolutePath(path : string) : PathLike
+	{
+		return dirname(fileURLToPath(import.meta.url)) + '/' + path;
+	}
+
+	readJson(path : PathLike) : object
 	{
 		return existsSync(path) ? this.parseJson(readFileSync(path, 'utf-8')) : {};
 	}
 
-	resolveAbsolutePath(path : string) : PathLike
+	readJsonFromAbsolutePath(path : string) : object
 	{
-		return dirname(fileURLToPath(import.meta.url)) + '/' + path;
+		return this.readJson(this.resolveAbsolutePath(path));
 	}
 }

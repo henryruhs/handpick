@@ -11,8 +11,8 @@ import { Options } from './option.interface';
 
 export class Core
 {
-	metadataObject : Metadata = this.helper.readJsonSync(this.helper.resolveAbsolutePath('./assets/metadata.json')) as Package;
-	wordingObject : Wording = this.helper.readJsonSync(this.helper.resolveAbsolutePath('./assets/wording.json')) as Wording;
+	metadataObject : Metadata = this.helper.readJsonFromAbsolutePath('./assets/metadata.json') as Metadata;
+	wordingObject : Wording = this.helper.readJsonFromAbsolutePath('./assets/wording.json') as Wording;
 	managerProcess : ChildProcess;
 	packageContent : string;
 

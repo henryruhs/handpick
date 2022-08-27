@@ -4,7 +4,7 @@ import { Options } from './option.interface.js';
 
 export class Option
 {
-	protected options : Options = this.helper.readJsonSync(this.helper.resolveAbsolutePath('./assets/option.json')) as Options;
+	protected options : Options = this.helper.readJsonFromAbsolutePath('./assets/option.json') as Options;
 
 	constructor(protected helper : Helper)
 	{
@@ -15,8 +15,8 @@ export class Option
 		this.options =
 		{
 			...this.options,
-			...this.helper.readJsonSync(this.get('config') as PathLike),
-			...this.helper.readJsonSync(initObject.config as PathLike),
+			...this.helper.readJson(this.get('config') as PathLike),
+			...this.helper.readJson(initObject.config as PathLike),
 			...this.helper.tidyObject(initObject)
 		};
 	}

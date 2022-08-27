@@ -19,7 +19,7 @@ describe('statistic', () =>
 	{
 		helper = new Helper();
 		option = new Option(helper);
-		statistic = new Statistic(helper, option);
+		statistic = new Statistic(option);
 	});
 
 	it('calc result time', done =>

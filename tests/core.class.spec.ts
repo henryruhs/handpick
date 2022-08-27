@@ -16,7 +16,7 @@ describe('core', () =>
 		option = new Option(helper);
 		packager = new Packager(option);
 		spinner = new Spinner(option);
-		statistic = new Statistic(helper, option);
+		statistic = new Statistic(option);
 		core = new Core(helper, option, packager, spinner, statistic);
 	});
 

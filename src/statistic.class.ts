@@ -1,6 +1,5 @@
 import { existsSync, readdirSync, PathLike } from 'fs';
 import { Option } from './option.class.js';
-import { Helper } from './helper.class.js';
 
 export class Statistic
 {
@@ -9,7 +8,7 @@ export class Statistic
 	protected startPackage : number = 0;
 	protected stopPackage : number = 0;
 
-	constructor(protected helper : Helper, protected option : Option)
+	constructor(protected option : Option)
 	{
 	}
 
