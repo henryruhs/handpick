@@ -16,7 +16,7 @@ export class Spinner
 
 	start(message ?: string) : this
 	{
-		this.setMessage(message);
+		this.update(message);
 		if (this.isInteractive() && this.hasUnicode())
 		{
 			let index : number = 0;
@@ -44,7 +44,7 @@ export class Spinner
 		return this;
 	}
 
-	setMessage(message ?: string) : this
+	update(message ?: string) : this
 	{
 		if (message)
 		{
