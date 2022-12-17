@@ -3,7 +3,7 @@ Handpick
 
 > Handpick conditional dependencies like a boss.
 
-[![Build Status](https://img.shields.io/github/workflow/status/henryruhs/handpick/ci.svg)](https://github.com/henryruhs/handpick/actions?query=workflow:ci)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/henryruhs/handpick/ci.yml.svg?branch=master)](https://github.com/henryruhs/handpick/actions?query=workflow:ci)
 [![Coverage Status](https://coveralls.io/repos/github/henryruhs/handpick/badge.svg)](https://coveralls.io/github/henryruhs/handpick)
 [![NPM Version](https://img.shields.io/npm/v/handpick.svg)](https://npmjs.com/package/handpick)
 [![License](https://img.shields.io/npm/l/handpick.svg)](https://npmjs.com/package/handpick)
