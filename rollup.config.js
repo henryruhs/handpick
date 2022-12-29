@@ -1,7 +1,7 @@
-import del from 'rollup-plugin-delete'
-import ts from 'rollup-plugin-ts'
+import del from 'rollup-plugin-delete';
+import ts from 'rollup-plugin-ts';
 import shebang from 'rollup-plugin-add-shebang';
-import copy from 'rollup-plugin-copy'
+import copy from 'rollup-plugin-copy';
 
 export default
 {
