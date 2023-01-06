@@ -31,15 +31,15 @@
 	},
 	"devDependencies":
 	{
-		"@isnotdefined/eslint-config": "7.0.0",
+		"@isnotdefined/eslint-config": "7.2.0",
 		"@types/chai": "4.3.4",
 		"@types/mocha": "10.0.1",
 		"@types/node": "18.11.18",
 		"@types/semver": "7.3.13",
 		"chai": "4.3.7",
-		"eslint": "8.30.0",
+		"eslint": "8.31.0",
 		"mocha": "10.2.0",
-		"rollup": "3.9.0",
+		"rollup": "3.9.1",
 		"rollup-plugin-add-shebang": "0.3.1",
 		"rollup-plugin-copy": "3.4.0",
 		"rollup-plugin-delete": "2.0.0",
