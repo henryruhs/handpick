@@ -5,11 +5,6 @@ import { dirname } from 'path';
 
 export class Helper
 {
-	tidyObject(dirtyObject : object) : object
-	{
-		return JSON.parse(JSON.stringify(dirtyObject));
-	}
-
 	parseJson(content : string) : object
 	{
 		try
