@@ -41,7 +41,7 @@ export class Packager
 
 	protected processTarget(resultObject : Partial<Package>, packageObject : Package) : void
 	{
-		const { ignoreArray, targetArray, ignorePrefix } : Options = this.option.getAll();
+		const { targetArray, ignoreArray, ignorePrefix } : Options = this.option.getAll();
 
 		Object.keys(packageObject).map(packageValue =>
 		{
@@ -67,18 +67,11 @@ export class Packager
 	protected processFilter(resultObject : Partial<Package>) : void
 	{
 		const { filterArray } : Options = this.option.getAll();
-		const filterContentArray : string[] = [];
+		const nameArray : string[] = filterArray.flatMap(filterValue => Object.keys(resultObject[filterValue]));
 		const filterObject : Dependencies = {};
 
-		filterArray.map(filterValue =>
-		{
-			Object.keys(resultObject[filterValue]).map(filterContentValue =>
-			{
-				filterContentArray.push(filterContentValue);
-			});
-		});
 		Object.keys(resultObject.dependencies)
-			.filter(resultValue => !filterContentArray.includes(resultValue))
+			.filter(resultValue => !nameArray.includes(resultValue))
 			.map(resultValue => filterObject[resultValue] = resultObject.dependencies[resultValue]);
 		resultObject.dependencies = filterObject;
 	}
