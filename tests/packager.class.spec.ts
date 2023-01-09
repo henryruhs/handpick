@@ -69,7 +69,7 @@ describe('packager', () =>
 		});
 	});
 
-	it('prepare prod and dev', done =>
+	it('process prod and dev', done =>
 	{
 		option.init(
 		{
@@ -86,7 +86,7 @@ describe('packager', () =>
 					.then(content => helper.parseJson(content.toString()))
 					.then((expectObject : Package) =>
 					{
-						expect(packager.prepare(packageObject)).to.deep.equal(expectObject);
+						expect(packager.process(packageObject)).to.deep.equal(expectObject);
 						done();
 					})
 					.catch(() => done('error'));
@@ -94,7 +94,7 @@ describe('packager', () =>
 			.catch(() => done('error'));
 	});
 
-	it('prepare lint and test', done =>
+	it('process lint and test', done =>
 	{
 		option.init(
 		{
@@ -116,7 +116,7 @@ describe('packager', () =>
 					.then(content => helper.parseJson(content.toString()))
 					.then((expectObject : Package) =>
 					{
-						expect(packager.prepare(packageObject)).to.deep.equal(expectObject);
+						expect(packager.process(packageObject)).to.deep.equal(expectObject);
 						done();
 					})
 					.catch(() => done('error'));
@@ -124,7 +124,7 @@ describe('packager', () =>
 			.catch(() => done('error'));
 	});
 
-	it('prepare dev without lint and test', done =>
+	it('process dev without lint and test', done =>
 	{
 		option.init(
 		{
@@ -150,7 +150,7 @@ describe('packager', () =>
 					.then(content => helper.parseJson(content.toString()))
 					.then((expectObject : Package) =>
 					{
-						expect(packager.prepare(packageObject)).to.deep.equal(expectObject);
+						expect(packager.process(packageObject)).to.deep.equal(expectObject);
 						done();
 					})
 					.catch(() => done('error'));
@@ -158,7 +158,7 @@ describe('packager', () =>
 			.catch(() => done('error'));
 	});
 
-	it('prepare build and lint using reference', done =>
+	it('process build and lint using reference', done =>
 	{
 		option.init(
 		{
@@ -180,7 +180,7 @@ describe('packager', () =>
 					.then(content => helper.parseJson(content.toString()))
 					.then((expectObject : Package) =>
 					{
-						expect(packager.prepare(packageObject)).to.deep.equal(expectObject);
+						expect(packager.process(packageObject)).to.deep.equal(expectObject);
 						done();
 					})
 					.catch(() => done('error'));
@@ -196,7 +196,7 @@ describe('packager', () =>
 	]
 	.map((range : Range) =>
 	{
-		it('prepare dirty to ' + range, done =>
+		it('process dirty to ' + range, done =>
 		{
 			option.init(
 			{
@@ -218,7 +218,7 @@ describe('packager', () =>
 						.then(content => helper.parseJson(content.toString()))
 						.then((expectObject : Package) =>
 						{
-							expect(packager.prepare(packageObject)).to.deep.equal(expectObject);
+							expect(packager.process(packageObject)).to.deep.equal(expectObject);
 							done();
 						})
 						.catch(() => done('error'));
@@ -227,7 +227,7 @@ describe('packager', () =>
 		});
 	});
 
-	it('prepare workspace', done =>
+	it('process workspace', done =>
 	{
 		option.init(
 		{
@@ -238,7 +238,7 @@ describe('packager', () =>
 			.then(content => helper.parseJson(content.toString()))
 			.then((packageObject : Package) =>
 			{
-				expect(packager.prepare(packageObject)).to.deep.equal(packageObject);
+				expect(packager.process(packageObject)).to.deep.equal(packageObject);
 				done();
 			})
 			.catch(() => done('error'));

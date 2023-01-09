@@ -34,7 +34,7 @@ export class Core
 			.readFileAsync()
 			.then(content => this.packageContent = content.toString())
 			.then(content => this.helper.parseJson(content.toString()))
-			.then((packageObject : Package) => this.packager.prepare(packageObject))
+			.then((packageObject : Package) => this.packager.process(packageObject))
 			.then((packageObject : Package) => this.helper.stringifyObject(packageObject))
 			.then((packageContent : string) =>
 			{
@@ -61,8 +61,6 @@ export class Core
 			.option('-R, --range <range>', rangeArray.join(' | '))
 			.option('-P, --path <path>')
 			.parse(process.argv);
-
-		/* init as needed */
 
 		this.option.init(
 		{

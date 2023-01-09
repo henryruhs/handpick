@@ -1,8 +1,10 @@
+export interface Dependencies extends Record<string, string> {}
+
 export interface Package
 {
 	name : string;
 	version : string;
 	workspace : string[];
-	dependencies : Record<string, string>;
-	devDependencies : Record<string, string>;
+	dependencies : Dependencies;
+	devDependencies : Dependencies;
 }

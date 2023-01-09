@@ -2,7 +2,7 @@ import { promisify } from 'util';
 import { PathLike, readFile, writeFile } from 'fs';
 import semver, { SemVer } from 'semver';
 import { Option } from './option.class.js';
-import { Package } from './packager.interface';
+import { Dependencies, Package } from './packager.interface';
 import { Options } from './option.interface';
 
 export class Packager
@@ -25,14 +25,23 @@ export class Packager
 		return await writeFileAsync(this.resolveFilePath(), content);
 	}
 
-	prepare(packageObject : Package) : Partial<Package>
+	process(packageObject : Package) : Partial<Package>
 	{
-		const { ignoreArray, targetArray, filterArray, range, ignorePrefix, referencePrefix } : Options = this.option.getAll();
-		const filterContentArray : string[] = [];
-		const filterObject : Record<string, string> = {};
 		const resultObject : Partial<Package> = {};
 
-		/* handle target */
+		this.processTarget(resultObject, packageObject);
+		if (resultObject.dependencies)
+		{
+			this.processFilter(resultObject);
+			this.processReference(resultObject, packageObject);
+			this.processRange(resultObject);
+		}
+		return resultObject;
+	}
+
+	protected processTarget(resultObject : Partial<Package>, packageObject : Package) : void
+	{
+		const { ignoreArray, targetArray, ignorePrefix } : Options = this.option.getAll();
 
 		Object.keys(packageObject).map(packageValue =>
 		{
@@ -53,63 +62,62 @@ export class Packager
 				};
 			}
 		});
+	}
 
-		/* process dependencies */
+	protected processFilter(resultObject : Partial<Package>) : void
+	{
+		const { filterArray } : Options = this.option.getAll();
+		const filterContentArray : string[] = [];
+		const filterObject : Dependencies = {};
 
-		if (resultObject.dependencies)
+		filterArray.map(filterValue =>
 		{
-			/* handle filter */
-
-			filterArray.map(filterValue =>
+			Object.keys(resultObject[filterValue]).map(filterContentValue =>
 			{
-				Object.keys(resultObject[filterValue]).map(filterContentValue =>
-				{
-					filterContentArray.push(filterContentValue);
-				});
+				filterContentArray.push(filterContentValue);
 			});
-			Object.keys(resultObject.dependencies).map(resultValue =>
+		});
+		Object.keys(resultObject.dependencies)
+			.filter(resultValue => !filterContentArray.includes(resultValue))
+			.map(resultValue => filterObject[resultValue] = resultObject.dependencies[resultValue]);
+		resultObject.dependencies = filterObject;
+	}
+
+	protected processReference(resultObject : Partial<Package>, packageObject : Package) : void
+	{
+		const { referencePrefix } : Options = this.option.getAll();
+
+		Object.keys(resultObject.dependencies)
+			.filter(resultValue => resultObject.dependencies[resultValue].startsWith(referencePrefix))
+			.map(resultValue =>
 			{
-				if (!filterContentArray.includes(resultValue))
-				{
-					filterObject[resultValue] = resultObject.dependencies[resultValue];
-				}
+				const reference : keyof Package = resultObject.dependencies[resultValue].slice(1) as keyof Package;
+
+				resultObject.dependencies[resultValue] = packageObject[reference][resultValue];
 			});
-			resultObject.dependencies = filterObject;
+	}
 
-			/* handle reference */
+	protected processRange(resultObject : Partial<Package>) : void
+	{
+		Object.keys(resultObject.dependencies).map(resultValue =>
+		{
+			const { range } : Options = this.option.getAll();
+			const coerceObject : SemVer = semver.coerce(resultObject.dependencies[resultValue]);
+			const version : string = coerceObject?.version;
 
-			Object.keys(resultObject.dependencies).map(resultValue =>
+			if (range === 'exact' && version)
 			{
-				if (resultObject.dependencies[resultValue].startsWith(referencePrefix))
-				{
-					const reference : keyof Package = resultObject.dependencies[resultValue].slice(1) as keyof Package ;
-
-					resultObject.dependencies[resultValue] = packageObject[reference][resultValue];
-				}
-			});
-
-			/* handle range */
-
-			Object.keys(resultObject.dependencies).map(resultValue =>
+				resultObject.dependencies[resultValue] = version;
+			}
+			if (range === 'patch' && version)
 			{
-				const coerceObject : SemVer = semver.coerce(resultObject.dependencies[resultValue]);
-				const version : string = coerceObject?.version;
-
-				if (range === 'exact' && version)
-				{
-					resultObject.dependencies[resultValue] = version;
-				}
-				if (range === 'patch' && version)
-				{
-					resultObject.dependencies[resultValue] = '~' + version;
-				}
-				if (range === 'minor' && version)
-				{
-					resultObject.dependencies[resultValue] = '^' + version;
-				}
-			});
-		}
-		return resultObject;
+				resultObject.dependencies[resultValue] = '~' + version;
+			}
+			if (range === 'minor' && version)
+			{
+				resultObject.dependencies[resultValue] = '^' + version;
+			}
+		});
 	}
 
 	protected resolveFilePath() : PathLike
