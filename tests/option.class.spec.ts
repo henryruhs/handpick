@@ -14,13 +14,15 @@ describe('option', () =>
 	{
 		expect(option.get('config')).to.equal('.handpick');
 		expect(option.get('manager')).to.equal('npm');
+		expect(option.get('path')).to.equal('.');
 		option.init(
 		{
 			config: 'tests/provider/.handpick',
-			ignorePrefix: '____'
+			path: '..'
 		});
 		expect(option.get('config')).to.equal('tests/provider/.handpick');
 		expect(option.get('manager')).to.equal('yarn');
+		expect(option.get('path')).to.equal('..');
 	});
 
 	it('get and set', () =>
