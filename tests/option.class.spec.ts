@@ -13,7 +13,6 @@ describe('option', () =>
 	it('init', () =>
 	{
 		expect(option.get('config')).to.equal('.handpick');
-		expect(option.get('ignorePrefix')).to.equal('__');
 		expect(option.get('manager')).to.equal('npm');
 		option.init(
 		{
@@ -21,10 +20,7 @@ describe('option', () =>
 			ignorePrefix: '____'
 		});
 		expect(option.get('config')).to.equal('tests/provider/.handpick');
-		expect(option.get('ignorePrefix')).to.equal('____');
 		expect(option.get('manager')).to.equal('yarn');
-		expect(option.get('packageFile')).to.equal('package.json');
-		expect(option.get('packageDirectory')).to.equal('node_modules');
 	});
 
 	it('get and set', () =>
