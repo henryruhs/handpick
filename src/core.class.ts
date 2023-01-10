@@ -11,10 +11,10 @@ import { Options } from './option.interface';
 
 export class Core
 {
-	metadataObject : Metadata = this.helper.readJsonFromAbsolutePath('./assets/metadata.json') as Metadata;
-	wordingObject : Wording = this.helper.readJsonFromAbsolutePath('./assets/wording.json') as Wording;
-	managerProcess : ChildProcess;
-	packageContent : string;
+	protected metadataObject : Metadata = this.helper.readJsonFromAbsolutePath('./assets/metadata.json') as Metadata;
+	protected wordingObject : Wording = this.helper.readJsonFromAbsolutePath('./assets/wording.json') as Wording;
+	protected managerProcess : ChildProcess;
+	protected packageContent : string;
 
 	constructor(
 		protected helper : Helper,
