@@ -1,4 +1,5 @@
 import { existsSync, readdirSync, PathLike } from 'fs';
+import PATH from 'path';
 import { Option } from './option.class.js';
 
 export class Statistic
@@ -45,6 +46,6 @@ export class Statistic
 	{
 		const { path, packageDirectory } : { path : string, packageDirectory : string } = this.option.getAll();
 
-		return path + '/' + packageDirectory;
+		return PATH.join(path, packageDirectory);
 	}
 }

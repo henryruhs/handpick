@@ -1,7 +1,7 @@
 import os from 'os';
 import { readFileSync, existsSync, PathLike } from 'fs';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import PATH, { dirname } from 'path';
 
 export class Helper
 {
@@ -32,7 +32,7 @@ export class Helper
 
 	resolveAbsolutePath(path : string) : PathLike
 	{
-		return dirname(fileURLToPath(import.meta.url)) + '/' + path;
+		return PATH.join(dirname(fileURLToPath(import.meta.url)), path);
 	}
 
 	readJson(path : PathLike) : object
