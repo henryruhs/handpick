@@ -17,7 +17,7 @@ export class Option
 			...this.options,
 			...this.helper.readJson(this.get('config') as PathLike),
 			...this.helper.readJson(initObject.config as PathLike),
-			...initObject
+			...this.helper.tidyObject(initObject)
 		};
 	}
 
