@@ -12,17 +12,17 @@ describe('option', () =>
 
 	it('init', () =>
 	{
-		expect(option.get('config')).to.equal('.handpick');
-		expect(option.get('manager')).to.equal('npm');
 		expect(option.get('path')).to.equal('.');
+		expect(option.get('config')).to.equal('.handpickrc');
+		expect(option.get('manager')).to.equal('npm');
 		option.init(
 		{
-			config: 'tests/provider/.handpick',
-			path: '..'
+			path: 'tests/provider/08',
+			config: 'tests/provider/.handpickrc'
 		});
-		expect(option.get('config')).to.equal('tests/provider/.handpick');
+		expect(option.get('path')).to.equal('tests/provider/08');
+		expect(option.get('config')).to.equal('tests/provider/.handpickrc');
 		expect(option.get('manager')).to.equal('yarn');
-		expect(option.get('path')).to.equal('..');
 	});
 
 	it('get and set', () =>

@@ -95,19 +95,20 @@ export class Packager
 	{
 		Object.keys(resultObject.dependencies).map(resultValue =>
 		{
-			const { range } : Options = this.option.getAll();
+			const { range, rangeArray } : Options = this.option.getAll();
 			const coerceObject : SemVer = semver.coerce(resultObject.dependencies[resultValue]);
 			const version : string = coerceObject?.version;
+			const isValid : boolean = rangeArray.includes(range) && !!version;
 
-			if (range === 'exact' && version)
+			if (range === 'exact' && isValid)
 			{
 				resultObject.dependencies[resultValue] = version;
 			}
-			if (range === 'patch' && version)
+			if (range === 'patch' && isValid)
 			{
 				resultObject.dependencies[resultValue] = '~' + version;
 			}
-			if (range === 'minor' && version)
+			if (range === 'minor' && isValid)
 			{
 				resultObject.dependencies[resultValue] = '^' + version;
 			}
