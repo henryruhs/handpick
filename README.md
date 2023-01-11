@@ -54,7 +54,7 @@ handpick [options] [path]
 -f, --filter <target>
 -m, --manager <manager>
 -r, --range <range>
--V, --version
+-v, --version
 -h, --help
 ```
 

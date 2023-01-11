@@ -59,7 +59,7 @@ export class Core
 			.option('-f, --filter <target>', '', filter => programFilterArray.push(filter))
 			.addOption(new CommanderOption('-m, --manager <manager>').choices(Object.keys(managerObject)))
 			.addOption(new CommanderOption('-r, --range <range>').choices(rangeArray))
-			.version(this.metadataObject.name + ' ' + this.metadataObject.version)
+			.version(this.metadataObject.name + ' ' + this.metadataObject.version, '-v, --version')
 			.action(path =>
 			{
 				this.option.init(
