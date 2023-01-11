@@ -1,0 +1,16 @@
+{
+	"name": "handpick",
+	"version": "1.0.0",
+	"dependencies":
+	{
+		"commander": "9.5.0"
+	},
+	"devDependencies":
+	{
+		"mocha": "10.2.0"
+	},
+	"lintDependencies":
+	{
+		"eslint": "8.31.0"
+	}
+}
