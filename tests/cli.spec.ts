@@ -10,7 +10,7 @@ describe('cli', () =>
 
 		it('picking default', done =>
 		{
-			exec('node --loader ts-node/esm src/cli.ts --path=tests/provider/08', error =>
+			exec('node --loader ts-node/esm src/cli.ts tests/provider/08', error =>
 			{
 				expect(error).to.be.null;
 				expect(fs.readdirSync('tests/provider/08/node_modules')).to.include.any.members([ 'commander', 'mocha' ]);
@@ -22,7 +22,7 @@ describe('cli', () =>
 
 		it('picking target', done =>
 		{
-			exec('node --loader ts-node/esm src/cli.ts --path=tests/provider/08 --target=lintDependencies', error =>
+			exec('node --loader ts-node/esm src/cli.ts tests/provider/08 --target=lintDependencies', error =>
 			{
 				expect(error).to.be.null;
 				expect(fs.readdirSync('tests/provider/08/node_modules')).to.not.include.any.members([ 'commander', 'mocha' ]);

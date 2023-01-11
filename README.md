@@ -47,15 +47,14 @@ Usage
 Run the command:
 
 ```
-handpick [options]
+handpick [options] [path]
 
+-c, --config <config>
+-t, --target <target>
+-f, --filter <target>
+-m, --manager <manager>
+-r, --range <range>
 -V, --version
--C, --config <config>
--T, --target <target>
--F, --filter <filter>
--M, --manager <manager>
--R, --range <range>
--P, --path <path>
 -h, --help
 ```
 

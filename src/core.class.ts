@@ -1,5 +1,5 @@
 import { ChildProcess, spawn } from 'child_process';
-import { program } from 'commander';
+import { program, Option as CommanderOption } from 'commander';
 import { Helper } from './helper.class.js';
 import { Option } from './option.class.js';
 import { Packager } from './packager.class.js';
@@ -53,25 +53,27 @@ export class Core
 		const programFilterArray : string[] = [];
 
 		program
+			.argument('[path]')
+			.option('-c, --config <config>')
+			.option('-t, --target <target>', '', target => programTargetArray.push(target))
+			.option('-f, --filter <target>', '', filter => programFilterArray.push(filter))
+			.addOption(new CommanderOption('-m, --manager <manager>').choices(Object.keys(managerObject)))
+			.addOption(new CommanderOption('-r, --range <range>').choices(rangeArray))
 			.version(this.metadataObject.name + ' ' + this.metadataObject.version)
-			.option('-C, --config <config>')
-			.option('-T, --target <target>', '', target => programTargetArray.push(target))
-			.option('-F, --filter <target>', '', filter => programFilterArray.push(filter))
-			.option('-M, --manager <manager>', Object.keys(managerObject).join(' | '))
-			.option('-R, --range <range>', rangeArray.join(' | '))
-			.option('-P, --path <path>')
+			.action(path =>
+			{
+				this.option.init(
+				{
+					path,
+					config: program.getOptionValue('config'),
+					targetArray: programTargetArray.length ? programTargetArray : targetArray,
+					filterArray: programFilterArray.length ? programFilterArray : filterArray,
+					manager: program.getOptionValue('manager'),
+					range: program.getOptionValue('range')
+				});
+				this.init();
+			})
 			.parse(process.argv);
-
-		this.option.init(
-		{
-			config: program.getOptionValue('config'),
-			targetArray: programTargetArray.length ? programTargetArray : targetArray,
-			filterArray: programFilterArray.length ? programFilterArray : filterArray,
-			manager: program.getOptionValue('manager'),
-			range: program.getOptionValue('range'),
-			path: program.getOptionValue('path')
-		});
-		this.init();
 	}
 
 	startWording() : string

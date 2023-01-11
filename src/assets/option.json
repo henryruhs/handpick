@@ -1,5 +1,6 @@
 {
-	"config": ".handpick",
+	"path": ".",
+	"config": ".handpickrc",
 	"manager": "npm",
 	"managerObject":
 	{
@@ -18,6 +19,18 @@
 			"--no-lockfile"
 		]
 	},
+	"targetArray":
+	[
+		"dependencies",
+		"devDependencies"
+	],
+	"filterArray": [],
+	"ignorePrefix": "__",
+	"ignoreArray":
+	[
+		"dependencies",
+		"devDependencies"
+	],
 	"range": "dirty",
 	"rangeArray":
 	[
@@ -26,19 +39,9 @@
 		"patch",
 		"minor"
 	],
-	"ignorePrefix": "__",
-	"ignoreArray":
-	[
-		"dependencies",
-		"devDependencies"
-	],
-	"targetArray":
-	[
-		"dependencies",
-		"devDependencies"
-	],
-	"filterArray": [],
 	"referencePrefix": "@",
+	"packageFile": "package.json",
+	"packageDirectory": "node_modules",
 	"spinnerTime": 40,
 	"spinnerArray":
 	[
@@ -52,8 +55,5 @@
 		"⠧",
 		"⠇",
 		"⠏"
-	],
-	"path": ".",
-	"packageFile": "package.json",
-	"packageDirectory": "node_modules"
+	]
 }
