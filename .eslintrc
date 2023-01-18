@@ -1,6 +1,7 @@
 {
 	"extends":
 	[
-		"@isnotdefined/eslint-config"
+		"@isnotdefined/eslint-config/common",
+		"@isnotdefined/eslint-config/jest"
 	]
 }
