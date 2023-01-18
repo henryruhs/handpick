@@ -19,14 +19,14 @@
 	{
 		"url": "https://github.com/henryruhs/handpick/issues"
 	},
-	"engines":
-	{
-		"node": ">=14"
-	},
 	"repository":
 	{
 		"type": "git",
 		"url": "https://github.com/henryruhs/handpick.git"
+	},
+	"engines":
+	{
+		"node": ">=14"
 	},
 	"dependencies":
 	{
