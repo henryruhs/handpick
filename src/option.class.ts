@@ -1,4 +1,5 @@
 import { PathLike } from 'fs';
+
 import { Helper } from './helper.class.js';
 import { Options } from './option.interface.js';
 

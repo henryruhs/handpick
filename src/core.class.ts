@@ -1,5 +1,7 @@
 import { ChildProcess, spawn } from 'child_process';
+
 import { program, Option as CommanderOption } from 'commander';
+
 import { Helper } from './helper.class.js';
 import { Option } from './option.class.js';
 import { Packager } from './packager.class.js';

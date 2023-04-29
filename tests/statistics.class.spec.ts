@@ -1,5 +1,7 @@
-import { expect } from 'chai';
 import { mkdir, rmdir, PathLike } from 'fs';
+
+import { expect } from 'chai';
+
 import { Helper, Option, Statistic } from '../src';
 
 describe('statistic', () =>

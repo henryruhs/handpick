@@ -1,4 +1,5 @@
 import { EOL } from 'os';
+
 import { Option } from './option.class.js';
 import { Cursor, Symbol } from './spinner.enum.js';
 

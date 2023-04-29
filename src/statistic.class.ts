@@ -1,5 +1,6 @@
 import { existsSync, readdirSync, PathLike } from 'fs';
 import PATH from 'path';
+
 import { Option } from './option.class.js';
 
 export class Statistic

@@ -1,6 +1,7 @@
 import fs from 'fs';
-import { expect } from 'chai';
 import { exec } from 'child_process';
+
+import { expect } from 'chai';
 
 describe('cli', () =>
 {
