@@ -62,4 +62,4 @@ handpick [options] [path]
 Documentation
 -------------
 
-Read the [documenation](https://henryruhs.gitbook.io/handpick) for a deep dive.
+Read the [documentation](https://henryruhs.gitbook.io/handpick) for a deep dive.
