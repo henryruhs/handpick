@@ -6,7 +6,7 @@ import { Cursor, Symbol } from './spinner.enum.js';
 export class Spinner
 {
 	protected stream : NodeJS.WriteStream = process.stdout;
-	protected interval : NodeJS.Timer;
+	protected interval : NodeJS.Timeout;
 	protected message : string;
 	protected spinnerTime : number = this.option.get('spinnerTime') as number;
 	protected spinnerArray : string[] = this.option.get('spinnerArray') as string[];
