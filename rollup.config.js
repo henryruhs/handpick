@@ -20,6 +20,7 @@ export default
 		{
 			compilerOptions:
 			{
+				rootDir: 'src',
 				declaration: false
 			}
 		}),
