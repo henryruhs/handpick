@@ -16,7 +16,13 @@ export default
 		{
 			targets: 'build'
 		}),
-		typescript(),
+		typescript(
+		{
+			compilerOptions:
+			{
+				declaration: false
+			}
+		}),
 		shebang(
 		{
 			include: 'build/cli.js'
