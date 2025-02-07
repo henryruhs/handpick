@@ -1,5 +1,5 @@
 import del from 'rollup-plugin-delete';
-import ts from 'rollup-plugin-ts';
+import typescript from '@rollup/plugin-typescript';
 import shebang from 'rollup-plugin-add-shebang';
 import copy from 'rollup-plugin-copy';
 
@@ -16,7 +16,7 @@ export default
 		{
 			targets: 'build'
 		}),
-		ts(),
+		typescript(),
 		shebang(
 		{
 			include: 'build/cli.js'
@@ -40,5 +40,5 @@ export default
 			]
 		})
 	]
-}
+};
 

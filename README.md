@@ -34,8 +34,8 @@ Define unofficial dependencies:
 {
 	"lintDependencies":
 	{
-		"@isnotdefined/eslint-config": "7.2.0",
-		"eslint": "8.31.0"
+		"@isnotdefined/eslint-config": "10.0.0",
+		"eslint": "9.19.0"
 	}
 }
 ```

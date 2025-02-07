@@ -9,12 +9,12 @@
 Done 1000 packages in 100.00 seconds
 
 
-<span class="is-success">user@local</span>:<span class="is-info">~/project</span>$ handpick --target=lintDependencies
+<span class="is-success">user@local</span>:<span class="is-info">~/project</span>$ handpick --target lintDependencies
 ✔ Picking DIRTY lintDependencies via NPM
 Done 100 packages in 20.00 seconds
 
 
-<span class="is-success">user@local</span>:<span class="is-info">~/project</span>$ handpick --filter=lintDependencies
+<span class="is-success">user@local</span>:<span class="is-info">~/project</span>$ handpick --filter lintDependencies
 ✔ Picking DIRTY dependencies and devDependencies without lintDependencies via NPM
 Done 900 packages in 80.00 seconds
 		</pre>
